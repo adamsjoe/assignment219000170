@@ -7,7 +7,7 @@ function NavbarComponent() {
     <nav className='navbar navbar-expand-sm navbar-light bg-none'>
       <div className="container-fluid ">
         <div className='navbar-bramd'>
-          <img src={logo} alt='logo' width='60px'/>
+          <img src={logo} alt='logo' width='50px'/>
         </div>
         <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
