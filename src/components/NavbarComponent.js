@@ -1,4 +1,4 @@
-import '../styles/Navbar.css';
+import '../styles/customStyle.css';
 import React from 'react';
 import logo from '../icons/iCog-icon.svg';
 
