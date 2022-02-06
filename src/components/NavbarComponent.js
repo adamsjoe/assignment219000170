@@ -15,7 +15,6 @@ function NavbarComponent() {
           <li><a className="nav-link" href="#">Log in or Sign Up</a></li>
         </ul>
         </div>
-      {/* </div> */}
     </nav>
   )
 }
