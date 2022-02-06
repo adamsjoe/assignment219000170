@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import firebase from 'firebase/compat/app';
+import { BrowserRouter } from "react-router-dom";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAa2v3Wb4zlbmLF9FkBX_DRsYYjpUOkLw8",
@@ -27,7 +28,9 @@ firebase.initializeApp(firebaseConfig);
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
