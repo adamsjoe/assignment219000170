@@ -3,6 +3,25 @@
   ;
 }
 
+.disabled-link {
+  pointer-events: none;
+}
+
+.noBullets {
+  list-style: none;
+  font-size: 20px;
+}
+
+.funkyNav {
+  text-decoration: none;
+  color: black;
+}
+
+.funkyNav:hover {
+  border-bottom: inset 2px #e74c3c;
+  color: black;
+}
+
 .buttonProblemSpecific {
   background-color: #27ae60;
   border: none;
@@ -59,13 +78,13 @@
 }
 
 .borderProblemSpecific {
-  border: 3px solid #27ae60;
+  border: 3px solid #89e5b0;
   border-radius: 10px;
-  padding: 5px;
+  padding: 5px 5px 7px 5px;
 }
 
 .borderGeneral {
-  border: 3px solid #2980b9;
+  border: 3px solid #94c6e7;
   border-radius: 10px;
-  padding: 5px;
+  padding: 5px 5px 7px 5px;
 }
