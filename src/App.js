@@ -17,9 +17,9 @@ function App() {
               <img src={logo} alt='logo' width='50px'/>
             </div>
             <ul className="nav navbar-nav">
-              <li><Link to="/" className="nav-link">Problem Index</Link></li>
-              <li><Link to="/generator" className="disabled-link nav-link">Problem Generator</Link></li>
-              <li><Link to="/login" className="nav-link">Login Or Signup</Link></li>
+              <li><Link to="/" className="nav-link custom-nav-link">Problem Index</Link></li>
+              <li><Link to="/generator" className="disabled-link nav-link custom-nav-link">Problem Generator</Link></li>
+              <li><Link to="/login" className="nav-link custom-nav-link">Login Or Signup</Link></li>
             </ul>
           </div>
         </nav>        
