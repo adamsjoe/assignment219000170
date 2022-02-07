@@ -5,10 +5,7 @@ import QuestionComponent from "../components/QuestionComponent";
 function QuestionPage() {
   return (
     <div className="container">
-        {/* <div className="row">
-          <NavbarComponent />
-        </div> */}
-        <h1 className="text-center">Question Page</h1>
+        <h1 className="text-center">Balances problem</h1>
         <div className="row">            
             <QuestionComponent />
             <HintComponent />
