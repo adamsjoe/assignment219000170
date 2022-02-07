@@ -1,10 +1,20 @@
+/* create the grey bar under the navbar */
 .headingLine {
   border-bottom: 2px solid lightgray
   ;
 }
 
+/* LINK RELATED STYLED */
 .disabled-link {
   pointer-events: none;
+}
+
+.custom-nav-link {
+  color: grey;
+}
+
+.custom-nav-link:hover {
+  color: black;
 }
 
 .noBullets {
@@ -22,6 +32,8 @@
   color: black;
 }
 
+/* HINTS PAGE */
+/* Button stles*/
 .buttonProblemSpecific {
   background-color: #27ae60;
   border: none;
@@ -48,13 +60,6 @@
   transition-duration: 0.4s;
   text-shadow: 0 1px #164666;
   box-shadow: 0 0.2rem #20638f;
-}
-
-.buttonAnswer {
-  background-color: #95a5a6;
-  box-shadow: 0 0.2rem #798d8f;
-  color: white;
-  text-shadow: 0 0.075rem #617374;
 }
 
 .buttonProblemSpecific:hover {
@@ -87,4 +92,16 @@
   border: 3px solid #94c6e7;
   border-radius: 10px;
   padding: 5px 5px 7px 5px;
+}
+
+/* ANSWER SECTION */
+.buttonAnswer {
+  background-color: #95a5a6;
+  border: none;
+  padding: 15px 32px;
+  border-radius: 8px;
+  text-align: center;
+  color: white;;
+  box-shadow: 0 0.2rem #798d8f;
+  text-shadow: 0 0.075rem #617374;
 }
