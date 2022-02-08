@@ -30,16 +30,8 @@ function AnswerComponent() {
       <h3 className="text-center">Answer</h3>
       <div className="p-3 mb-2 bg-light">
           <div className="row">
-              <div className="col-sm d-grid gap-2">
-              
-                  {/* <button type="button" className="buttonAnswer"><BlockMath math={`62 \\frac{2}{9} { kg.}`} /></button>                     */}
-                  
-                  <button type="button" className="buttonAnswer">
-                  {/* <MathComponent tex={String.raw{...answer_1}} /> */}
-                    <MathComponent tex={answer_1} />
-                  </button>    
-                  
-                  {/* <button type="button" className="buttonAnswer"><Latex>What is $(3\times 4) \div (5-3)$</Latex></button>                     */}
+              <div className="col-sm d-grid gap-2">                
+                  <button type="button" className="buttonAnswer"><MathComponent tex={answer_1} /> gd</button>    
                   <button type="button" className="buttonAnswer">Secondary</button>
               </div>
               <div className="col-sm d-grid gap-2">
