@@ -105,3 +105,8 @@
   box-shadow: 0 0.2rem #798d8f;
   text-shadow: 0 0.075rem #617374;
 }
+
+
+.tableDebug {
+  border: 1px solid black;
+}
