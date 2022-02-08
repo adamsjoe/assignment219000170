@@ -2,39 +2,28 @@ import React, {useEffect, useState} from 'react';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/storage';
+import { MathComponent } from 'mathjax-react'
 
 function AnswerComponent() {
-
-  function getMappedValues(map) {
-    var tempMap = {};
-    for (const [key, value] of Object.entries(map)) {
-        tempMap[key] = value;
-    }
-    return tempMap;
-}
 
   const firestore = firebase.firestore();
   const storage = firebase.storage();
   const collectionId = "Questions";
   const questionId = "balances";
 
-  // const [title, setTitle] = useState("");
-  // const [questionText, setQuestionText] = useState("");
-  // const [imageUrl, setImageUrl] = useState("");
+  const [answer_1, setAnwser_1] = useState("");
   
   useEffect(async () => {
     const snapshot = await firestore.collection(collectionId).doc(questionId).get();
     const questionData = snapshot.data();
-    // setTitle(questionData[questionId].balances.questions.title)
-    // setQuestionText(questionData[questionId].balances.questions.fullquestion.question)
-    // setImageUrl(questionData[questionId].balances.questions.fullquestion.questionImage)
 
     // find the number of answers
-    let answers = questionData[questionId].balances.questions.fullquestion.answer.length
-    console.log("Ans: ", answers)
+    // let answer_1 = questionData[questionId].balances.questions.fullquestion.answers.ans_1.text;
+    setAnwser_1(questionData[questionId].balances.questions.fullquestion.answers.ans_1.text)
 
-    console.log(getMappedValues(questionData[questionId].balances.questions.fullquestion.answer.answer_1))
-  })
+    const testForm = `\\[ 10 \\mbox{ kg.} \\]`
+
+  },[])
 
   return (
     <div className="col-12">
@@ -42,7 +31,15 @@ function AnswerComponent() {
       <div className="p-3 mb-2 bg-light">
           <div className="row">
               <div className="col-sm d-grid gap-2">
-                  <button type="button" className="buttonAnswer">Secondary</button>
+              
+                  {/* <button type="button" className="buttonAnswer"><BlockMath math={`62 \\frac{2}{9} { kg.}`} /></button>                     */}
+                  
+                  <button type="button" className="buttonAnswer">
+                  {/* <MathComponent tex={String.raw{...answer_1}} /> */}
+                    <MathComponent tex={answer_1} />
+                  </button>    
+                  
+                  {/* <button type="button" className="buttonAnswer"><Latex>What is $(3\times 4) \div (5-3)$</Latex></button>                     */}
                   <button type="button" className="buttonAnswer">Secondary</button>
               </div>
               <div className="col-sm d-grid gap-2">
