@@ -31,7 +31,7 @@ function AnswerComponent() {
       <div className="p-3 mb-2 bg-light">
           <div className="row">
               <div className="col-sm d-grid gap-2">                
-                  <button type="button" className="buttonAnswer"><MathComponent tex={answer_1} /> gd</button>    
+                  <button type="button" className="buttonAnswer"><MathComponent tex={answer_1} /></button>    
                   <button type="button" className="buttonAnswer">Secondary</button>
               </div>
               <div className="col-sm d-grid gap-2">
