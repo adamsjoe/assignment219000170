@@ -3,6 +3,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/storage';
 import { MathComponent } from 'mathjax-react'
+import Button from '../components/Button';
 
 function AnswerComponent() {
 
@@ -42,6 +43,7 @@ function AnswerComponent() {
           <div className="row">
               <div className="col-sm text-center">
                   <button type="button" className="btn btn-primary mb-2 p-4">Primary</button>
+                  <Button label='la la' className='btn btn-primary mb-2 p-'/>
               </div>
           </div>                      
       </div>
