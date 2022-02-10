@@ -33,7 +33,7 @@
 }
 
 /* HINTS PAGE */
-/* Button stles*/
+/* Button styles*/
 .buttonProblemSpecific {
   background-color: #27ae60;
   border: none;
@@ -70,10 +70,6 @@
   background-color: #2e8ece;
 }
 
-.buttonAnswer:hover {
-  background-color: #a3b1b2;
-}
-
 .headerProblemSpecific {
   color: #27ae60;
 }
@@ -106,7 +102,30 @@
   text-shadow: 0 0.075rem #617374;
 }
 
+.buttonAnswer:hover {
+  background-color: #a3b1b2;
+  box-shadow: 0 0.2rem #87999a;
+}
 
+.buttonAnswer:active {
+  background-color: #617374;
+  box-shadow: inset 0 0.2rem #333c3c, inset 0 0.2rem 0.4rem #333c3c;
+  color: #ecf0f1;
+  cursor: pointer;
+}
+
+.buttonCheck {
+  box-shadow: 0 0.2rem #008;
+  background-color: #00c;
+  color: white;
+  position: relative;
+  text-shadow: 0 1px #00a;
+}
+.answerSpace {
+  line-height: 1.4;
+}
+
+/* MISC STYLE */
 .tableDebug {
   border: 1px solid black;
 }
