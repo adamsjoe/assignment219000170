@@ -7,23 +7,24 @@ function QuestionComponent() {
 
   const firestore = firebase.firestore();
   const storage = firebase.storage();
-  const collectionId = "Questions";
-  const questionId = "balances";
-
+  const collectionId = "Balances";
+  const documentId = "Questions"
+  
   const [title, setTitle] = useState("");
   const [questionText, setQuestionText] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   
   useEffect(async () => {
-    const snapshot = await firestore.collection(collectionId).doc(questionId).get();
+    const snapshot = await firestore.collection(collectionId).doc(documentId).get();
     const questionData = snapshot.data();
-    setTitle(questionData[questionId].balances.questions.title)
-    setQuestionText(questionData[questionId].balances.questions.fullquestion.question)
-    setImageUrl(questionData[questionId].balances.questions.fullquestion.questionImage)
+    
+    setTitle(questionData.sectionTitle)
+    setQuestionText(questionData.fullQuestion)
+    setImageUrl(questionData.imageUrl)
   })
   return (
     <div className="col-sm">
-    <h3 className="text-center">Question</h3>
+    <h3 className="text-center">{title}</h3>
     <div className="p-3 mb-2 bg-light">
         <div className="text-center">
             <img className="mb-4 rounded img-fluid" src={imageUrl} alt={questionText}/>
