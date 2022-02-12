@@ -4,6 +4,9 @@ service cloud.firestore {
     match /Questions/{questionId} {
       allow read, write: if true;
     }
+    match /Balances/{balancesId} {
+    	allow read, write: if true;
+    }
     match /{document=**} {
       allow read, write: if false;
     }
