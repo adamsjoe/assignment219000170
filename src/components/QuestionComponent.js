@@ -6,22 +6,26 @@ import 'firebase/compat/storage';
 function QuestionComponent() {
 
   const firestore = firebase.firestore();
-  const storage = firebase.storage();
+  // const storage = firebase.storage();
   const collectionId = "Balances";
   const documentId = "Questions"
   
   const [title, setTitle] = useState("");
   const [questionText, setQuestionText] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+
+  useEffect(() => {
+    const getFirebase = async () => {
+      const snapshot = await firestore.collection(collectionId).doc(documentId).get();
+      const questionData = snapshot.data(); 
+      
+      setTitle(questionData.sectionTitle)
+      setQuestionText(questionData.fullQuestion)
+      setImageUrl(questionData.imageUrl)
+    }
+    getFirebase();
+  },[firestore])
   
-  useEffect(async () => {
-    const snapshot = await firestore.collection(collectionId).doc(documentId).get();
-    const questionData = snapshot.data();
-    
-    setTitle(questionData.sectionTitle)
-    setQuestionText(questionData.fullQuestion)
-    setImageUrl(questionData.imageUrl)
-  })
   return (
     <div className="col-sm">
     <h3 className="text-center">{title}</h3>
