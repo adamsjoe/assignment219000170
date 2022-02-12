@@ -6,7 +6,7 @@ import 'firebase/compat/storage';
 
 function HintComponent() {
     const firestore = firebase.firestore();
-    const storage = firebase.storage();
+    // const storage = firebase.storage();
     const collectionId = "Questions";
     const questionId = "balances";
   
@@ -14,13 +14,17 @@ function HintComponent() {
     const [genColumnnTitle, setGenColumnTitle] = useState("");
     const [specificProblemColumnTitle, setSpecificProblemColumnTItle] = useState("");
 
-    useEffect(async () => {
-      const snapshot = await firestore.collection(collectionId).doc(questionId).get();
-      const questionData = snapshot.data();
-      setTitle(questionData[questionId].balances.hintColumn.columnTitle)
-      setGenColumnTitle(questionData[questionId].balances.hintColumn.generalColumnTitle)
-      setSpecificProblemColumnTItle(questionData[questionId].balances.hintColumn.specificColumnTitle)
-    })
+    useEffect(() => {
+        const getFirebase = async () => {
+            const snapshot = await firestore.collection(collectionId).doc(questionId).get();
+            const questionData = snapshot.data();
+
+            setTitle(questionData[questionId].balances.hintColumn.columnTitle)
+            setGenColumnTitle(questionData[questionId].balances.hintColumn.generalColumnTitle)
+            setSpecificProblemColumnTItle(questionData[questionId].balances.hintColumn.specificColumnTitle)            
+        }
+        getFirebase();
+    },[firestore])    
 
   return (
     <div className="col-sm">
