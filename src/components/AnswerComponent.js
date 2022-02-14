@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/storage';
-import { MathComponent } from 'mathjax-react'
 import Button from '../components/Button';
 
 function AnswerComponent() {
@@ -20,14 +19,15 @@ function AnswerComponent() {
       const questionData = snapshot.data();      
 
       // now we add the answers and correct flag to our answers
+      const answerArr = [];
       Object.keys(questionData).forEach(key => {
-        console.log(key, questionData[key]);
-        setAnwsers(key, questionData[key])        
+        answerArr.push(questionData[key]); 
       });
-      
+      setAnwsers(answerArr)      
     };
     getFirebase();
   },[firestore])
+
   console.log(">>", answers)
   
   return (
@@ -37,7 +37,10 @@ function AnswerComponent() {
       <div className="row">
         
       </div>
-        <Button></Button> 
+        { answers.map((answer, i) => {
+          return (<Button className='btn btn-secondary mb-2 p-4' label={answer.text} correct={answer.correct}/>)
+        })
+        }
       </div>
     </div>     
   )
