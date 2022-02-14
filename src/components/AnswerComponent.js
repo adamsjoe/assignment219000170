@@ -13,35 +13,22 @@ function AnswerComponent() {
   const documentId = "Answers"
 
   const [answers, setAnwsers] = useState([]);
-  let count = null;
 
-  useEffect(async () => {
-    const snapshot = await firestore.collection(collectionId).doc(documentId).get();
-    const questionData = snapshot.data();
-     
-    if (questionData) {
-      Object.entries(questionData).map(([key, value]) => {
-        // console.log("key is '" + key + "' correct is '" + value.correct + "'")
-        // buttonArray[count] = "<button>" + value.text + "</button>"
-        count++;
-      })
+  useEffect(() => {
+    const getFirebase = async () => {
+      const snapshot = await firestore.collection(collectionId).doc(documentId).get();
+      const questionData = snapshot.data();      
 
-    }
-    // count = generateButtons(questionData);
-    
+      // now we add the answers and correct flag to our answers
+      Object.keys(questionData).forEach(key => {
+        console.log(key, questionData[key]);
+        setAnwsers(key, questionData[key])        
+      });
+      
+    };
+    getFirebase();
   },[firestore])
-
-  function generateButtons(dataForQuestions) {
-    const Test = ({dataForQuestions}) => (
-      <div>
-        {dataForQuestions.map(question => (
-          <Button className="col-sm d-grid gap-2" correct={question.correct}>{question.text}</Button>
-        ))}
-      </div>
-    ); 
-
-    return Test;
-  }
+  console.log(">>", answers)
   
   return (
     <div className="col-12">
@@ -50,24 +37,7 @@ function AnswerComponent() {
       <div className="row">
         
       </div>
-        {count}
-          {/* <div className="row">
-              <div className="col-sm d-grid gap-2">                
-                <Button label={<MathComponent tex={answer_1} />} className='buttonAnswer' />
-                <Button label={<MathComponent tex={answer_1} />} className='buttonAnswer' />
-              </div>
-              <div className="col-sm d-grid gap-2">
-                <Button label={<MathComponent tex={answer_1} />} className='buttonAnswer' />
-                <Button label={<MathComponent tex={answer_1} />} className='buttonAnswer' />
-              </div>                            
-          </div>  
-          <div className="row">
-              <div className="col-sm d-grid text-center">
-                <div className='answerSpace'>
-                    <button type="button" className="buttonCheck">Check my answer</button>
-                  </div>
-              </div>
-          </div>                       */}
+        <Button></Button> 
       </div>
     </div>     
   )
