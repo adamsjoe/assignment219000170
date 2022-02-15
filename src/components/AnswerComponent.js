@@ -12,7 +12,7 @@ function AnswerComponent() {
   const documentId = "Answers"
 
   const [answers, setAnswers] = useState([]);
-
+  
   useEffect(() => {
     const getFirebase = async () => {
       const snapshot = await firestore.collection(collectionId).doc(documentId).get();
@@ -20,10 +20,10 @@ function AnswerComponent() {
 
       // create a new answer array
       const answerArr = [];
-
+      
       // add the answer from cloud store to the answerArr
       Object.keys(questionData).forEach(key => {
-        answerArr.push(questionData[key]); 
+        answerArr.push(questionData[key]);         
       });
       // set the answers to be the answersArray
       setAnswers(answerArr)      
@@ -31,19 +31,27 @@ function AnswerComponent() {
     getFirebase();
   },[firestore])
 
-  console.log(">>", answers)
-  
+    
   return (
     <div className="col-12">
       <h3 className="text-center">Answer</h3>
       <div className="p-3 mb-2 bg-light">
-      <div className="row">
+        <div className="row">        
         
-      </div>
-        { answers.map((answer, i) => {                    
-          return (<Button className='btn btn-secondary mb-2 p-4' label={answer.text} correct={answer.correct}/>)
-        })
+        { 
+        answers.map((answer, i) => {                            
+          return (
+            <div className="col-sm d-grid gap-2">
+              <Button className='buttonAnswer mb-2 p-4' label={answer.text} correct={answer.correct}/>
+            </div>
+            )
+          })
         }
+
+        </div>
+        <div className="col-sm text-center">
+          <Button className='btn-primary mb-2 p-4' label='CHECK MY ANSWER' isSubmit={true}/>
+        </div>
       </div>
     </div>     
   )
