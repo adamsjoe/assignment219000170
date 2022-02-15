@@ -11,19 +11,22 @@ function AnswerComponent() {
   const collectionId = "Balances";
   const documentId = "Answers"
 
-  const [answers, setAnwsers] = useState([]);
+  const [answers, setAnswers] = useState([]);
 
   useEffect(() => {
     const getFirebase = async () => {
       const snapshot = await firestore.collection(collectionId).doc(documentId).get();
       const questionData = snapshot.data();      
 
-      // now we add the answers and correct flag to our answers
+      // create a new answer array
       const answerArr = [];
+
+      // add the answer from cloud store to the answerArr
       Object.keys(questionData).forEach(key => {
         answerArr.push(questionData[key]); 
       });
-      setAnwsers(answerArr)      
+      // set the answers to be the answersArray
+      setAnswers(answerArr)      
     };
     getFirebase();
   },[firestore])
@@ -37,7 +40,7 @@ function AnswerComponent() {
       <div className="row">
         
       </div>
-        { answers.map((answer, i) => {
+        { answers.map((answer, i) => {                    
           return (<Button className='btn btn-secondary mb-2 p-4' label={answer.text} correct={answer.correct}/>)
         })
         }
