@@ -1,6 +1,7 @@
 import '../styles/customStyle.css';
 import React, {useEffect, useState} from 'react';
 import firebase from 'firebase/compat/app';
+import Button from './Button';
 import 'firebase/compat/firestore';
 import 'firebase/compat/storage';
 
@@ -34,32 +35,32 @@ function HintComponent() {
               <div className="col-6 text-center">
                   <p className='headerGeneral'>{genColumnnTitle}</p>
                   <div className="mb-5 d-grid gap-2 borderGeneral">
-                      <button type="button" className="buttonGeneral">Primary</button>
-                      <button type="button" className="buttonGeneral">Primary</button>                                    
+                      <Button className="buttonGeneral" label='Primary' />
+                      <Button className="buttonGeneral" label='Primary' />
                   </div>
                   <div className="mb-5 d-grid gap-2 borderGeneral">
-                      <button type="button" className="buttonGeneral">Primary</button>
-                      <button type="button" className="buttonGeneral">Primary</button>                                    
+                      <Button className="buttonGeneral" label='Primary' />
+                      <Button className="buttonGeneral" label='Primary' />
                   </div>
                   <div className="mb-5 d-grid gap-2 borderGeneral">
-                      <button type="button" className="buttonGeneral">Primary</button>
-                      <button type="button" className="buttonGeneral">Primary</button>                                    
+                      <Button className="buttonGeneral" label='Primary' />  
+                      <Button className="buttonGeneral" label='Primary' />
                   </div>                                                                
               </div>
               <div className="col-6 text-center">
                   <p className='headerProblemSpecific'>{specificProblemColumnTitle}</p>
                   <div className="mb-5 d-grid gap-2 borderProblemSpecific">
-                      <button type="button" className="buttonProblemSpecific">Success</button>
-                      <button type="button" className="buttonProblemSpecific">Success</button>                                    
+                    <Button className="buttonProblemSpecific" label='Success' />  
+                    <Button className="buttonProblemSpecific" label='Success' />                                
                   </div>
                   <div className="mb-5 d-grid gap-2 borderProblemSpecific">
-                      <button type="button" className="buttonProblemSpecific">Success</button>
-                      <button type="button" className="buttonProblemSpecific">Success</button>                                    
+                    <Button className="buttonProblemSpecific" label='Success' />  
+                    <Button className="buttonProblemSpecific" label='Success' />                                
                   </div>
                   <div className="mb-5 d-grid gap-2 borderProblemSpecific">
-                      <button type="button" className="buttonProblemSpecific">Success</button>
-                      <button type="button" className="buttonProblemSpecific">Success</button>                                    
-                  </div>                                                                
+                    <Button className="buttonProblemSpecific" label='Success' />  
+                    <Button className="buttonProblemSpecific" label='Success' />                                
+                </div>                                                                
               </div>
           </div>
       </div>
