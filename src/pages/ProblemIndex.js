@@ -1,5 +1,4 @@
-import { Route, Link } from 'react-router-dom';
-import QuestionComponent from '../components/QuestionComponent';
+import { Link } from 'react-router-dom';
 
 function ProblemIndex() {
   return (
