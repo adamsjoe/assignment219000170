@@ -4,11 +4,17 @@ import { MathComponent } from 'mathjax-react'
 function Button(props) {
   
   // determine if this is an answer button by checking if the isSubmit prop is checked
-  let answerBtn;
-  if (!props.isSubmit) {
-    answerBtn = true
+  let formulaButton;
+  if (!props.isFormula) {
+    formulaButton = true
   } else {
-    answerBtn = false
+    formulaButton = false
+  }
+
+  // this won't work
+  let label = props.label;
+  if (label.includes('kg')) {
+    formulaButton = true
   }
 
   // need to handle if the button is regular text (ie no formula)
@@ -19,7 +25,7 @@ function Button(props) {
   
   return (          
     <button className={props.className} onClick={handleClick}>
-      {answerBtn === true ? <MathComponent tex={props.label} /> : props.label}
+      {formulaButton === true ? <MathComponent tex={props.label} /> : props.label}
     </button>
   );
 }
