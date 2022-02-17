@@ -50,7 +50,7 @@ function AnswerComponent() {
 
         </div>
         <div className="col-sm text-center">
-          <Button className='btn-primary mb-2 p-4' label='CHECK MY ANSWER' isFormula={true}/>
+          <Button className='btn-primary mb-2 p-4' label='CHECK MY ANSWER' isFormula={false}/>
         </div>
       </div>
     </div>     
