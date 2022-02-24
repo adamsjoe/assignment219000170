@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import firebase from 'firebase/compat/app';
 import { BrowserRouter } from "react-router-dom";
+import {getAnalytics} from 'firebase/analytics';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAa2v3Wb4zlbmLF9FkBX_DRsYYjpUOkLw8",
@@ -18,8 +19,8 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
+const app = firebase.initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 // export const auth = firebase.auth()
 // export const firestore = getStorage();
