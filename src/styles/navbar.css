@@ -1,0 +1,40 @@
+.noMessages {
+  position: absolute;
+  top: -0.0rem;
+  right: -0.0rem;
+
+  background: #FF4754;
+
+  width: 1.6rem;
+  height: 1.6rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 2px solid #121212;
+  box-sizing: content-box;
+  border-radius: 50%;
+  color: #FFF;
+}
+
+.unreadMessages {
+  position: absolute;
+  top: -0.0rem;
+  right: -0.0rem;
+
+  background: #4dff47;
+
+  width: 1.6rem;
+  height: 1.6rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 2px solid #121212;
+  box-sizing: content-box;
+  border-radius: 50%;
+  color: #000;
+}
+
