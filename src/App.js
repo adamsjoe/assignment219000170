@@ -1,3 +1,4 @@
+import './styles/navbar.css';
 import React, {useState, useEffect} from 'react';
 import { Route, Link } from 'react-router-dom';
 
@@ -13,12 +14,19 @@ import 'firebase/compat/auth';
 function googleSignOut() {
   // firebase.auth().signOut()
   var user = firebase.auth().currentUser;
-  console.log(user.displayName)
+  // console.log(user.displayName)
   user.delete().then(function() {
     console.log("User deleted successfully")
   }, function(error) {
     console.error("Error deleting user :" + error)
   });
+}
+
+function getFirstNameFromGoogle() {
+  var user = firebase.auth().currentUser;
+  var names = user.displayName.split(' ')
+  console.log(">>> ", names)
+  return names[0]
 }
 
 function App() {
@@ -47,7 +55,7 @@ function App() {
             <ul className="nav navbar-nav">
               <li><Link to="/" className="nav-link custom-nav-link">Problem Index</Link></li>
               <li><Link to="/generator" className="disabled-link nav-link custom-nav-link">Problem Generator</Link></li>
-              <li>{(authenticated) ? <Link to="#" className="nav-link custom-nav-link" onClick={googleSignOut}>Sign Out</Link> : <Link to="/login" className="nav-link custom-nav-link">Login Or Signup</Link>}</li>
+              <li>{(authenticated) ? <Link to="#" className="nav-link custom-nav-link" onClick={googleSignOut}>Sign Out, {getFirstNameFromGoogle()} <span className='noMessages'>0</span></Link> : <Link to="/login" className="nav-link custom-nav-link">Login Or Signup</Link>}</li>
             </ul>
           </div>
         </nav>        
