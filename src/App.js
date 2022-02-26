@@ -12,14 +12,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 
 function googleSignOut() {
-  // firebase.auth().signOut()
-  var user = firebase.auth().currentUser;
-  // console.log(user.displayName)
-  user.delete().then(function() {
-    console.log("User deleted successfully")
-  }, function(error) {
-    console.error("Error deleting user :" + error)
-  });
+  firebase.auth().signOut()
 }
 
 function getFirstNameFromGoogle() {
@@ -34,7 +27,7 @@ function App() {
 
   useEffect(() => {    
     firebase.auth().onAuthStateChanged((user) => {
-  
+
       if (user) {
         setAuthenticated(true);
       } else {
