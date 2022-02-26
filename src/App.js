@@ -2,7 +2,7 @@ import './styles/navbar.css';
 import React, {useState, useEffect} from 'react';
 import { Route, Link } from 'react-router-dom';
 
-import QuestionPage from './pages/QuesionPage';
+import QuestionPage from './pages/QuestionPage';
 import ProblemIndex from './pages/ProblemIndex';
 
 import logo from './icons/iCog-icon.svg';
@@ -18,12 +18,22 @@ function googleSignOut() {
 function getFirstNameFromGoogle() {
   var user = firebase.auth().currentUser;
   var names = user.displayName.split(' ')
-  console.log(">>> ", names)
   return names[0]
 }
 
 function App() {
+  const firestore = firebase.firestore();
+  const collectionId = "Questions";
+  const documentId = "balances" 
+
   const [authenticated, setAuthenticated] = useState(false);
+
+  // question things
+  const [questionText, setQuestionText] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+
+  // answer things
+  const [answers, setAnswers] = useState([]);
 
   useEffect(() => {    
     firebase.auth().onAuthStateChanged((user) => {
@@ -34,7 +44,26 @@ function App() {
         setAuthenticated(false);
       }
     });
-  }, []);  
+    const getFirebase = async () => {
+      const snapshot = await firestore.collection(collectionId).doc(documentId).get();
+      const questionData = snapshot.data();     
+            
+      setQuestionText(questionData.balances.balances.fullquestion.question) 
+      setImageUrl(questionData.balances.balances.fullquestion.imageUrl) 
+
+      // deal with the answers
+      // create a new answer array
+      const answerArr = []; 
+
+      // add the answer from cloud store to the answerArr
+      Object.keys(questionData.balances.balances.answers).forEach(key => {
+        answerArr.push(questionData.balances.balances.answers[key]);         
+      });
+      // set the answers to be the answersArray
+      setAnswers(answerArr) 
+    }
+    getFirebase();    
+  }, [firestore]);  
 
   
     return (
@@ -55,7 +84,7 @@ function App() {
       </div> 
 
       <Route exact path="/"><ProblemIndex /></Route>
-      <Route exact path="/balances"><QuestionPage /></Route>
+      <Route exact path="/balances"><QuestionPage image={imageUrl} text={questionText} answerArray={answers}/></Route>      
       <Route exact path="/login"><Login /></Route>
 
     </div>
