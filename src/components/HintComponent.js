@@ -32,37 +32,62 @@ function HintComponent() {
       <h3 className="text-center">{title}</h3>
       <div className="p-3 mb-2 bg-light ">
           <div className="row">
-              <div className="col-6 text-center">
-                  <p className='headerGeneral'>{genColumnnTitle}</p>                  
-                  <div className="mb-5 d-grid gap-2 borderGeneral">
-                      <Button className="buttonGeneral" label='VIDEO' />
-                      <Button className="buttonGeneral" label='Primary' />
-                  </div>
-                  <div className="mb-5 d-grid gap-2 borderGeneral">
-                      <Button className="buttonGeneral" label='VIDEO' />
-                      <Button className="buttonGeneral" label='Primary' />
-                  </div>
-                  <div className="mb-5 d-grid gap-2 borderGeneral">
-                      <Button className="buttonGeneral" label='VIDEO' />  
-                      <Button className="buttonGeneral" label='Primary' />
-                  </div>                                                                
-              </div>
-              <div className="col-6 text-center">
-                  <p className='headerProblemSpecific'>{specificProblemColumnTitle}</p>
-                  <div className="mb-5 d-grid gap-2 borderProblemSpecific">
-                    <Button className="buttonProblemSpecific" label='VIDEO' />  
-                    <Button className="buttonProblemSpecific" label='Success' />                                
-                  </div>
-                  <div className="mb-5 d-grid gap-2 borderProblemSpecific">
-                    <Button className="buttonProblemSpecific" label='VIDEO' />  
-                    <Button className="buttonProblemSpecific" label='Success' />                                
-                  </div>
-                  <div className="mb-5 d-grid gap-2 borderProblemSpecific">
-                    <Button className="buttonProblemSpecific" label='VIDEO' />  
-                    <Button className="buttonProblemSpecific" label='Success' />                                
-                </div>                                                                
-              </div>
+            <div className="col-2 text-center">
+              <p><br/></p>    
+            </div>            
+            <div className="col-5 text-center">
+              <p className='headerGeneral'>{genColumnnTitle}</p>    
+            </div>
+            <div className="col-5 text-center">
+              <p className='headerProblemSpecific'>{specificProblemColumnTitle}</p>    
+            </div>            
           </div>
+
+          <div className="row">
+            <div className="col-2 yrc">
+              <p>Overall solution strategy</p>
+            </div>            
+            <div className="col-5 d-grid gap-2 borderGeneral">
+              <Button className="buttonGeneral" label='VIDEO' />
+              <Button className="buttonGeneral" label='SUMMARY' />
+            </div>
+
+            <div className="col-5 d-grid gap-2 borderProblemSpecific">
+              <Button className="buttonProblemSpecific" label='VIDEO' />  
+              <Button className="buttonProblemSpecific" label='SUMMARY' />                                
+            </div>            
+          </div>
+
+          <div className="row">
+            <div className="col-2 yrc">
+              <p>Moments</p>
+            </div>            
+            <div className="col-5 d-grid gap-2 borderGeneral">
+              <Button className="buttonGeneral" label='VIDEO' />
+              <Button className="buttonGeneral" label='SUMMARY' />
+            </div>
+
+            <div className="col-5 d-grid gap-2 borderProblemSpecific">
+              <Button className="buttonProblemSpecific" label='VIDEO' />  
+              <Button className="buttonProblemSpecific" label='SUMMARY' />                                
+            </div>            
+          </div>
+
+          <div className="row">
+            <div className="col-2 yrc">
+              <p>Gravity</p>
+            </div>            
+            <div className="col-5 d-grid gap-2 borderGeneral">
+              <Button className="buttonGeneral" label='VIDEO' />
+              <Button className="buttonGeneral" label='SUMMARY' />
+            </div>
+
+            <div className="col-5 d-grid gap-2 borderProblemSpecific">
+              <Button className="buttonProblemSpecific" label='VIDEO' />  
+              <Button className="buttonProblemSpecific" label='SUMMARY' />                                
+            </div>            
+          </div>
+
       </div>
   </div>
   );
