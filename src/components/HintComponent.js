@@ -43,7 +43,7 @@ function HintComponent() {
             </div>            
           </div>
 
-          <div className="row">
+          <div className="row p-3">
             <div className="col-2 yrc">
               <p>Overall solution strategy</p>
             </div>            
@@ -58,7 +58,7 @@ function HintComponent() {
             </div>            
           </div>
 
-          <div className="row">
+          <div className="row p-3">
             <div className="col-2 yrc">
               <p>Moments</p>
             </div>            
@@ -73,7 +73,7 @@ function HintComponent() {
             </div>            
           </div>
 
-          <div className="row">
+          <div className="row p-3">
             <div className="col-2 yrc">
               <p>Gravity</p>
             </div>            
