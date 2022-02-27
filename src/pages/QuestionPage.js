@@ -3,7 +3,6 @@ import HintComponent from "../components/HintComponent";
 import QuestionComponent from "../components/QuestionComponent";
 
 function QuestionPage(props) {
-  console.log(">> ques", props)
   return (
     <div className="container">
         <h1 className="text-center">Balances problem</h1>
