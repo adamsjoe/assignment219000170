@@ -12,7 +12,7 @@ function QuestionPage(props) {
             <HintComponent />
         </div>
         <div className="row">
-            <AnswerComponent answersArray={props.answersArray} />
+            <AnswerComponent answersarray={props.answers} />
         </div>
     </div> 
   )

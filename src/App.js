@@ -84,7 +84,7 @@ function App() {
       </div> 
 
       <Route exact path="/"><ProblemIndex /></Route>
-      <Route exact path="/balances"><QuestionPage image={imageUrl} text={questionText} answerArray={answers}/></Route>      
+      <Route exact path="/balances"><QuestionPage image={imageUrl} text={questionText} answers={answers}/></Route>      
       <Route exact path="/login"><Login /></Route>
 
     </div>

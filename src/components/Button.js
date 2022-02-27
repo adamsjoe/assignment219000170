@@ -5,7 +5,7 @@ function Button(props) {
   
   // determine if this is an answer button by checking if the isSubmit prop is checked
   let formulaButton;
-  if (!props.isFormula) {
+  if (!props.isformula) {
     formulaButton = false
   } else {
     formulaButton = true
@@ -27,7 +27,7 @@ function Button(props) {
   };
   
   return (          
-    <button className={props.className} onClick={handleClick} isFormula={props.isFormula}>
+    <button className={props.className} onClick={handleClick} isformula={props.isformula}>
       {formulaButton === true ? <MathComponent tex={props.label} /> : props.label}
     </button>
   );
