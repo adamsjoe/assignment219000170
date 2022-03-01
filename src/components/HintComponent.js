@@ -1,16 +1,17 @@
 import '../styles/customStyle.css';
 import React, {useEffect, useState} from 'react';
 import firebase from 'firebase/compat/app';
-import Button from './Button';
+// import Button from './Button';
 import 'firebase/compat/firestore';
 import 'firebase/compat/storage';
+import Example from './ModalReact';
 
 function HintComponent() {
     const firestore = firebase.firestore();
     // const storage = firebase.storage();
     const collectionId = "Balances";
     const documentId = "Hints"
-  
+   
     const [title, setTitle] = useState("");
     const [genColumnnTitle, setGenColumnTitle] = useState("");
     const [specificProblemColumnTitle, setSpecificProblemColumnTItle] = useState("");
@@ -48,13 +49,13 @@ function HintComponent() {
               <p>Overall solution strategy</p>
             </div>            
             <div className="col-5 d-grid gap-2 borderGeneral">
-              <Button className="buttonGeneral" label='VIDEO' />
-              <Button className="buttonGeneral" label='SUMMARY' />
+              <button className="buttonGeneral" showModal={true} >Label here</button> 
+              <button className="buttonGeneral">SUMMARY</button>
             </div>
 
             <div className="col-5 d-grid gap-2 borderProblemSpecific">
-              <Button className="buttonProblemSpecific" label='VIDEO' />  
-              <Button className="buttonProblemSpecific" label='SUMMARY' />                                
+              <button className="buttonProblemSpecific">VIDEO</button>
+              <button className="buttonProblemSpecific">SUMMARY</button>                            
             </div>            
           </div>
 
@@ -63,13 +64,13 @@ function HintComponent() {
               <p>Moments</p>
             </div>            
             <div className="col-5 d-grid gap-2 borderGeneral">
-              <Button className="buttonGeneral" label='VIDEO' />
-              <Button className="buttonGeneral" label='SUMMARY' />
+              <button className="buttonGeneral">VIDEO</button>
+              <button className="buttonGeneral">'SUMMARY</button>
             </div>
 
             <div className="col-5 d-grid gap-2 borderProblemSpecific">
-              <Button className="buttonProblemSpecific" label='VIDEO' />  
-              <Button className="buttonProblemSpecific" label='SUMMARY' />                                
+              <button className="buttonProblemSpecific">VIDEO</button>
+              <button className="buttonProblemSpecific">SUMMARY</button>                             
             </div>            
           </div>
 
@@ -78,13 +79,13 @@ function HintComponent() {
               <p>Gravity</p>
             </div>            
             <div className="col-5 d-grid gap-2 borderGeneral">
-              <Button className="buttonGeneral" label='VIDEO' />
-              <Button className="buttonGeneral" label='SUMMARY' />
+              <button className="buttonGeneral">VIDEO</button>
+              <button className="buttonGeneral">SUMMARY</button>
             </div>
 
             <div className="col-5 d-grid gap-2 borderProblemSpecific">
-              <Button className="buttonProblemSpecific" label='VIDEO' />  
-              <Button className="buttonProblemSpecific" label='SUMMARY' />                                
+              <button className="buttonProblemSpecific">VIDEO</button>
+              <button className="buttonProblemSpecific">SUMMARY</button>                               
             </div>            
           </div>
 
