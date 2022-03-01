@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import render from 'react-dom';
 
 function ModalReact(props) {
   const {showModal = false, onClose = ()=>{}} = props;
@@ -16,7 +15,7 @@ function ModalReact(props) {
    // just to have custom function for modal close which will be used can be used in HintComponent maybe you want to perform somehting else after modal close.
    typeof onClose === 'function' && onClose();
   };
-  const handleShow = () => setShow(true);
+  // const handleShow = () => setShow(true);
 
   return (
     <>
@@ -28,9 +27,6 @@ function ModalReact(props) {
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
           </Button>
         </Modal.Footer>
       </Modal>

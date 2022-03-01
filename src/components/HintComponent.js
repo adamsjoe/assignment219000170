@@ -15,6 +15,7 @@ function HintComponent() {
     const [title, setTitle] = useState("");
     const [genColumnnTitle, setGenColumnTitle] = useState("");
     const [specificProblemColumnTitle, setSpecificProblemColumnTItle] = useState("");
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         const getFirebase = async () => {
@@ -49,7 +50,7 @@ function HintComponent() {
               <p>Overall solution strategy</p>
             </div>            
             <div className="col-5 d-grid gap-2 borderGeneral">
-              <button className="buttonGeneral">Label here</button> <ModalReact showModal={true}/>
+              <button className="buttonGeneral" onClick={()=>setShowModal(true)}>Label here</button> <ModalReact showModal={showModal} onClose={() => setShowModal(false)} />
               <button className="buttonGeneral">SUMMARY</button>
             </div>
 
