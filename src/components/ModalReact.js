@@ -19,7 +19,13 @@ function ModalReact(props) {
 
   return (
     <>
-      <Modal show={show} onHide={handleClose}>
+      <Modal
+        show={show} 
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}        
+      >
+
         <Modal.Header closeButton>
           <Modal.Title>Modal heading</Modal.Title>
         </Modal.Header>
