@@ -50,12 +50,12 @@ function HintComponent() {
               <p>Overall solution strategy</p>
             </div>            
             <div className="col-5 d-grid gap-2 borderGeneral">
-              <button className="buttonGeneral" onClick={()=>setShowModal(true)}>Label here</button> <ModalReact showModal={showModal} onClose={() => setShowModal(false)} />
+              <button className="buttonGeneral" onClick={()=>setShowModal(true)}>VIDEO</button> <ModalReact showModal={showModal} onClose={() => setShowModal(false)} />
               <button className="buttonGeneral">SUMMARY</button>
             </div>
 
             <div className="col-5 d-grid gap-2 borderProblemSpecific">
-              <button className="buttonProblemSpecific">VIDEO</button>
+              <button className="buttonProblemSpecific" onClick={()=>setShowModal(true)}>VIDEO</button> <ModalReact showModal={showModal} onClose={() => setShowModal(false)} />
               <button className="buttonProblemSpecific">SUMMARY</button>                            
             </div>            
           </div>
@@ -65,12 +65,12 @@ function HintComponent() {
               <p>Moments</p>
             </div>            
             <div className="col-5 d-grid gap-2 borderGeneral">
-              <button className="buttonGeneral">VIDEO</button>
+            <button className="buttonGeneral" onClick={()=>setShowModal(true)}>VIDEO</button> <ModalReact showModal={showModal} onClose={() => setShowModal(false)} />
               <button className="buttonGeneral">'SUMMARY</button>
             </div>
 
             <div className="col-5 d-grid gap-2 borderProblemSpecific">
-              <button className="buttonProblemSpecific">VIDEO</button>
+            <button className="buttonProblemSpecific" onClick={()=>setShowModal(true)}>VIDEO</button> <ModalReact showModal={showModal} onClose={() => setShowModal(false)} />
               <button className="buttonProblemSpecific">SUMMARY</button>                             
             </div>            
           </div>
@@ -80,12 +80,12 @@ function HintComponent() {
               <p>Gravity</p>
             </div>            
             <div className="col-5 d-grid gap-2 borderGeneral">
-              <button className="buttonGeneral">VIDEO</button>
+            <button className="buttonGeneral" onClick={()=>setShowModal(true)}>VIDEO</button> <ModalReact showModal={showModal} onClose={() => setShowModal(false)} />
               <button className="buttonGeneral">SUMMARY</button>
             </div>
 
             <div className="col-5 d-grid gap-2 borderProblemSpecific">
-              <button className="buttonProblemSpecific">VIDEO</button>
+            <button className="buttonProblemSpecific" onClick={()=>setShowModal(true)}>VIDEO</button> <ModalReact showModal={showModal} onClose={() => setShowModal(false)} />
               <button className="buttonProblemSpecific">SUMMARY</button>                               
             </div>            
           </div>
