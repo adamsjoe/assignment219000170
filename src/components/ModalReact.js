@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import render from 'react-dom';
 
-function Example(props) {
+function ModalReact(props) {
   const {showModal = false, onClose = ()=>{}} = props;
   const [show, setShow] = useState(showModal);
 
@@ -20,10 +20,6 @@ function Example(props) {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button>
-
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Modal heading</Modal.Title>
@@ -42,4 +38,4 @@ function Example(props) {
   );
 }
 
-render(<Example />);
+export default ModalReact

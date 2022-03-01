@@ -4,7 +4,7 @@ import firebase from 'firebase/compat/app';
 // import Button from './Button';
 import 'firebase/compat/firestore';
 import 'firebase/compat/storage';
-import Example from './ModalReact';
+import ModalReact from './ModalReact';
 
 function HintComponent() {
     const firestore = firebase.firestore();
@@ -49,7 +49,7 @@ function HintComponent() {
               <p>Overall solution strategy</p>
             </div>            
             <div className="col-5 d-grid gap-2 borderGeneral">
-              <button className="buttonGeneral" showModal={true} >Label here</button> 
+              <button className="buttonGeneral">Label here</button> <ModalReact showModal={true}/>
               <button className="buttonGeneral">SUMMARY</button>
             </div>
 
