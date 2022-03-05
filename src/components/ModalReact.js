@@ -2,21 +2,19 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import '../styles/react-bs.css';
 
-function ModalReact({showModal = false, onClose = () =>{}}) {
+function ModalReact({showModal = false, onClose = () =>{}, image}) {
+  console.log(">>> ")
   return (
     <Modal
-    size="xl"
-    show={showModal} 
-    onHide={onClose}
-    backdrop="static"
-    keyboard={false}    
-    dialogClassName="videoPopup"    
-  >
+      size="xl"
+      show={showModal} 
+      onHide={onClose}
+      backdrop="static"
+      keyboard={false}    
+      dialogClassName="videoPopup"    
+    >
 
-    {/* <Modal.Header closeButton>
-      {/* <Modal.Title>Modal heading</Modal.Title> */}
-    {/* </Modal.Header> */}
-    <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+    <Modal.Body>Woohoo, you're reading this text in a modal! {image}</Modal.Body>
     <Modal.Footer>
       <Button variant="secondary" onClick={onClose}>
         Close

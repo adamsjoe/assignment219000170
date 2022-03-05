@@ -28,12 +28,22 @@ function App() {
 
   const [authenticated, setAuthenticated] = useState(false);
 
+  const [questionTitle, setQuestionTitle] = useState();
+
   // question things
   const [questionText, setQuestionText] = useState("");
   const [imageUrl, setImageUrl] = useState("");
 
   // answer things
   const [answers, setAnswers] = useState([]);
+
+  // hint things
+  const [hintTitle, setHintTitle] = useState("");
+  const [genColTitle, setGenColTitle] = useState("");
+  const [specColTitle, setSpecColTitle] = useState("");
+
+  const [hintDetails, setHintDetails] = useState([]);
+  const [hintOverallSummary, setHintOverallSummary] = useState("");
 
   useEffect(() => {    
     firebase.auth().onAuthStateChanged((user) => {
@@ -44,28 +54,50 @@ function App() {
         setAuthenticated(false);
       }
     });
+    
     const getFirebase = async () => {
       const snapshot = await firestore.collection(collectionId).doc(documentId).get();
       const questionData = snapshot.data();     
-            
+
+      // question component information
+      // get and set the question title
+      setQuestionTitle(questionData.balances.balances.questions.title)
+
+      // get and set the question text and image
       setQuestionText(questionData.balances.balances.fullquestion.question) 
       setImageUrl(questionData.balances.balances.fullquestion.imageUrl) 
 
-      // deal with the answers
+      // answer component info
       // create a new answer array
-      const answerArr = []; 
+      const answerArr = [];  
 
-      // add the answer from cloud store to the answerArr
+      // add the answer from firestore to the answerArr
       Object.keys(questionData.balances.balances.answers).forEach(key => {
         answerArr.push(questionData.balances.balances.answers[key]);         
       });
       // set the answers to be the answersArray
       setAnswers(answerArr) 
+
+      // hint component info
+      // get and set hint title 
+      setHintTitle(questionData.balances.balances.hint.titleColumn.title_1.columnTitle)
+      
+      // get and set general column title 
+      setGenColTitle(questionData.balances.balances.hint.titleColumn.title_2.columnTitle)
+
+      // get and set problem specific column title 
+      setSpecColTitle(questionData.balances.balances.hint.titleColumn.title_3.columnTitle)
+
+      // get and set all hints
+      setHintDetails(questionData.balances.balances.hint)
+
+      // hint images
+      setHintOverallSummary(questionData.balances.balances.hint.video.video_1.image)     
+
     }
     getFirebase();    
   }, [firestore]);  
 
-  
     return (
     <div className='container'>
       <div className="row">
@@ -83,9 +115,24 @@ function App() {
         </nav>        
       </div> 
 
-      <Route exact path="/"><ProblemIndex /></Route>
-      <Route exact path="/balances"><QuestionPage image={imageUrl} text={questionText} answers={answers}/></Route>      
-      <Route exact path="/login"><Login /></Route>
+      <Route exact path="/">
+        <ProblemIndex />
+      </Route>
+      <Route exact path="/balances">
+        <QuestionPage questionTitle={questionTitle}
+                      image={imageUrl} 
+                      text={questionText} 
+                      answers={answers}
+                      hintColHeading={hintTitle}
+                      genColHeading={genColTitle}
+                      specColHeading={specColTitle}
+                      hintData={hintDetails}
+                      hint_image_1={hintOverallSummary}
+        />
+      </Route>      
+      <Route exact path="/login">
+        <Login />
+      </Route>
 
     </div>
   );
