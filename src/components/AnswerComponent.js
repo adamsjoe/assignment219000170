@@ -27,7 +27,7 @@ function AnswerComponent(props) {
 
               let formulaButton;
               let label = answer.text;
-                      
+
               label.includes('kg') ? formulaButton = true : formulaButton = false;
                       
               return (
