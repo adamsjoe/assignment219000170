@@ -1,0 +1,30 @@
+/* .answerGroup input[type="radio"] {
+  opacity: 0;
+} */
+
+.answerGroup label {
+  background-color: #95a5a6;
+  border: none;
+  padding: 15px 32px;
+  border-radius: 8px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 0.2rem #798d8f;
+  text-shadow: 0 0.075rem #617374;
+}
+
+.answerGroup label:hover {
+  background-color: #a3b1b2;
+  box-shadow: 0 0.2rem #87999a;
+}  
+
+.selectedAnswer {
+  background-color: #FF0000;
+  border: none;
+  padding: 15px 32px;
+  border-radius: 8px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 0.2rem #798d8f;
+  text-shadow: 0 0.075rem #617374;
+}

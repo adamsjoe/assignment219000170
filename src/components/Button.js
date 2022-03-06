@@ -1,36 +1,53 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { MathComponent } from 'mathjax-react'
+import '../styles/radioStyles.css'
 
-function Button(props) {
-  
-  // determine if this is an answer button by checking if the isSubmit prop is checked
-  let formulaButton;
-  if (!props.isformula) {
-    formulaButton = false
-  } else {
-    formulaButton = true
+function AnswerGroup(props) {
+  let answers = props.ans; 
+  // console.log("> ", answers)
+  const [value, setValue] = useState(false)
+  // const [isActive, setActive] = useState(false)
+
+  function handleChange() {
+    setValue(value);
+    // alert(value)    
   }
 
-  // TODO
-  // work out of this is a formula or a normal text answer 
-  // (note this only works for kg answers - this would need
-  // something better in future)
-  let label = props.label;
-  if (label.includes('kg')) {
-    formulaButton = true
-  }
+  // const toggleClass = () => {
+  //   setActive(!isActive);
+  // };
 
-  // need to handle if the button is regular text (ie no formula)
-
-  const handleClick=()=>{
-    // logic here…..
-  };
   
-  return (          
-    <button className={props.className} onClick={handleClick} isformula={props.isformula}>
-      {formulaButton === true ? <MathComponent tex={props.label} /> : props.label}
-    </button>
-  );
+  return (      
+    <div className="answerGroup">
+      {
+        answers.map((answer, id) => {
+
+          let formulaButton;
+          let label = answer.text;
+          
+          label.includes('kg') ? formulaButton = true : formulaButton= false;
+          
+          return (
+            <>            
+              <input type='radio'
+                    //  className={isActive ? 'radBtn' : 'selectedAnswer'}
+                     className={'radBtn'}
+                    //  checked={value}
+                     name='answer'
+                     id={id}
+                     onChange={handleChange}
+                     value={answer.correct}
+              />
+              <label for={id}>{formulaButton === true ? <MathComponent tex={answer.text} /> :answer.text}</label>
+            </>            
+          )
+        })
+      }
+    </div>
+  )
 }
 
-export default Button;
+export default AnswerGroup;
+
+
