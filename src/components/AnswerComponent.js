@@ -8,14 +8,19 @@ function AnswerComponent(props) {
   const [value, setValue] = useState(false)
   const [answerChosen, setAnswerChosen] = useState("")
 
-  function handleChange() {
-    setValue(!value);
-    alert(value)    
-  }
+  // function handleChange() {
+  //   setValue(!value);
+  //   alert(value)    
+  // }
 
-  function reportAnswer(event) {
-    setAnswerChosen(event.target.value)
-    alert(answerChosen)
+  function reportAnswer(e) {
+    setAnswerChosen(e.target.value)
+    console.log(">>  ", e.target.value)
+    console.log(">>  ", typeof(e.target.value))
+    console.log(">>> ", answerChosen)
+    console.log(">>> ", typeof(answerChosen))
+    console.log("-----------------------")
+    // alert(answerChosen)
   }
 
   return (
@@ -41,7 +46,7 @@ function AnswerComponent(props) {
                     id={id}
                     // onChange={handleChange}
                     value={answer.correct}
-                    checked={reportAnswer === answer.correct}
+                    // checked={reportAnswer === answer.correct}
               />
               <label for={id}>{formulaButton === true ? <MathComponent tex={answer.text} /> :answer.text}</label>
               </>            
