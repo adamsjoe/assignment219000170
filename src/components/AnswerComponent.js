@@ -6,10 +6,16 @@ function AnswerComponent(props) {
   let answers = props.answersarray; 
 
   const [value, setValue] = useState(false)
+  const [answerChosen, setAnswerChosen] = useState("")
 
   function handleChange() {
-    setValue(value);
-    // alert(value)    
+    setValue(!value);
+    alert(value)    
+  }
+
+  function reportAnswer(event) {
+    setAnswerChosen(event.target.value)
+    alert(answerChosen)
   }
 
   return (
@@ -18,30 +24,31 @@ function AnswerComponent(props) {
       <div className="p-3 mb-2 bg-light">
         <div className="row">
           <div className="answerGroup">
+            <fieldset value={answerChosen} onChange={(event) => reportAnswer(event)}>
             {
             answers.map((answer, id) => {
 
               let formulaButton;
               let label = answer.text;
                       
-              label.includes('kg') ? formulaButton = true : formulaButton= false;
+              label.includes('kg') ? formulaButton = true : formulaButton = false;
                       
               return (
               <>
               <input type='radio'
-                    //  className={isActive ? 'radBtn' : 'selectedAnswer'}
-                    className={'radBtn'}
-                    //  checked={value}
+                    className={'radBtn'}                    
                     name='answer'
                     id={id}
-                    onChange={handleChange}
+                    // onChange={handleChange}
                     value={answer.correct}
+                    checked={reportAnswer === answer.correct}
               />
               <label for={id}>{formulaButton === true ? <MathComponent tex={answer.text} /> :answer.text}</label>
               </>            
               )
             })
             }
+            </fieldset>
           </div>          
         </div>
         <div className="col-sm text-center">
