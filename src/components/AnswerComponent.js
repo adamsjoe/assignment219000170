@@ -5,22 +5,14 @@ import '../styles/radioStyles.css'
 function AnswerComponent(props) {
   let answers = props.answersarray; 
 
-  const [value, setValue] = useState(false)
-  const [answerChosen, setAnswerChosen] = useState("")
+  const [valueA, setValue] = useState(false)
 
-  // function handleChange() {
-  //   setValue(!value);
-  //   alert(value)    
-  // }
+  function handleChange(val) {
+    setValue(val);
+  }
 
-  function reportAnswer(e) {
-    setAnswerChosen(e.target.value)
-    console.log(">>  ", e.target.value)
-    console.log(">>  ", typeof(e.target.value))
-    console.log(">>> ", answerChosen)
-    console.log(">>> ", typeof(answerChosen))
-    console.log("-----------------------")
-    // alert(answerChosen)
+  function showRight() {
+    alert(valueA)  
   }
 
   return (
@@ -29,7 +21,7 @@ function AnswerComponent(props) {
       <div className="p-3 mb-2 bg-light">
         <div className="row">
           <div className="answerGroup">
-            <fieldset value={answerChosen} onChange={(event) => reportAnswer(event)}>
+            <fieldset>
             {
             answers.map((answer, id) => {
 
@@ -44,9 +36,8 @@ function AnswerComponent(props) {
                     className={'radBtn'}                    
                     name='answer'
                     id={id}
-                    // onChange={handleChange}
+                    onChange={() => handleChange(answer.correct)}
                     value={answer.correct}
-                    // checked={reportAnswer === answer.correct}
               />
               <label for={id}>{formulaButton === true ? <MathComponent tex={answer.text} /> :answer.text}</label>
               </>            
@@ -57,7 +48,7 @@ function AnswerComponent(props) {
           </div>          
         </div>
         <div className="col-sm text-center">
-          <button className='btn-primary mb-2 p-4'>CHECK MY ANSWER</button>
+          <button className='btn-primary mb-2 p-4' onClick={showRight}>CHECK MY ANSWER</button>
         </div>
       </div>
     </div>     
