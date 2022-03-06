@@ -4,16 +4,27 @@ import '../styles/radioStyles.css'
 
 function AnswerComponent(props) {
   let answers = props.answersarray; 
+  let checkAnswerBtnClass = 'btn-primary mb-2 p-4'
 
-  const [valueA, setValue] = useState(false)
+  const [valueA, setValue] = useState()
 
   function handleChange(val) {
     setValue(val);
   }
 
-  function showRight() {
-    alert(valueA)  
+  function checkAnswer() {
+    valueA === true ? checkAnswerBtnClass = 'correctAnswer mb-2 p-4' : checkAnswerBtnClass = 'wrongAnswer mb-2 p-4'
+
+    if (valueA === true) {
+      alert("you got the answer correct")
+    } else if (valueA === false) {
+      alert("Epic sadness.  Try again")
+    } else {
+      alert("select an answer first!")
+    }
   }
+
+  // valueA === true ? checkAnswerBtnClass = 'correctAnswer mb-2 p-4' : checkAnswerBtnClass = 'wrongAnswer mb-2 p-4'
 
   return (
     <div className="col-12">
@@ -47,8 +58,10 @@ function AnswerComponent(props) {
             </fieldset>
           </div>          
         </div>
-        <div className="col-sm text-center">
-          <button className='btn-primary mb-2 p-4' onClick={showRight}>CHECK MY ANSWER</button>
+        <div className="row">
+          <div className="col-sm text-center">
+            <button className={checkAnswerBtnClass}  onClick={checkAnswer}>CHECK MY ANSWER</button>
+          </div>
         </div>
       </div>
     </div>     
