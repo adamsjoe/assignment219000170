@@ -4,19 +4,18 @@ import '../styles/radioStyles.css'
 
 function AnswerComponent(props) {
   let answers = props.answersarray; 
-  let checkAnswerBtnClass = 'btn-primary mb-2 p-4'
-
+  
   const [valueA, setValue] = useState()
-
+  const [ansTrue, setAnsTrue] = useState("")
+  
   function handleChange(val) {
-    setValue(val);
+    setValue(val);    
   }
 
-  function checkAnswer() {
-    valueA === true ? checkAnswerBtnClass = 'correctAnswer mb-2 p-4' : checkAnswerBtnClass = 'wrongAnswer mb-2 p-4'
-
+  function checkAnswer() {   
     if (valueA === true) {
       alert("you got the answer correct")
+      setAnsTrue(true)
     } else if (valueA === false) {
       alert("Epic sadness.  Try again")
     } else {
@@ -60,7 +59,7 @@ function AnswerComponent(props) {
         </div>
         <div className="row">
           <div className="col-sm text-center">
-            <button className={checkAnswerBtnClass}  onClick={checkAnswer}>CHECK MY ANSWER</button>
+            <button className={'buttonCheck ' + (ansTrue === true ? 'correctAnswer' : '')}  onClick={checkAnswer}>CHECK MY ANSWER</button>
           </div>
         </div>
       </div>
@@ -68,7 +67,5 @@ function AnswerComponent(props) {
   )
 }
 
-function checkAnswer() {
-  alert("blah")
-}
+
 export default AnswerComponent;
