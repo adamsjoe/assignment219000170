@@ -6,6 +6,7 @@ import ModalReact from './ModalReact';
 
 function HintComponent(props) {
 
+  console.log(">>> ", props.image_1)
   const [showModal, setShowModal] = useState(false);
   
   return (
@@ -29,12 +30,12 @@ function HintComponent(props) {
               <p>Overall solution strategy</p>
             </div>            
             <div className="col-5 d-grid gap-2 borderGeneral">
-              <button className="buttonGeneral" onClick={()=>setShowModal(true)}>VIDEO</button> <ModalReact showModal={showModal} onClose={() => setShowModal(false)} />
+              <button className="buttonGeneral">VIDEO</button> 
               <button className="buttonGeneral" onClick={()=>setShowModal(true)}>SUMMARY11</button> <ModalReact showModal={showModal} onClose={() => setShowModal(false)} image={props.image_1} />
             </div>
 
             <div className="col-5 d-grid gap-2 borderProblemSpecific">
-              <button className="buttonProblemSpecific" onClick={()=>setShowModal(true)}>VIDEO</button> <ModalReact showModal={showModal} onClose={() => setShowModal(false)} />
+              <button className="buttonProblemSpecific">VIDEO</button> 
               <button className="buttonProblemSpecific">SUMMARY</button>                            
             </div>            
           </div>
@@ -44,12 +45,12 @@ function HintComponent(props) {
               <p>Moments</p>
             </div>            
             <div className="col-5 d-grid gap-2 borderGeneral">
-            <button className="buttonGeneral" onClick={()=>setShowModal(true)}>VIDEO</button> <ModalReact showModal={showModal} onClose={() => setShowModal(false)} />
+            <button className="buttonGeneral">VIDEO</button> 
               <button className="buttonGeneral">'SUMMARY</button>
             </div>
 
             <div className="col-5 d-grid gap-2 borderProblemSpecific">
-            <button className="buttonProblemSpecific" onClick={()=>setShowModal(true)}>VIDEO</button> <ModalReact showModal={showModal} onClose={() => setShowModal(false)} />
+            <button className="buttonProblemSpecific">VIDEO</button> 
               <button className="buttonProblemSpecific">SUMMARY</button>                             
             </div>            
           </div>
@@ -59,12 +60,12 @@ function HintComponent(props) {
               <p>Gravity</p>
             </div>            
             <div className="col-5 d-grid gap-2 borderGeneral">
-            <button className="buttonGeneral" onClick={()=>setShowModal(true)}>VIDEO</button> <ModalReact showModal={showModal} onClose={() => setShowModal(false)} />
+            <button className="buttonGeneral">VIDEO</button>
               <button className="buttonGeneral">SUMMARY</button>
             </div>
 
             <div className="col-5 d-grid gap-2 borderProblemSpecific">
-            <button className="buttonProblemSpecific" onClick={()=>setShowModal(true)}>VIDEO</button> <ModalReact showModal={showModal} onClose={() => setShowModal(false)} />
+            <button className="buttonProblemSpecific">VIDEO</button>
               <button className="buttonProblemSpecific">SUMMARY</button>                               
             </div>            
           </div>

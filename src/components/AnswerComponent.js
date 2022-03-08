@@ -43,13 +43,13 @@ function AnswerComponent(props) {
               return (
               <>
               <input type='radio'
-                    className={'radBtn'}                    
+                    // className={'radBtn'}                    
                     name='answer'
                     id={id}
                     onChange={() => handleChange(answer.correct)}
                     value={answer.correct}
               />
-              <label for={id}>{formulaButton === true ? <MathComponent tex={answer.text} /> :answer.text}</label>
+              <label for={id}>{formulaButton === true ? <MathComponent tex={answer.text} /> : answer.text}</label>
               </>            
               )
             })

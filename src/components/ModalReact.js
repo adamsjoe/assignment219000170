@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import '../styles/react-bs.css';
 
 function ModalReact({showModal = false, onClose = () =>{}, image}) {
-  console.log(">>> ")
+  console.log("im ", image)
   return (
     <Modal
       size="xl"
@@ -14,7 +14,7 @@ function ModalReact({showModal = false, onClose = () =>{}, image}) {
       dialogClassName="videoPopup"    
     >
 
-    <Modal.Body>Woohoo, you're reading this text in a modal! {image}</Modal.Body>
+    <Modal.Body><img src={image} alt="lala"></img></Modal.Body>
     <Modal.Footer>
       <Button variant="secondary" onClick={onClose}>
         Close

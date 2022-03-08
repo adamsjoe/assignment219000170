@@ -1,6 +1,7 @@
-/* .answerGroup input[type="radio"] {
-  opacity: 0;
-} */
+.answerGroup input[type="radio"] {
+  /* opacity: 0; */
+  display: none;
+}
 
 .answerGroup label {
   background-color: #95a5a6;
@@ -11,6 +12,14 @@
   color: white;
   box-shadow: 0 0.2rem #798d8f;
   text-shadow: 0 0.075rem #617374;
+  vertical-align: middle;
+  /* display: table-cell !important; */
+  margin: 0.5%; 
+  height: 100px;
+  width: 49%;
+  text-align: center;
+  /* padding: 10px 0 10px 0; */
+  cursor:pointer
 }
 
 .answerGroup label:hover {
@@ -18,7 +27,6 @@
   box-shadow: 0 0.2rem #87999a;
 }  
 
-.answerGroup label:active {
-  border: 3px solid #3700ff
-}  
-
+input[type="radio"]:checked + label {
+  background-color: #515b5c;
+}
