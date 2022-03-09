@@ -23,6 +23,18 @@ function AnswerComponent(props) {
     }
   }
 
+  function compare(a, b) {
+    if ( a.last_nom < b.last_nom ){
+      return -1;
+    }
+    if ( a.text > b.text ){
+      return 1;
+    }
+    return 0;
+  }
+
+  answers.sort(compare);
+
   // valueA === true ? checkAnswerBtnClass = 'correctAnswer mb-2 p-4' : checkAnswerBtnClass = 'wrongAnswer mb-2 p-4'
 
   return (
@@ -33,6 +45,8 @@ function AnswerComponent(props) {
           <div className="answerGroup">
             <fieldset>
             {
+            
+            
             answers.map((answer, id) => {
 
               let formulaButton;
