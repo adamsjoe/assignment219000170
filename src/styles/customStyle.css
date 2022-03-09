@@ -130,29 +130,21 @@
 
 .wrongAnswer {
   background-color: #AA0000;
-  /* border: none;
-  padding: 15px 32px;
-  border-radius: 8px;
-  text-align: center;
-  color: white;
-  box-shadow: 0 0.2rem #798d8f;
-  text-shadow: 0 0.075rem #617374; */
 }
 
 .correctAnswer {
   background-color: #00AA00;
-  /* border: none;
-  padding: 15px 32px;
-  border-radius: 8px;
-  text-align: center;
-  color: white;
-  box-shadow: 0 0.2rem #798d8f;
-  text-shadow: 0 0.075rem #617374; */
 }
 
 .wellDone {
   background-color: #00FF00;
   color: black;
+}
+
+img {
+  width: 100%;
+  height: auto;
+  max-width: 50vw;
 }
 
 /* MISC STYLE */
