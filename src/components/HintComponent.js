@@ -30,8 +30,8 @@ function HintComponent(props) {
               <p>Overall solution strategy</p>
             </div>            
             <div className="col-5 d-grid gap-2 borderGeneral">
-              <button className="buttonGeneral">VIDEO</button> 
-              <button className="buttonGeneral" onClick={()=>setShowModal(true)}>SUMMARY11</button> <ModalReact showModal={showModal} onClose={() => setShowModal(false)} image={props.image_1} />
+              <button className="buttonGeneral" >VIDEO</button> 
+              <button className="buttonGeneral" onClick={()=>setShowModal(true)}>SUMMARY11</button> <ModalReact showModal={showModal} onClose={() => setShowModal(false)} image={props.image_1} size='med'/>
             </div>
 
             <div className="col-5 d-grid gap-2 borderProblemSpecific">
