@@ -14,7 +14,7 @@ function ModalReact({showModal = false, onClose = () =>{}, image, size}) {
       // dialogClassName="videoPopup"    
     >
 
-    <Modal.Body><img src={image} alt="lala"></img></Modal.Body>
+    <Modal.Body><img className='modalImg' src={image} alt="lala"></img></Modal.Body>
     <Modal.Footer>
       <Button variant="secondary" onClick={onClose}>
         Close

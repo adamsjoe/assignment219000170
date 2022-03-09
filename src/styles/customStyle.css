@@ -141,7 +141,7 @@
   color: black;
 }
 
-img {
+img.modalImg{
   width: 100%;
   height: auto;
   max-width: 50vw;
