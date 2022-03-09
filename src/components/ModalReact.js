@@ -2,16 +2,16 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import '../styles/react-bs.css';
 
-function ModalReact({showModal = false, onClose = () =>{}, image}) {
+function ModalReact({showModal = false, onClose = () =>{}, image, size}) {
   console.log("im ", image)
   return (
     <Modal
-      size="xl"
+      size={size}
       show={showModal} 
       onHide={onClose}
       backdrop="static"
       keyboard={false}    
-      dialogClassName="videoPopup"    
+      // dialogClassName="videoPopup"    
     >
 
     <Modal.Body><img src={image} alt="lala"></img></Modal.Body>
