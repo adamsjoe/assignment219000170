@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { MathComponent } from 'mathjax-react'
-import AnswerModal from './AnswerModal';
+import VideoModal from './VideoModal';
 import '../styles/radioStyles.css'
 
 function AnswerComponent(props) {
@@ -71,7 +71,7 @@ function AnswerComponent(props) {
                     onChange={() => handleChange(answer.correct)}
                     value={answer.correct}
               />
-              <label for={id}>{formulaButton === true ? <MathComponent tex={answer.text} /> : answer.text}</label>
+              <label htmlFor={id}>{formulaButton === true ? <MathComponent tex={answer.text} /> : <div className='mathjaxFakery'>{answer.text}</div>}</label>
               </>            
               )
             })
@@ -81,7 +81,7 @@ function AnswerComponent(props) {
         </div>
         <div className="row">
           <div className="col-sm text-center">
-            <button className={'buttonCheck ' + (ansTrue === true ? 'correctAnswer' : '')}  onClick={checkAnswer}>CHECK MY ANSWER</button> <AnswerModal showModal={showCongratsModal} onClose={() => setShowCongratsModal(false)} videoMessage={showCongratsURL} content={showWindowContent} size='med'/>
+            <button className={'buttonCheck ' + (ansTrue === true ? 'correctAnswer' : '')}  onClick={checkAnswer}>CHECK MY ANSWER</button> <VideoModal showModal={showCongratsModal} onClose={() => setShowCongratsModal(false)} videoMessage={showCongratsURL} content={showWindowContent} size='med'/>
           </div>
         </div>
       </div>

@@ -2,7 +2,8 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import '../styles/react-bs.css';
 
-function AnswerModal({showModal = false, onClose = () =>{}, videoMessage, content, size}) {
+function ImageModal({showModal = false, onClose = () =>{}, image, size}) {
+  
   return (
     <Modal
       size={size}
@@ -13,11 +14,7 @@ function AnswerModal({showModal = false, onClose = () =>{}, videoMessage, conten
       // dialogClassName="videoPopup"    
     >
 
-    <Modal.Body>
-      <video src={videoMessage} autoPlay></video> 
-      <br/>
-      {/* {content} */}
-    </Modal.Body>
+    <Modal.Body><img className='modalImg' src={image} alt="lala"></img></Modal.Body>
     <Modal.Footer>
       <Button variant="secondary" onClick={onClose}>
         Close
@@ -27,4 +24,4 @@ function AnswerModal({showModal = false, onClose = () =>{}, videoMessage, conten
   )
 }
 
-export default AnswerModal
+export default ImageModal

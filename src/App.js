@@ -45,6 +45,25 @@ function App() {
   const [hintDetails, setHintDetails] = useState([]);
   const [hintOverallSummary, setHintOverallSummary] = useState("");
 
+  // states to handle hints
+  const [problem_SVideo, setProblem_SVideo] = useState("")
+  const [problem_SImage, setProblem_SImage] = useState("")
+
+  const [spec_strat_balan_sVideo, setSpec_strat_balan_sVideo] = useState("")
+  const [spec_strat_balan_sImage, setSpec_strat_balan_sImage] = useState("")
+
+  const[mom_sVideo, setMom_sVideo] = useState("")
+  const[mom_sImage, setMom_sImage] = useState("")
+
+  const[specMom_sVideo, setSpecMom_sVideo] = useState("")
+  const[specMom_sImage, setSpecMom_sImage] = useState("")
+
+  const[gravity_sVideo, setGravity_sVideo] = useState("")
+  const[gravity_sImage, setGravity_sImage] = useState("")
+
+  const[specGravity_sVideo, setSpecGravity_sVideo] = useState("")
+  const[specGravity_sImage, setSpecGravity_sImage] = useState("")
+
   useEffect(() => {    
     firebase.auth().onAuthStateChanged((user) => {
 
@@ -88,15 +107,40 @@ function App() {
       // get and set problem specific column title 
       setSpecColTitle(questionData.balances.balances.hint.titleColumn.title_3.columnTitle)
 
-      // get and set all hints
-      setHintDetails(questionData.balances.balances.hint)
+      // // get and set all hints
+      // setHintDetails(questionData.balances.balances.hint)
 
-      // hint images
-      setHintOverallSummary(questionData.balances.balances.hint.video.video_1.image)     
+      // // hint images
+      // setHintOverallSummary(questionData.balances.balances.hint.video.video_1.image)     
+
+      // problem_s 
+      setProblem_SVideo(questionData.balances.balances.hint.video.video_1.videoUrl)
+      setProblem_SImage(questionData.balances.balances.hint.video.video_1.image)
+
+      // spec_strat_balan_s
+      setSpec_strat_balan_sVideo(questionData.balances.balances.hint.video.video_2.videoUrl)
+      setSpec_strat_balan_sImage(questionData.balances.balances.hint.video.video_2.image)
+
+      // mom_s
+      setMom_sVideo(questionData.balances.balances.hint.video.video_3.videoUrl)
+      setMom_sImage(questionData.balances.balances.hint.video.video_3.image)
+
+      // spec_mom_s
+      setSpecMom_sVideo(questionData.balances.balances.hint.video.video_4.videoUrl)
+      setSpecMom_sImage(questionData.balances.balances.hint.video.video_4.image)
+
+      // gravity_s
+      setGravity_sVideo(questionData.balances.balances.hint.video.video_5.videoUrl)
+      setGravity_sImage(questionData.balances.balances.hint.video.video_5.image)
+
+      // spec_gravity_s
+      setSpecGravity_sVideo(questionData.balances.balances.hint.video.video_6.videoUrl)
+      setSpecGravity_sImage(questionData.balances.balances.hint.video.video_6.image)
 
     }
     getFirebase();    
-  }, [firestore]);  
+  }, [firestore]
+  );  
 
     return (
     <div className='container'>
@@ -127,7 +171,18 @@ function App() {
                       genColHeading={genColTitle}
                       specColHeading={specColTitle}
                       hintData={hintDetails}
-                      hint_image_1={hintOverallSummary}
+                      prob_s_vid={problem_SVideo}                      
+                      prob_s_im= {problem_SImage}
+                      spec_strat_balan_sImage={spec_strat_balan_sImage}
+                      spec_strat_balan_sVideo={spec_strat_balan_sVideo}
+                      mom_s_image={mom_sImage}
+                      mom_s_video={mom_sVideo}
+                      spec_mom_s_image={specMom_sImage}
+                      spec_mom_s_video={specMom_sVideo}
+                      gravity_sImage={gravity_sImage}
+                      gravity_sVideo={gravity_sVideo}
+                      specGravity_sImage={specGravity_sImage}
+                      specGravity_sVideo={specGravity_sVideo}                      
         />
       </Route>      
       <Route exact path="/login">

@@ -114,6 +114,10 @@
   cursor: pointer;
 }
 
+.mathjaxFakery {
+  margin: 1em 0;
+}
+
 .buttonCheck {
   padding: 15px 32px;
   margin: 15px 32px;
@@ -151,7 +155,6 @@ video {
   width: 100%;
   height: auto;
   max-width: 50vw;
-
 }
 
 /* MISC STYLE */
