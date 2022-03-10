@@ -32,7 +32,7 @@ function AnswerComponent(props) {
   }
 
   function compare(a, b) {
-    if ( a.last_nom < b.last_nom ){
+    if ( a.text < b.text ){
       return -1;
     }
     if ( a.text > b.text ){
