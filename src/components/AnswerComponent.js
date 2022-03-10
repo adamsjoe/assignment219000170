@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { MathComponent } from 'mathjax-react'
+import AnswerModal from './AnswerModal';
 import '../styles/radioStyles.css'
 
 function AnswerComponent(props) {
@@ -7,19 +8,26 @@ function AnswerComponent(props) {
   
   const [valueA, setValue] = useState()
   const [ansTrue, setAnsTrue] = useState("")
-  
+  const [showCongratsModal, setShowCongratsModal] = useState(false);
+  const [showCongratsURL, setShowCongratsURL] = useState("")
+  const [showWindowContent, setShowWindowContent] = useState("")
+
   function handleChange(val) {
     setValue(val);    
   }
 
   function checkAnswer() {   
     if (valueA === true) {
-      alert("you got the answer correct")
-      setAnsTrue(true)
+      // alert("you got the answer correct")
+      setShowCongratsModal(true)
+      setShowCongratsURL("https://firebasestorage.googleapis.com/v0/b/assignment219000170.appspot.com/o/videos%2Fcongrat_w3_s.mp4?alt=media&token=034ea1bc-b3e0-4b51-957f-854dae963896")
+      setShowWindowContent("<button>Login</button> <button>No Thanks</button>")            
     } else if (valueA === false) {
-      alert("Epic sadness.  Try again")
+      // alert("Epic sadness.  Try again")
+      setShowCongratsModal(false)
     } else {
-      alert("select an answer first!")
+      // alert("select an answer first!")
+      setShowCongratsModal(false)
     }
   }
 
@@ -73,7 +81,7 @@ function AnswerComponent(props) {
         </div>
         <div className="row">
           <div className="col-sm text-center">
-            <button className={'buttonCheck ' + (ansTrue === true ? 'correctAnswer' : '')}  onClick={checkAnswer}>CHECK MY ANSWER</button>
+            <button className={'buttonCheck ' + (ansTrue === true ? 'correctAnswer' : '')}  onClick={checkAnswer}>CHECK MY ANSWER</button> <AnswerModal showModal={showCongratsModal} onClose={() => setShowCongratsModal(false)} videoMessage={showCongratsURL} content={showWindowContent} size='med'/>
           </div>
         </div>
       </div>
