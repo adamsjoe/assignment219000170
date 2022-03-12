@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { MathComponent } from 'mathjax-react'
 import VideoModal from './VideoModal';
+import CheckAnswerModal from './CheckAnswerModal';
 import '../styles/radioStyles.css'
 
 function AnswerComponent(props) {
@@ -22,13 +23,14 @@ function AnswerComponent(props) {
       // alert("you got the answer correct")
       setShowCongratsModal(true)
       setShowCongratsURL("https://firebasestorage.googleapis.com/v0/b/assignment219000170.appspot.com/o/videos%2Fcongrat_w3_s.mp4?alt=media&token=034ea1bc-b3e0-4b51-957f-854dae963896")
-      setShowWindowContent("<button>Login</button> <button>No Thanks</button>")            
     } else if (valueA === false) {
       // alert("Epic sadness.  Try again")
-      setShowCongratsModal(false)
+      setShowCongratsModal(true)
+      setShowWindowContent("Incorrect answer - please try again.")            
     } else {
       // alert("select an answer first!")
-      setShowCongratsModal(false)
+      setShowCongratsModal(true)
+      setShowWindowContent("Please choose an answer before proceeding.")            
     }
   }
 
@@ -84,7 +86,7 @@ function AnswerComponent(props) {
         </div>
         <div className="row">
           <div className="col-sm text-center">
-            <button className={'buttonCheck ' + (ansTrue === true ? 'correctAnswer' : '')}  onClick={checkAnswer}>CHECK MY ANSWER</button> <VideoModal showModal={showCongratsModal} onClose={() => setShowCongratsModal(false)} videoMessage={showCongratsURL} content={showWindowContent} size='med'/>
+            <button className={'buttonCheck ' + (ansTrue === true ? 'correctAnswer' : '')}  onClick={checkAnswer}>CHECK MY ANSWER</button> <CheckAnswerModal showModal={showCongratsModal} onClose={() => setShowCongratsModal(false)} videoMessage={showCongratsURL} content={showWindowContent} size='med'/>
           </div>
         </div>
       </div>
