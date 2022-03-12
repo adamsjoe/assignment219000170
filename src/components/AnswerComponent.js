@@ -75,7 +75,7 @@ function AnswerComponent(props) {
                     onChange={() => handleChange(answer.correct)}
                     value={answer.correct}
               />
-              <label htmlFor={id}>{formulaButton === true ? <MathComponent tex={answer.text} /> : <div className='mathjaxFakery'>{answer.text}</div>}<div className='percentage'>{percentPicked}%</div></label>
+              <label htmlFor={id}>{formulaButton === true ? <MathComponent tex={answer.text} /> : <div className='mathjaxFakery'>{answer.text}</div>}<span className='percentage'>{percentPicked}%</span></label>
               </>            
               )
             })
