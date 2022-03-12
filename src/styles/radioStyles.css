@@ -32,15 +32,15 @@ input[type="radio"]:checked + label {
 }
 
 .percentage {  
-  position: relative;  
-  
-  /* margin: 0em 0; */
+  /* position: relative;   */
+  min-width: 15%;
+  margin: -2em 0;
   float: right; 
   background-color: white;
   border-color: white;
   color: black;
-  /* height: 80px; */
-  /* line-height: 80px; */
+  height: 80px;
+  line-height: 80px;
   width: 15%;
   border: 1px solid black;
   border-radius: 20px;
@@ -50,5 +50,5 @@ input[type="radio"]:checked + label {
 }
 
 .mathjaxFakery {
-  margin: -1.5em 0;
+  margin: 1em 0;
 }
