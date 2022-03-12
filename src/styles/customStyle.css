@@ -157,6 +157,36 @@ video {
   max-width: 50vw;
 }
 
+.confusedBtn {
+  float: right;
+  background-color: red;  
+}
+
+.confusedText {
+  width: 100%;
+  resize: none;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+.confusedBtnSave {
+  background-color: blue;  
+  color: white;
+  border-radius: 10px;  
+  width: 100px;
+  margin: 4px 2px;
+}
+
+.confusedBtnCancel {
+  background-color: white;  
+  color: blue;
+  border-color: blue;
+  border-width: 2px;
+  border-radius: 10px;
+  width: 100px;
+  margin: 4px 2px;
+}
+
 /* MISC STYLE */
 .tableDebug {
   border: 1px solid black;
