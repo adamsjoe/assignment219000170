@@ -1,6 +1,5 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import '../styles/react-bs.css';
 
 function ImageModal({showModal = false, onClose = () =>{}, image, size}) {
   

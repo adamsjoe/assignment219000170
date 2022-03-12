@@ -1,12 +1,11 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import '../styles/react-bs.css';
 import { useState } from 'react';
 
 function VideoModal({showModal = false, onClose = () =>{}, videoMessage, content, size}) {
 
   const [confused, setConfused] = useState(false)
-
+  
   return (
     <Modal
       size={size}
