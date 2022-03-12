@@ -69,13 +69,7 @@ function AnswerComponent(props) {
                       
               return (
               <>
-              <input type='radio'
-                    name='answer'
-                    id={id}
-                    onChange={() => handleChange(answer.correct)}
-                    value={answer.correct}
-              />
-              <label htmlFor={id}>{formulaButton === true ? <MathComponent tex={answer.text} /> : <div className='mathjaxFakery'>{answer.text}</div>}<span className='percentage'>{percentPicked}%</span></label>
+               <button className='buttonAnswer' id={id}>{formulaButton === true ? <><MathComponent tex={answer.text}/><span className='percentage mathjaxFakery'>{percentPicked}%</span></> : <>{answer.text}<span className='percentage'>{percentPicked}%</span></>}</button> 
               </>            
               )
             })
