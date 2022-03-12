@@ -91,15 +91,24 @@
 }
 
 /* ANSWER SECTION */
+
 .buttonAnswer {
   background-color: #95a5a6;
   border: none;
   padding: 15px 32px;
   border-radius: 8px;
   text-align: center;
-  color: white;;
+  color: white;
   box-shadow: 0 0.2rem #798d8f;
   text-shadow: 0 0.075rem #617374;
+  vertical-align: middle;
+  /* display: table-cell !important; */
+  margin: 0.5%; 
+  height: 100px;
+  width: 49%;
+  text-align: center;
+  /* padding: 10px 0 10px 0; */
+  cursor:pointer
 }
 
 .buttonAnswer:hover {
