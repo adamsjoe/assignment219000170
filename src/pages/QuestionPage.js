@@ -33,7 +33,10 @@ function QuestionPage(props) {
             />
         </div>
         <div className="row">
-            <AnswerComponent answersarray={props.answers} />
+            <AnswerComponent
+              answersarray={props.answers}
+              totalAnswers={props.totAnswered}
+            />
         </div>
     </div> 
   )

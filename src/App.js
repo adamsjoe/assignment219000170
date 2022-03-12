@@ -36,6 +36,8 @@ function App() {
 
   // answer things
   const [answers, setAnswers] = useState([]);
+  const [totalAnswers, setTotalAnswers] = useState(0);
+
 
   // hint things
   const [hintTitle, setHintTitle] = useState("");
@@ -88,14 +90,18 @@ function App() {
 
       // answer component info
       // create a new answer array
-      const answerArr = [];  
+      const answerArr = []; 
+      let selectedAnswers = 0 
 
       // add the answer from firestore to the answerArr
       Object.keys(questionData.balances.balances.answers).forEach(key => {
         answerArr.push(questionData.balances.balances.answers[key]);         
+        // console.log(questionData.balances.balances.answers[key].chosen)
+        selectedAnswers += questionData.balances.balances.answers[key].chosen
       });
       // set the answers to be the answersArray
       setAnswers(answerArr) 
+      setTotalAnswers(selectedAnswers)
 
       // hint component info
       // get and set hint title 
@@ -106,12 +112,6 @@ function App() {
 
       // get and set problem specific column title 
       setSpecColTitle(questionData.balances.balances.hint.titleColumn.title_3.columnTitle)
-
-      // // get and set all hints
-      // setHintDetails(questionData.balances.balances.hint)
-
-      // // hint images
-      // setHintOverallSummary(questionData.balances.balances.hint.video.video_1.image)     
 
       // problem_s 
       setProblem_SVideo(questionData.balances.balances.hint.video.video_1.videoUrl)
@@ -167,6 +167,7 @@ function App() {
                       image={imageUrl} 
                       text={questionText} 
                       answers={answers}
+                      totAnswered={totalAnswers}
                       hintColHeading={hintTitle}
                       genColHeading={genColTitle}
                       specColHeading={specColTitle}

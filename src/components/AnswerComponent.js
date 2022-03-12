@@ -4,6 +4,7 @@ import VideoModal from './VideoModal';
 import '../styles/radioStyles.css'
 
 function AnswerComponent(props) {
+  let totalNoAnswers = props.totalAnswers;
   let answers = props.answersarray; 
   
   const [valueA, setValue] = useState()
@@ -59,24 +60,26 @@ function AnswerComponent(props) {
 
               let formulaButton;
               let label = answer.text;
+              let timesPicked = answer.chosen
+              let percentPicked = (timesPicked / totalNoAnswers) * 100
 
               label.includes('kg') ? formulaButton = true : formulaButton = false;
                       
               return (
               <>
               <input type='radio'
-                    // className={'radBtn'}                    
                     name='answer'
                     id={id}
                     onChange={() => handleChange(answer.correct)}
                     value={answer.correct}
               />
-              <label htmlFor={id}>{formulaButton === true ? <MathComponent tex={answer.text} /> : <div className='mathjaxFakery'>{answer.text}</div>}</label>
+              <label htmlFor={id}>{formulaButton === true ? <MathComponent tex={answer.text} /> : <div className='mathjaxFakery'>{answer.text}</div>}<div className='percentage'>{percentPicked}%</div></label>
               </>            
               )
             })
             }
             </fieldset>
+
           </div>          
         </div>
         <div className="row">
