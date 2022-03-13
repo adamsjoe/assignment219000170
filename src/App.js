@@ -94,9 +94,14 @@ function App() {
       let selectedAnswers = 0 
 
       // add the answer from firestore to the answerArr
-      Object.keys(questionData.balances.balances.answers).forEach(key => {
-        answerArr.push(questionData.balances.balances.answers[key]);         
-        // console.log(questionData.balances.balances.answers[key].chosen)
+      Object.keys(questionData.balances.balances.answers).forEach(key => {        
+        const obj = questionData.balances.balances.answers[key]
+
+        // will need to know which document the database holds the chosen info, so let's add it to the array
+        obj['key'] = key
+        answerArr.push(obj);         
+
+        // count the number of times answers were "picked", (i.e. chosen)
         selectedAnswers += questionData.balances.balances.answers[key].chosen
       });
       // set the answers to be the answersArray
