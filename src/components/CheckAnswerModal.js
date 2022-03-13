@@ -13,7 +13,7 @@ function CheckAnswerModal({showModal = false, onClose = () =>{}, videoMessage, c
     >
 
     <Modal.Body>
-      {videoMessage ? <video src={videoMessage} controls autoPlay> </video>: <div>{content}</div>}
+      {videoMessage ? <video src={videoMessage} controls autoPlay> </video>: <div><center>{content}</center></div>}
     </Modal.Body>
     <Modal.Footer>
       <Button variant="secondary" onClick={onClose}>
