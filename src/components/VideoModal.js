@@ -41,7 +41,7 @@ function VideoModal({showModal = false, onClose = () =>{}, videoMessage, content
       
     </Modal.Body>
     <Modal.Footer>
-      <Button variant="secondary" onClick={onClose}>
+      <Button variant="secondary" onClick={() => {onClose(); setConfused(false)}}>
         Close
       </Button>
     </Modal.Footer>
