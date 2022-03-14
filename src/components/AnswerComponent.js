@@ -1,10 +1,15 @@
 import React, {useState} from 'react';
 import { MathComponent } from 'mathjax-react'
-import VideoModal from './VideoModal';
 import CheckAnswerModal from './CheckAnswerModal';
 import '../styles/radioStyles.css'
 
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+
 function AnswerComponent(props) {
+  // const firestore = firebase.firestore();
+
+
   let totalNoAnswers = props.totalAnswers;
   let answers = props.answersarray; 
   
@@ -26,9 +31,9 @@ function AnswerComponent(props) {
   //   alert(e.target.value)
   // }
 
-  function updateChosenCount() {
-    // somehow update cloudstore when we have clicked the button with the right shit
-  }
+  // function updateChosenCount() {
+  //   // somehow update cloudstore when we have clicked the button with the right shit
+  // }
 
   function checkAnswer() {   
     // alert ("you chose " + selectedAnswerGroup)
@@ -42,6 +47,29 @@ function AnswerComponent(props) {
     } else {
       setShowWindowContent("Please choose an answer before proceeding.")            
     }
+
+    const updateFirebase = async () => {
+      const db = firebase.firestore();
+      const collectionId = "Questions";
+      const documentId = "balances";
+    
+      const snapshot = db.collection(collectionId).doc(documentId);
+      console.log("> ", snapshot)
+      console.log(">> ", selectedAnswerGroup)
+
+      const res = snapshot.set({      
+        balances: {
+          balances: {
+            answers: {
+              [selectedAnswerGroup]: {
+                chosen: chosenCount
+              }
+            }
+          }
+        }
+      }, {merge: true})
+    }
+    updateFirebase()
   }
 
   function compare(a, b) {
