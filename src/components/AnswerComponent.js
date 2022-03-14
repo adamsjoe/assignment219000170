@@ -7,9 +7,6 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 
 function AnswerComponent(props) {
-  // const firestore = firebase.firestore();
-
-
   let totalNoAnswers = props.totalAnswers;
   let answers = props.answersarray; 
   
@@ -20,26 +17,8 @@ function AnswerComponent(props) {
   const [selectedAnswerGroup, setSelectedAnswerGroup] = useState("")
   const [chosenCount, setChosenCount]= useState()
 
-  // console.log(">>",answers)
-  // function handleChange(val) {
-  //   // setValue(val);   
-  //  // alert(el)
-  //  alert ("you chose " + selectedAnswerGroup)
-  // }
-  
-  // const handleChange = (val,e) => {
-  //   alert(e.target.value)
-  // }
-
-  // function updateChosenCount() {
-  //   // somehow update cloudstore when we have clicked the button with the right shit
-  // }
-
   function checkAnswer() {   
-    // alert ("you chose " + selectedAnswerGroup)
-    // alert ("the answer was picked " + chosenCount + " times")
     setShowCongratsModal(true)
-    // set the selectedAnswer
     if (valueA === true) {
       setShowCongratsURL("https://firebasestorage.googleapis.com/v0/b/assignment219000170.appspot.com/o/videos%2Fcongrat_w3_s.mp4?alt=media&token=034ea1bc-b3e0-4b51-957f-854dae963896")
     } else if (valueA === false) {
@@ -48,8 +27,8 @@ function AnswerComponent(props) {
       setShowWindowContent("Please choose an answer before proceeding.")            
     }
 
-    const updateFirebase = async () => {
-      const db = firebase.firestore();
+    const updateFirestore = async () => {
+      const db = firebase.firestore();      
       const collectionId = "Questions";
       const documentId = "balances";
     
@@ -57,7 +36,7 @@ function AnswerComponent(props) {
       console.log("> ", snapshot)
       console.log(">> ", selectedAnswerGroup)
 
-      const res = snapshot.set({      
+      const res = await snapshot.set({      
         balances: {
           balances: {
             answers: {
@@ -68,8 +47,10 @@ function AnswerComponent(props) {
           }
         }
       }, {merge: true})
+    console.log("1", res)
     }
-    updateFirebase()
+    updateFirestore()
+    
   }
 
   function compare(a, b) {
@@ -83,7 +64,6 @@ function AnswerComponent(props) {
   }
 
   answers.sort(compare);
-  // console.log(answers)
 
   // valueA === true ? checkAnswerBtnClass = 'correctAnswer mb-2 p-4' : checkAnswerBtnClass = 'wrongAnswer mb-2 p-4'
 
@@ -95,11 +75,8 @@ function AnswerComponent(props) {
           <div className="answerGroup">
             <fieldset>
             {
-            
-            
-            answers.map((answer, id) => {
-              
-              // console.log("XX ", answer )
+                      
+            answers.map((answer, id) => {              
 
               let formulaButton;
               let label = answer.text;
@@ -113,7 +90,6 @@ function AnswerComponent(props) {
               <input type='radio'
                     name='answer'
                     id={id}
-                    // onChange={() => handleChange(answer.correct)}                    
                     onChange={() => {setValue(answer.correct); setSelectedAnswerGroup(answer.key); setChosenCount(answer.chosen)}}                    
                     value={answer.correct}
               />
@@ -135,6 +111,5 @@ function AnswerComponent(props) {
     </div>     
   )
 }
-
 
 export default AnswerComponent; 
