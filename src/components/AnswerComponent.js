@@ -31,26 +31,30 @@ function AnswerComponent(props) {
       const db = firebase.firestore();      
       const collectionId = "Questions";
       const documentId = "balances";
-    
-      const snapshot = db.collection(collectionId).doc(documentId);
-      console.log("> ", snapshot)
-      console.log(">> ", selectedAnswerGroup)
+      
+      console.log(selectedAnswerGroup);
+      console.log(chosenCount);
+      let newCount = chosenCount + 1
 
-      const res = await snapshot.set({      
+      const snapshot = db.collection(collectionId).doc(documentId).set({
         balances: {
           balances: {
             answers: {
               [selectedAnswerGroup]: {
-                chosen: chosenCount
+                chosen: newCount
               }
             }
           }
         }
       }, {merge: true})
-    console.log("1", res)
+      .then(() => {
+        console.log("Document successfully written!");
+      })
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });
     }
-    updateFirestore()
-    
+    updateFirestore()    
   }
 
   function compare(a, b) {
@@ -81,7 +85,7 @@ function AnswerComponent(props) {
               let formulaButton;
               let label = answer.text;
               let timesPicked = answer.chosen
-              let percentPicked = (timesPicked / totalNoAnswers) * 100
+              let percentPicked = Math.round((timesPicked / totalNoAnswers) * 100) // round this to a whole number - looks better than 1.22%
 
               label.includes('kg') ? formulaButton = true : formulaButton = false;
                       
