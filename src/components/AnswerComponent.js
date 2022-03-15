@@ -37,6 +37,7 @@ function AnswerComponent(props) {
 
   // added this bs
   const [answers, setAnswers] = useState([])
+  const [getTotalAnswerCount, setTotalAnswerCount] = useState();
 
 
   useEffect(() => {
@@ -61,6 +62,7 @@ function AnswerComponent(props) {
       });
       
       setAnswers(answerArr)      
+      setTotalAnswerCount(selectedAnswers)
     };
     getFirebase();
   },[firestore])
@@ -159,8 +161,8 @@ async function updateFirestore() {
               let formulaButton;
               let label = answer.text;
               let timesPicked = answer.chosen
-              // let percentPicked = Math.round((timesPicked / getAnswers) * 100) // round this to a whole number - looks better than 1.22%
-              let percentPicked = 0
+              let percentPicked = Math.round((timesPicked / getTotalAnswerCount) * 100) // round this to a whole number - looks better than 1.22%
+              // let percentPicked = 0
 
               // otherwise 0% will show as NaN!
               percentPicked = parseInt(percentPicked) || 0
@@ -168,7 +170,7 @@ async function updateFirestore() {
               // will need to work out if the label text will use the mathjax library - otherwise the "normal" text will look weird
               label.includes('kg') ? formulaButton = true : formulaButton = false;
 
-              // console.log("> " + answer.text + " has been clicked " + answer.chosen + " times. And is it correct? " + answer.correct)
+              console.log("> " + answer.text + " has been clicked " + answer.chosen + " times. And is it correct? " + answer.correct + " and this is " + percentPicked)
 
               return (
               <>
