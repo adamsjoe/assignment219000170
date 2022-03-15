@@ -171,7 +171,7 @@ function App() {
         <QuestionPage questionTitle={questionTitle}
                       image={imageUrl} 
                       text={questionText} 
-                      answers={answers}
+                      // answers={answers}
                       totAnswered={totalAnswers}
                       hintColHeading={hintTitle}
                       genColHeading={genColTitle}
