@@ -9,8 +9,8 @@ import 'firebase/compat/auth';
 import { isLabelWithInternallyDisabledControl } from '@testing-library/user-event/dist/utils';
 
 function AnswerComponent(props) {
-  let totalNoAnswers = props.totalAnswers;
-  let answers = props.answersarray; 
+  // let totalNoAnswers = props.totalAnswers;
+  // let answers = props.answersarray; 
 
   const db = firebase.firestore();   
   const firestore = firebase.firestore();   
@@ -35,11 +35,37 @@ function AnswerComponent(props) {
   // get how many times the answer will have been clicked - TIL NOW
   const [chosenCount, setChosenCount]= useState()
 
+  // added this bs
+  const [answers, setAnswers] = useState([])
+
 
   useEffect(() => {
+    const getFirebase = async () => {
+      const snapshot = await firestore.collection(collectionId).doc(documentId).get();
+      const questionData = snapshot.data();      
 
-  },[])
+      // now we add the answers and correct flag to our answers
+      const answerArr = [];
+      
+      let selectedAnswers = 0 
 
+      Object.keys(questionData.balances.balances.answers).forEach(key => {        
+        const obj = questionData.balances.balances.answers[key]
+
+        // will need to know which document the database holds the chosen info, so let's add it to the array
+        obj['key'] = key
+        answerArr.push(obj);         
+
+        // count the number of times answers were "picked", (i.e. chosen)
+        selectedAnswers += questionData.balances.balances.answers[key].chosen
+      });
+      
+      setAnswers(answerArr)      
+    };
+    getFirebase();
+  },[firestore])
+
+  // check if the answer we selected is correct
   function checkAnswer() {
     // we will need to show the modal, so set that true
     setShowCongratsModal(true)
@@ -53,7 +79,7 @@ function AnswerComponent(props) {
       setShowWindowContent("Please choose an answer before proceeding.")            
     }
     
-    // now we update the count only if the answer was correct
+    // now we update the count only we have picked an answer.  
     if ((correctAnswer === true) || (correctAnswer === false)) {
     
       updateFirestore()
@@ -64,12 +90,16 @@ function AnswerComponent(props) {
       .catch((e) => {
           console.log(e);
       });
+      console.log("After update ") 
+      console.log(answers)
     }
   } 
 
 // update firestore function
 // set merge to true that way we can update the value
 async function updateFirestore() {
+    console.log("Before update ")
+    console.log(answers)
     const db = firebase.firestore();   
     const collectionId = "Questions";
     const documentId = "balances";
@@ -96,7 +126,6 @@ async function updateFirestore() {
             }
         }
     }, {merge: true});
-
     return snapshot;
 }
 
@@ -112,6 +141,7 @@ async function updateFirestore() {
 
   // using this comparison function will ensure that "none of the above" is always last on the list
   answers.sort(compare);
+
 
   // correctAnswer === true ? checkAnswerBtnClass = 'correctAnswer mb-2 p-4' : checkAnswerBtnClass = 'wrongAnswer mb-2 p-4'
 
@@ -138,7 +168,7 @@ async function updateFirestore() {
               // will need to work out if the label text will use the mathjax library - otherwise the "normal" text will look weird
               label.includes('kg') ? formulaButton = true : formulaButton = false;
 
-              console.log(answer.text + " has been clicked " + answer.chosen + " times. And is it correct? " + answer.correct)
+              // console.log("> " + answer.text + " has been clicked " + answer.chosen + " times. And is it correct? " + answer.correct)
 
               return (
               <>
