@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import { useHistory } from 'react-router-dom';
 import { MathComponent } from 'mathjax-react'
 import CheckAnswerModal from './CheckAnswerModal';
 import '../styles/radioStyles.css'
@@ -53,7 +54,12 @@ function AnswerComponent(props) {
     getFirebase();
   },[firestore])
 
-  function checkAnswer() {   
+  function GoHome() {
+    let history = useHistory();
+    history.pushh("/")
+  }
+  
+  function checkAnswer() {
     setShowCongratsModal(true)
     if (correctAnswer === true) {
       setShowCongratsURL("https://firebasestorage.googleapis.com/v0/b/assignment219000170.appspot.com/o/videos%2Fcongrat_w3_s.mp4?alt=media&token=034ea1bc-b3e0-4b51-957f-854dae963896")
@@ -62,33 +68,46 @@ function AnswerComponent(props) {
     } else {
       setShowWindowContent("Please choose an answer before proceeding.")            
     }
+    
+    updateFirestore()
+    .then((snapshot) => {
+        console.log('updateFirestore() successfully called!');
+        console.log(">", snapshot);
+    })
+    .catch((e) => {
+        console.log(e);
+    });
+}
 
-    const updateFirestore = async () => {
-     
-      console.log(selectedAnswerGroup);
-      console.log(chosenCount);
-      let newCount = chosenCount + 1
+async function updateFirestore() {
+    const db = firebase.firestore();   
+    const collectionId = "Questions";
+    const documentId = "balances";
+    
+    // log something here to ensure that this async function has been ran.
+    console.log(selectedAnswerGroup);    
+    console.log(chosenCount);
+    let newCount = chosenCount + 1
+    console.log(newCount);
 
-      const snapshot = db.collection(collectionId).doc(documentId).set({
+    const snapshot = db
+    .collection(collectionId)
+    .doc(documentId)
+    .set(
+    {      
         balances: {
-          balances: {
-            answers: {
-              [selectedAnswerGroup]: {
-                chosen: newCount
-              }
+            balances: {
+                answers: {
+                    [selectedAnswerGroup]: {
+                        chosen: newCount
+                    }
+                }
             }
-          }
         }
-      }, {merge: true})
-      .then(() => {
-        console.log("Document successfully written!");
-      })
-      .catch((error) => {
-        console.error("Error writing document: ", error);
-      });
-    }
-    updateFirestore()    
-  }
+    }, {merge: true});
+
+    return snapshot;
+}
 
   function compare(a, b) {
     if ( a.text < b.text ){
