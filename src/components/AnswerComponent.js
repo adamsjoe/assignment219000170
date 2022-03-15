@@ -9,58 +9,42 @@ import 'firebase/compat/auth';
 import { isLabelWithInternallyDisabledControl } from '@testing-library/user-event/dist/utils';
 
 function AnswerComponent(props) {
-  // let totalNoAnswers = props.totalAnswers;
-  // let answers = props.answersarray; 
+  let totalNoAnswers = props.totalAnswers;
+  let answers = props.answersarray; 
 
   const db = firebase.firestore();   
   const firestore = firebase.firestore();   
   const collectionId = "Questions";
   const documentId = "balances";
 
+  // state for the correct answer
   const [correctAnswer, setCorrectAnswer] = useState() 
+
+  // state to show the congrats modal
   const [showCongratsModal, setShowCongratsModal] = useState(false);
+
+  // state to store the congrats url
   const [showCongratsURL, setShowCongratsURL] = useState("")
+
+  // state to store window content
   const [showWindowContent, setShowWindowContent] = useState("")
+
+  // the answerGroup - this is the document in firebase.
   const [selectedAnswerGroup, setSelectedAnswerGroup] = useState("")
+
+  // get how many times the answer will have been clicked - TIL NOW
   const [chosenCount, setChosenCount]= useState()
 
-  const [answers, setAnswers] = useState([]);
-
-  const [getAnswers, setTotalAnswers] = useState()
 
   useEffect(() => {
-    const getFirebase = async () => {
-      const snapshot = await firestore.collection(collectionId).doc(documentId).get();
-      const questionData = snapshot.data();      
 
-      // now we add the answers and correct flag to our answers
-      const answerArr = [];
-      let selectedAnswers = 0 
-      Object.keys(questionData.balances.balances.answers).forEach(key => {        
-        const obj = questionData.balances.balances.answers[key]
+  },[])
 
-        // will need to know which document the database holds the chosen info, so let's add it to the array
-        obj['key'] = key
-        answerArr.push(obj);         
-
-        // count the number of times answers were "picked", (i.e. chosen)
-        selectedAnswers += questionData.balances.balances.answers[key].chosen
-      });
-
-      setAnswers(answerArr)    
-      setTotalAnswers(selectedAnswers)  
-
-    };
-    getFirebase();
-  },[firestore])
-
-  function GoHome() {
-    let history = useHistory();
-    history.pushh("/")
-  }
-  
   function checkAnswer() {
+    // we will need to show the modal, so set that true
     setShowCongratsModal(true)
+
+    // now to check if we had selected the correct answer (or not)
     if (correctAnswer === true) {
       setShowCongratsURL("https://firebasestorage.googleapis.com/v0/b/assignment219000170.appspot.com/o/videos%2Fcongrat_w3_s.mp4?alt=media&token=034ea1bc-b3e0-4b51-957f-854dae963896")
     } else if (correctAnswer === false) {
@@ -69,26 +53,33 @@ function AnswerComponent(props) {
       setShowWindowContent("Please choose an answer before proceeding.")            
     }
     
-    updateFirestore()
-    .then((snapshot) => {
-        console.log('updateFirestore() successfully called!');
-        console.log(">", snapshot);
-    })
-    .catch((e) => {
-        console.log(e);
-    });
-}
+    // now we update the count only if the answer was correct
+    if ((correctAnswer === true) || (correctAnswer === false)) {
+    
+      updateFirestore()
+      .then((snapshot) => {
+          console.log('updateFirestore() successfully called!');
+          console.log(">", snapshot);
+      })
+      .catch((e) => {
+          console.log(e);
+      });
+    }
+  } 
 
+// update firestore function
+// set merge to true that way we can update the value
 async function updateFirestore() {
     const db = firebase.firestore();   
     const collectionId = "Questions";
     const documentId = "balances";
-    
-    // log something here to ensure that this async function has been ran.
-    console.log(selectedAnswerGroup);    
-    console.log(chosenCount);
+        
+    // we now need to update our count
     let newCount = chosenCount + 1
-    console.log(newCount);
+    
+    // and set the state
+    setChosenCount(newCount)
+
 
     const snapshot = db
     .collection(collectionId)
@@ -119,6 +110,7 @@ async function updateFirestore() {
     return 0;
   }
 
+  // using this comparison function will ensure that "none of the above" is always last on the list
   answers.sort(compare);
 
   // correctAnswer === true ? checkAnswerBtnClass = 'correctAnswer mb-2 p-4' : checkAnswerBtnClass = 'wrongAnswer mb-2 p-4'
@@ -137,12 +129,16 @@ async function updateFirestore() {
               let formulaButton;
               let label = answer.text;
               let timesPicked = answer.chosen
-              let percentPicked = Math.round((timesPicked / getAnswers) * 100) // round this to a whole number - looks better than 1.22%
+              // let percentPicked = Math.round((timesPicked / getAnswers) * 100) // round this to a whole number - looks better than 1.22%
+              let percentPicked = 0
 
               // otherwise 0% will show as NaN!
               percentPicked = parseInt(percentPicked) || 0
 
+              // will need to work out if the label text will use the mathjax library - otherwise the "normal" text will look weird
               label.includes('kg') ? formulaButton = true : formulaButton = false;
+
+              console.log(answer.text + " has been clicked " + answer.chosen + " times. And is it correct? " + answer.correct)
 
               return (
               <>
