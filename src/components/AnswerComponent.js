@@ -12,6 +12,7 @@ function AnswerComponent(props) {
   // let totalNoAnswers = props.totalAnswers;
   // let answers = props.answersarray; 
 
+  let history = useHistory();
   const db = firebase.firestore();   
   const firestore = firebase.firestore();   
   const collectionId = "Questions";
@@ -191,7 +192,7 @@ async function updateFirestore() {
         </div>
         <div className="row">
           <div className="col-sm text-center">
-            <button className='buttonCheck' onClick={checkAnswer}>CHECK MY ANSWER</button> <CheckAnswerModal showModal={showCongratsModal} onClose={() => setShowCongratsModal(false)} videoMessage={showCongratsURL} content={showWindowContent} size='med'/>
+            <button className='buttonCheck' onClick={checkAnswer}>CHECK MY ANSWER</button> <CheckAnswerModal showModal={showCongratsModal} onClose={() => {setShowCongratsModal(false); history.push('/')}} videoMessage={showCongratsURL} content={showWindowContent} size='med'/>
           </div>
         </div>
       </div>
