@@ -5,8 +5,9 @@ import 'firebase/compat/storage';
 import VideoModal from './VideoModal';
 import ImageModal from './ImageModal';
 
+
 function HintComponent(props) {
-  
+
   const [showModalProblemS_vid, setShowModalProblemS_vid] = useState(false);
   const [showModalProblemS_summary, setShowModalProblemS_summary] = useState(false);
   
@@ -47,7 +48,7 @@ function HintComponent(props) {
             </div>            
             <div className="col-5 d-grid gap-2 borderGeneral">
               <button className="buttonGeneral" onClick={()=>setShowModalProblemS_vid(true)}>VIDEO</button> 
-              <VideoModal showModal={showModalProblemS_vid} onClose={() => setShowModalProblemS_vid(false)} videoMessage={props.prob_s_vid} size='med'/>              
+              <VideoModal showModal={showModalProblemS_vid} onClose={() => setShowModalProblemS_vid(false)} videoMessage={props.prob_s_vid} size='med' auth={props.auth} txt={props.prob_s_txt}/>              
 
               <button className="buttonGeneral" onClick={()=>setShowModalProblemS_summary(true)}>SUMMARY</button>
               <ImageModal showModal={showModalProblemS_summary} onClose={() => setShowModalProblemS_summary(false)} image={props.prob_s_im} size='med'/>

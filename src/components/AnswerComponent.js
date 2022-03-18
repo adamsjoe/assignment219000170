@@ -6,7 +6,6 @@ import '../styles/radioStyles.css'
 
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
-import { isLabelWithInternallyDisabledControl } from '@testing-library/user-event/dist/utils';
 
 function AnswerComponent(props) {
   // let totalNoAnswers = props.totalAnswers;
@@ -171,7 +170,7 @@ async function updateFirestore() {
               // will need to work out if the label text will use the mathjax library - otherwise the "normal" text will look weird
               label.includes('kg') ? formulaButton = true : formulaButton = false;
 
-              console.log("> " + answer.text + " has been clicked " + answer.chosen + " times. And is it correct? " + answer.correct + " and this is " + percentPicked)
+              // console.log("> " + answer.text + " has been clicked " + answer.chosen + " times. And is it correct? " + answer.correct + " and this is " + percentPicked)
 
               return (
               <>

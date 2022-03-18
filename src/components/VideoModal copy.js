@@ -1,11 +1,8 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { useState, useEffect } from 'react';
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/firestore';
-import 'firebase/compat/storage';
+import { useState } from 'react';
 
-function VideoModal({showModal = false, onClose = () =>{}, videoMessage, size, txt}) {
+function VideoModal({showModal = false, onClose = () =>{}, videoMessage, size, authorised, txt}) {
 
   const [confused, setConfused] = useState(false)
 
@@ -21,9 +18,9 @@ function VideoModal({showModal = false, onClose = () =>{}, videoMessage, size, t
 
     <Modal.Body>
       <video src={videoMessage} controls autoPlay></video> 
-      <div>     
-        {confused ? (
-        <form>
+      <div>
+        {authorised ? (
+          confused ? (
           <div>
             What have you found confusing about this video?
             <textarea className='confusedText' rows="2"></textarea>          
@@ -34,13 +31,15 @@ function VideoModal({showModal = false, onClose = () =>{}, videoMessage, size, t
               Cancel
             </Button>          
           </div>
-          </form>
-        ) : (
+          ) : (
         <div>
           <Button className="confusedBtn" onClick={()=>setConfused(true)}>
+          {/* <Button className="confusedBtn" onClick={()=>{auth ? setConfused(true) : setConfused(false)}}> */}
             Confused?
           </Button>
         </div>
+      )) : (
+        <br />
       )}
       </div>
       

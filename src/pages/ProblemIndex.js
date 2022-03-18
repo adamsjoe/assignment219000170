@@ -1,9 +1,16 @@
 import { Link } from 'react-router-dom';
+import {Route} from 'react-router-dom';
+import QuestionPage from './QuestionPage';
 
-function ProblemIndex() {
+function ProblemIndex(props) {
   return (
+    <>
+    <Route exact path="/balances">
+      <QuestionPage auth={props.auth} />
+    </Route>
+    <Route exact path="/">
     <div className="row">
-      <h1 className="text-center">Problem Index</h1>  
+      <h1 className="text-center">Problem Index</h1>
       <div className="row">
         <h2>Contraptions</h2>
       </div>
@@ -24,8 +31,10 @@ function ProblemIndex() {
           <li className='noBullets'><Link to="/balances" className='funkyNav disabled-link'>Rolling toy</Link></li>
           <li className='noBullets'><Link to="/balances" className='funkyNav disabled-link'>Trebuchet weight </Link></li>
         </ul>
-      </div>      
-    </div> 
+      </div>
+    </div>
+    </Route>
+    </> 
   )
 }
 
