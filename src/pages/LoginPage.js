@@ -17,7 +17,6 @@ function Login() {
       onClick={async () => {
         const provider = new firebase.auth.GoogleAuthProvider();
         const googleLogin = await firebase.auth().signInWithPopup(provider);
-        console.log(">>", googleLogin);
         if (googleLogin) {
           history.push('/')
         }
