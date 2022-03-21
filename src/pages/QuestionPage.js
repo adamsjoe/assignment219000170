@@ -4,6 +4,7 @@ import QuestionComponent from "../components/QuestionComponent";
 import React, {useState, useEffect} from 'react';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
+import { unstable_batchedUpdates } from "react-dom";
 
 function QuestionPage(props) {
   const firestore = firebase.firestore();
@@ -26,13 +27,10 @@ function QuestionPage(props) {
   const [genColTitle, setGenColTitle] = useState("");
   const [specColTitle, setSpecColTitle] = useState("");
 
-  // const [hintDetails, setHintDetails] = useState([]);
-  // const [hintOverallSummary, setHintOverallSummary] = useState("");
-
   // states to handle hints
   const [problem_SVideo, setProblem_SVideo] = useState("")
   const [problem_SImage, setProblem_SImage] = useState("")
-  // const [problem_SText, setProblemSText] = useState("")
+  const [problem_SText, setProblemSText] = useState("")
 
   const [spec_strat_balan_sVideo, setSpec_strat_balan_sVideo] = useState("")
   const [spec_strat_balan_sImage, setSpec_strat_balan_sImage] = useState("")
@@ -55,93 +53,94 @@ function QuestionPage(props) {
       const snapshot = await firestore.collection(collectionId).doc(documentId).get();
       const questionData = snapshot.data();     
 
-      // question component information
-      // get and set the question title
-      setQuestionTitle(questionData.balances.balances.questions.title)
+      unstable_batchedUpdates(() => {
 
-      // get and set the question text and image
-      setQuestionText(questionData.balances.balances.fullquestion.question) 
-      setImageUrl(questionData.balances.balances.fullquestion.imageUrl) 
+        // question component information
+        // get and set the question title
+        setQuestionTitle(questionData.balances.balances.questions.title)
 
-      // answer component info
-      // create a new answer array
-      const answerArr = []; 
-      let selectedAnswers = 0 
+        // get and set the question text and image
+        setQuestionText(questionData.balances.balances.fullquestion.question) 
+        setImageUrl(questionData.balances.balances.fullquestion.imageUrl) 
 
-      // add the answer from firestore to the answerArr
-      Object.keys(questionData.balances.balances.answers).forEach(key => {        
-        const obj = questionData.balances.balances.answers[key]
+        // answer component info
+        // create a new answer array
+        const answerArr = []; 
+        let selectedAnswers = 0 
 
-        // will need to know which document the database holds the chosen info, so let's add it to the array
-        obj['key'] = key
-        answerArr.push(obj);         
+        // add the answer from firestore to the answerArr
+        Object.keys(questionData.balances.balances.answers).forEach(key => {        
+          const obj = questionData.balances.balances.answers[key]
 
-        // count the number of times answers were "picked", (i.e. chosen)
-        selectedAnswers += questionData.balances.balances.answers[key].chosen
-      });
-      // set the answers to be the answersArray
-      setAnswers(answerArr) 
-      setTotalAnswers(selectedAnswers)
+          // will need to know which document the database holds the chosen info, so let's add it to the array
+          obj['key'] = key
+          answerArr.push(obj);         
 
-      // hint component info
-      // get and set hint title 
-      setHintTitle(questionData.balances.balances.hint.titleColumn.title_1.columnTitle)
-      
-      // get and set general column title 
-      setGenColTitle(questionData.balances.balances.hint.titleColumn.title_2.columnTitle)
+          // count the number of times answers were "picked", (i.e. chosen)
+          selectedAnswers += questionData.balances.balances.answers[key].chosen
+        });
 
-      // get and set problem specific column title 
-      setSpecColTitle(questionData.balances.balances.hint.titleColumn.title_3.columnTitle)
+        // set the answers to be the answersArray
+        setAnswers(answerArr) 
+        setTotalAnswers(selectedAnswers)
 
-      // problem_s 
-      setProblem_SVideo(questionData.balances.balances.hint.video.video_1.videoUrl)
-      setProblem_SImage(questionData.balances.balances.hint.video.video_1.image)
-      // setProblemSText(questionData.balances.balances.hint.video.video_1.title)
+        // hint component info
+        // get and set hint title 
+        setHintTitle(questionData.balances.balances.hint.titleColumn.title_1.columnTitle)
+        
+        // get and set general column title 
+        setGenColTitle(questionData.balances.balances.hint.titleColumn.title_2.columnTitle)
 
-      // spec_strat_balan_s
-      setSpec_strat_balan_sVideo(questionData.balances.balances.hint.video.video_2.videoUrl)
-      setSpec_strat_balan_sImage(questionData.balances.balances.hint.video.video_2.image)
+        // get and set problem specific column title 
+        setSpecColTitle(questionData.balances.balances.hint.titleColumn.title_3.columnTitle)
 
-      // mom_s
-      setMom_sVideo(questionData.balances.balances.hint.video.video_3.videoUrl)
-      setMom_sImage(questionData.balances.balances.hint.video.video_3.image)
+        // problem_s 
+        setProblem_SVideo(questionData.balances.balances.hint.video.video_1.videoUrl)
+        setProblem_SImage(questionData.balances.balances.hint.video.video_1.image)
+        setProblemSText(questionData.balances.balances.hint.video.video_1.title)
 
-      // spec_mom_s
-      setSpecMom_sVideo(questionData.balances.balances.hint.video.video_4.videoUrl)
-      setSpecMom_sImage(questionData.balances.balances.hint.video.video_4.image)
+        // spec_strat_balan_s
+        setSpec_strat_balan_sVideo(questionData.balances.balances.hint.video.video_2.videoUrl)
+        setSpec_strat_balan_sImage(questionData.balances.balances.hint.video.video_2.image)
 
-      // gravity_s
-      setGravity_sVideo(questionData.balances.balances.hint.video.video_5.videoUrl)
-      setGravity_sImage(questionData.balances.balances.hint.video.video_5.image)
+        // mom_s
+        setMom_sVideo(questionData.balances.balances.hint.video.video_3.videoUrl)
+        setMom_sImage(questionData.balances.balances.hint.video.video_3.image)
 
-      // spec_gravity_s
-      setSpecGravity_sVideo(questionData.balances.balances.hint.video.video_6.videoUrl)
-      setSpecGravity_sImage(questionData.balances.balances.hint.video.video_6.image)
+        // spec_mom_s
+        setSpecMom_sVideo(questionData.balances.balances.hint.video.video_4.videoUrl)
+        setSpecMom_sImage(questionData.balances.balances.hint.video.video_4.image)
 
+        // gravity_s
+        setGravity_sVideo(questionData.balances.balances.hint.video.video_5.videoUrl)
+        setGravity_sImage(questionData.balances.balances.hint.video.video_5.image)
+
+        // spec_gravity_s
+        setSpecGravity_sVideo(questionData.balances.balances.hint.video.video_6.videoUrl)
+        setSpecGravity_sImage(questionData.balances.balances.hint.video.video_6.image)
+      })
     }
     getFirebase();    
     }, [firestore]
   );  
       
-  return (
+  return (    
     <div className="container">
+      {/* {console.log("user id 2:", props.userId)} */}
+        {console.log('\n\n\nQuestion Page: ', problem_SText)}
         <h1 className="text-center">{questionTitle} problem</h1>
         <div className="row">            
             <QuestionComponent 
-              auth={props.auth}
               image={imageUrl} 
               text={questionText}
             />
             <HintComponent 
-              auth={props.auth}
               titleCol={hintTitle}
               genCol={genColTitle}
               specCol={specColTitle}
-              // info={props.hintData} 
-              // image_1={props.hint_image_1}
               prob_s_im={problem_SImage}
               prob_s_vid={problem_SVideo}
-              // prob_s_txt={problem_SText}
+              prob_s_txt={problem_SText}
 
               spec_strat_bala_s_im={spec_strat_balan_sImage}
               spec_strat_bala_s_vid={spec_strat_balan_sVideo}

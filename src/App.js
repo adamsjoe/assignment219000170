@@ -1,12 +1,10 @@
 import './styles/navbar.css';
-import { useGlobal, setGlobal } from 'reactn';
 import React, {useState, useEffect} from 'react';
 import {
   Route,
   Link,
 } from 'react-router-dom';
 
-import QuestionPage from './pages/QuestionPage';
 import ProblemIndex from './pages/ProblemIndex';
 
 import logo from './icons/iCog-icon.svg';
@@ -27,11 +25,11 @@ function getFirstNameFromGoogle() {
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
-  
+
   useEffect(() => {
     console.log('Authenticated', authenticated);
     firebase.auth().onAuthStateChanged((user) => {
-      // console.log(user);
+      console.log("user ", user);
       if (user) {
         setAuthenticated(true);
       } else {
@@ -40,9 +38,9 @@ function App() {
     });
   }, [authenticated]);
 
-  return (
+  return (   
     <div className='container'>
-      <div className="row">
+       <div className="row">
         <nav className='navbar navbar-default navbar-expand-lg headingLine'>
           <div className="container-fluid ">
             <div className='navbar-header'>
@@ -59,7 +57,7 @@ function App() {
       <div className="col-sm">
         {authenticated === true ?                    
           <div>
-            <ProblemIndex auth={authenticated}/>
+            <ProblemIndex />
           </div>
           :
           <>

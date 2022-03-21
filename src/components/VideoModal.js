@@ -6,9 +6,15 @@ import 'firebase/compat/firestore';
 import 'firebase/compat/storage';
 
 function VideoModal({showModal = false, onClose = () =>{}, videoMessage, size, txt}) {
+  
+  const firestore = firebase.firestore();
 
   const [confused, setConfused] = useState(false)
+  const [text, setText] = useState("");
+  const [video, setVideo] = useState("")
 
+  console.log("Video Modal ", txt)
+  // console.log("User Id: ", userid)
   return (
     <Modal
       size={size}
@@ -19,16 +25,37 @@ function VideoModal({showModal = false, onClose = () =>{}, videoMessage, size, t
       keyboard={false}
     >
 
+    
     <Modal.Body>
+      {/* {console.log("Video Modal ", txt)} */}
       <video src={videoMessage} controls autoPlay></video> 
       <div>     
         {confused ? (
-        <form>
+        <form onSubmit={async (e) => {
+          e.preventDefault();
+          console.log("submit clicked")
+          const timestamp = Date.now()
+          const content = text;
+          const confusedVideo = video // no wrong
+          const uuid = 'blah'
+
+          const message = {content, timestamp, uuid}    
+          console.log(message) 
+          const docRef = await firestore.collection('problem_s').add(message);
+          setText('')     
+          
+        }}>
           <div>
             What have you found confusing about this video?
-            <textarea className='confusedText' rows="2"></textarea>          
-            <Button className="confusedBtnSave">
-              Save
+            <textarea className='confusedText' 
+                      rows="2"
+                      value={text}
+                      onChange={(value) => {
+                        setText(value.target.value);
+                      }}>
+            </textarea>          
+            <Button className="confusedBtnSave" type='Submit'>
+              Savez
             </Button>
             <Button className="confusedBtnCancel" onClick={()=>setConfused(false)}>
               Cancel

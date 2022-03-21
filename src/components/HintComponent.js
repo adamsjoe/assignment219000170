@@ -47,8 +47,9 @@ function HintComponent(props) {
               <p>Overall solution strategy</p>
             </div>            
             <div className="col-5 d-grid gap-2 borderGeneral">
+              {/* <button className="buttonGeneral" onClick={()=>setShowModalProblemS_vid(true)}>VIDEO</button>  */}
               <button className="buttonGeneral" onClick={()=>setShowModalProblemS_vid(true)}>VIDEO</button> 
-              <VideoModal showModal={showModalProblemS_vid} onClose={() => setShowModalProblemS_vid(false)} videoMessage={props.prob_s_vid} size='med' auth={props.auth} txt={props.prob_s_txt}/>              
+              <VideoModal showModal={showModalProblemS_vid} onClose={() => setShowModalProblemS_vid(false)} videoMessage={props.prob_s_vid} size='med' txt={props.prob_s_txt}/>              
 
               <button className="buttonGeneral" onClick={()=>setShowModalProblemS_summary(true)}>SUMMARY</button>
               <ImageModal showModal={showModalProblemS_summary} onClose={() => setShowModalProblemS_summary(false)} image={props.prob_s_im} size='med'/>
@@ -56,7 +57,7 @@ function HintComponent(props) {
 
             <div className="col-5 d-grid gap-2 borderProblemSpecific">
               <button className="buttonProblemSpecific" onClick={()=>setSpecStratBalanS_vid(true)}>VIDEO</button> 
-              <VideoModal showModal={specStratBalanS_vid} onClose={() => setSpecStratBalanS_vid(false)} videoMessage={props.spec_strat_bala_s_vid} size='med'/>              
+              {/* <VideoModal showModal={specStratBalanS_vid} onClose={() => setSpecStratBalanS_vid(false)} videoMessage={props.spec_strat_bala_s_vid} size='med'/>               */}
               
               <button className="buttonProblemSpecific" onClick={()=>setSpecStratBalanS_summary(true)}>SUMMARY</button>                            
               <ImageModal showModal={specStratBalanS_summary} onClose={() => setSpecStratBalanS_summary(false)} image={props.spec_strat_bala_s_im} size='med'/>
@@ -70,7 +71,7 @@ function HintComponent(props) {
             </div>            
             <div className="col-5 d-grid gap-2 borderGeneral">
               <button className="buttonGeneral" onClick={()=>setMom_s_vid(true)}>VIDEO</button> 
-              <VideoModal showModal={mom_s_vid} onClose={() => setMom_s_vid(false)} videoMessage={props.mom_s_vid} size='med'/>              
+              {/* <VideoModal showModal={mom_s_vid} onClose={() => setMom_s_vid(false)} videoMessage={props.mom_s_vid} size='med'/>               */}
 
               <button className="buttonGeneral" onClick={()=>setMom_s_summary(true)}>SUMMARY</button>
               <ImageModal showModal={mom_s_summary} onClose={() => setMom_s_summary(false)} image={props.mom_s_im} size='med'/>
@@ -78,7 +79,7 @@ function HintComponent(props) {
 
             <div className="col-5 d-grid gap-2 borderProblemSpecific">
               <button className="buttonProblemSpecific" onClick={()=>setSpecMom_s_vid(true)}>VIDEO</button> 
-              <VideoModal showModal={specMom_s_vid} onClose={() => setSpecMom_s_vid(false)} videoMessage={props.specMom_s_vid} size='med'/>              
+              {/* <VideoModal showModal={specMom_s_vid} onClose={() => setSpecMom_s_vid(false)} videoMessage={props.specMom_s_vid} size='med'/>               */}
 
               <button className="buttonProblemSpecific" onClick={()=>setSpecMom_s_summary(true)}>SUMMARY</button>                             
               <ImageModal showModal={specMom_s_summary} onClose={() => setSpecMom_s_summary(false)} image={props.specMom_s_im} size='med'/>
@@ -91,7 +92,7 @@ function HintComponent(props) {
             </div>            
             <div className="col-5 d-grid gap-2 borderGeneral">
               <button className="buttonGeneral" onClick={()=>setShowGrav_sVid(true)}>VIDEO</button>
-              <VideoModal showModal={showGrav_sVid} onClose={() => setShowGrav_sVid(false)} videoMessage={props.grav_s_vid} size='med'/>              
+              {/* <VideoModal showModal={showGrav_sVid} onClose={() => setShowGrav_sVid(false)} videoMessage={props.grav_s_vid} size='med'/>               */}
 
               <button className="buttonGeneral" onClick={()=>setShowGrav_sSummary(true)}>SUMMARY</button>
               <ImageModal showModal={showGrav_sSummary} onClose={() => setShowGrav_sSummary(false)} image={props.grav_s_im} size='med'/>
@@ -99,7 +100,7 @@ function HintComponent(props) {
 
             <div className="col-5 d-grid gap-2 borderProblemSpecific">
               <button className="buttonProblemSpecific" onClick={()=>setShowSpecGrav_sVid(true)}>VIDEO</button>
-              <VideoModal showModal={showSpecGrav_sVid} onClose={() => setShowSpecGrav_sVid(false)} videoMessage={props.spec_grav_s_vid} size='med'/>              
+              {/* <VideoModal showModal={showSpecGrav_sVid} onClose={() => setShowSpecGrav_sVid(false)} videoMessage={props.spec_grav_s_vid} size='med'/>               */}
 
               <button className="buttonProblemSpecific" onClick={()=>setShowSpecGrav_sSummary(true)}>SUMMARY</button>                               
               <ImageModal showModal={showSpecGrav_sSummary} onClose={() => setShowSpecGrav_sSummary(false)} image={props.spec_grav_s_im} size='med'/>
