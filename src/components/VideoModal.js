@@ -14,7 +14,7 @@ function VideoModal({showModal = false, onClose = () =>{}, videoMessage, size, t
   const [video, setVideo] = useState("")
 
   console.log("Video Modal ", txt)
-  // console.log("User Id: ", userid)
+  
   return (
     <Modal
       size={size}
@@ -26,8 +26,7 @@ function VideoModal({showModal = false, onClose = () =>{}, videoMessage, size, t
     >
 
     
-    <Modal.Body>
-      {/* {console.log("Video Modal ", txt)} */}
+    <Modal.Body>      
       <video src={videoMessage} controls autoPlay></video> 
       <div>     
         {confused ? (
@@ -39,8 +38,7 @@ function VideoModal({showModal = false, onClose = () =>{}, videoMessage, size, t
           const confusedVideo = video // no wrong
           const uuid = 'blah'
 
-          const message = {content, timestamp, uuid}    
-          console.log(message) 
+          const message = {content, timestamp, uuid}              
           const docRef = await firestore.collection('problem_s').add(message);
           setText('')     
           

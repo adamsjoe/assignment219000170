@@ -126,8 +126,7 @@ function QuestionPage(props) {
       
   return (    
     <div className="container">
-      {/* {console.log("user id 2:", props.userId)} */}
-        {console.log('\n\n\nQuestion Page: ', problem_SText)}
+      {console.log('\n\n\nQuestion Page: ', problem_SText)}
         <h1 className="text-center">{questionTitle} problem</h1>
         <div className="row">            
             <QuestionComponent 

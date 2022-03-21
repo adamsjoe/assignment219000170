@@ -27,9 +27,8 @@ function App() {
   const [authenticated, setAuthenticated] = useState(false);
 
   useEffect(() => {
-    console.log('Authenticated', authenticated);
+    // console.log('Authenticated', authenticated);
     firebase.auth().onAuthStateChanged((user) => {
-      console.log("user ", user);
       if (user) {
         setAuthenticated(true);
       } else {
