@@ -5,7 +5,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/storage';
 
-function VideoModal({showModal = false, onClose = () =>{}, videoMessage, size, txt}) {
+function VideoModal({showVModal = false, onClose = () =>{}, videoMessage, size, txt}) {
   
   const firestore = firebase.firestore();
 
@@ -13,19 +13,20 @@ function VideoModal({showModal = false, onClose = () =>{}, videoMessage, size, t
   const [text, setText] = useState("");
   const [video, setVideo] = useState("")
 
-  console.log("Video Modal ", txt)
+  if (showVModal) {
+    console.log("Video Modal ", txt)
+  }
   
   return (
     <Modal
       size={size}
-      show={showModal} 
+      show={showVModal} 
       onHide={onClose}
       onClose={()=>setConfused(false)}
       backdrop="static"
       keyboard={false}
     >
 
-    
     <Modal.Body>      
       <video src={videoMessage} controls autoPlay></video> 
       <div>     
@@ -35,11 +36,10 @@ function VideoModal({showModal = false, onClose = () =>{}, videoMessage, size, t
           console.log("submit clicked")
           const timestamp = Date.now()
           const content = text;
-          const confusedVideo = video // no wrong
-          const uuid = 'blah'
+          const uuid = firebase.auth().currentUser.uid
 
           const message = {content, timestamp, uuid}              
-          const docRef = await firestore.collection('problem_s').add(message);
+          const docRef = await firestore.collection(txt).add(message);
           setText('')     
           
         }}>
@@ -53,7 +53,7 @@ function VideoModal({showModal = false, onClose = () =>{}, videoMessage, size, t
                       }}>
             </textarea>          
             <Button className="confusedBtnSave" type='Submit'>
-              Savez
+              Save
             </Button>
             <Button className="confusedBtnCancel" onClick={()=>setConfused(false)}>
               Cancel
