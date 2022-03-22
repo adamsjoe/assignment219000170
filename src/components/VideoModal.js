@@ -1,20 +1,19 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/storage';
 
-function VideoModal({showVModal = false, onClose = () =>{}, videoMessage, size, txt}) {
+function VideoModal({showVModal = false, onClose = () =>{}, videoMessage, size, firebaseDocument}) {
   
   const firestore = firebase.firestore();
 
   const [confused, setConfused] = useState(false)
   const [text, setText] = useState("");
-  const [video, setVideo] = useState("")
-
+  
   if (showVModal) {
-    console.log("Video Modal ", txt)
+    console.log("Video Modal ", firebaseDocument)
   }
   
   return (
@@ -25,6 +24,7 @@ function VideoModal({showVModal = false, onClose = () =>{}, videoMessage, size, 
       onClose={()=>setConfused(false)}
       backdrop="static"
       keyboard={false}
+      onSubmit={onClose}
     >
 
     <Modal.Body>      
@@ -39,7 +39,7 @@ function VideoModal({showVModal = false, onClose = () =>{}, videoMessage, size, 
           const uuid = firebase.auth().currentUser.uid
 
           const message = {content, timestamp, uuid}              
-          const docRef = await firestore.collection(txt).add(message);
+          const docRef = await firestore.collection(firebaseDocument).add(message);
           setText('')     
           
         }}>
