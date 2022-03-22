@@ -34,18 +34,23 @@ function QuestionPage(props) {
 
   const [spec_strat_balan_sVideo, setSpec_strat_balan_sVideo] = useState("")
   const [spec_strat_balan_sImage, setSpec_strat_balan_sImage] = useState("")
+  const [spec_strat_balan_sText, setSpec_strat_balan_sText] = useState("")
 
-  const[mom_sVideo, setMom_sVideo] = useState("")
-  const[mom_sImage, setMom_sImage] = useState("")
+  const [mom_sVideo, setMom_sVideo] = useState("")
+  const [mom_sImage, setMom_sImage] = useState("")
+  const [mom_sText, setMom_sText] = useState("")
 
-  const[specMom_sVideo, setSpecMom_sVideo] = useState("")
-  const[specMom_sImage, setSpecMom_sImage] = useState("")
+  const [specMom_sVideo, setSpecMom_sVideo] = useState("")
+  const [specMom_sImage, setSpecMom_sImage] = useState("")
+  const [specMom_sText, setSpecMom_sText] = useState("")
 
-  const[gravity_sVideo, setGravity_sVideo] = useState("")
-  const[gravity_sImage, setGravity_sImage] = useState("")
+  const [gravity_sVideo, setGravity_sVideo] = useState("")
+  const [gravity_sImage, setGravity_sImage] = useState("")
+  const [gravity_sText, setGravity_sText] = useState("")
 
-  const[specGravity_sVideo, setSpecGravity_sVideo] = useState("")
-  const[specGravity_sImage, setSpecGravity_sImage] = useState("")
+  const [specGravity_sVideo, setSpecGravity_sVideo] = useState("")
+  const [specGravity_sImage, setSpecGravity_sImage] = useState("")
+  const [specGravity_sText, setSpecGravity_sText] = useState("")
 
   useEffect(() => {    
     
@@ -102,22 +107,27 @@ function QuestionPage(props) {
         // spec_strat_balan_s
         setSpec_strat_balan_sVideo(questionData.balances.balances.hint.video.video_2.videoUrl)
         setSpec_strat_balan_sImage(questionData.balances.balances.hint.video.video_2.image)
+        setSpec_strat_balan_sText(questionData.balances.balances.hint.video.video_2.title)
 
         // mom_s
         setMom_sVideo(questionData.balances.balances.hint.video.video_3.videoUrl)
         setMom_sImage(questionData.balances.balances.hint.video.video_3.image)
+        setMom_sText(questionData.balances.balances.hint.video.video_3.title)
 
         // spec_mom_s
         setSpecMom_sVideo(questionData.balances.balances.hint.video.video_4.videoUrl)
         setSpecMom_sImage(questionData.balances.balances.hint.video.video_4.image)
+        setSpecMom_sText(questionData.balances.balances.hint.video.video_4.title)
 
         // gravity_s
         setGravity_sVideo(questionData.balances.balances.hint.video.video_5.videoUrl)
         setGravity_sImage(questionData.balances.balances.hint.video.video_5.image)
+        setGravity_sText(questionData.balances.balances.hint.video.video_5.title)
 
         // spec_gravity_s
         setSpecGravity_sVideo(questionData.balances.balances.hint.video.video_6.videoUrl)
         setSpecGravity_sImage(questionData.balances.balances.hint.video.video_6.image)
+        setSpecGravity_sText(questionData.balances.balances.hint.video.video_6.title)
       })
     }
     getFirebase();    
@@ -137,24 +147,30 @@ function QuestionPage(props) {
               titleCol={hintTitle}
               genCol={genColTitle}
               specCol={specColTitle}
+              
               prob_s_im={problem_SImage}
               prob_s_vid={problem_SVideo}
               prob_s_txt={problem_SText}
 
               spec_strat_bala_s_im={spec_strat_balan_sImage}
               spec_strat_bala_s_vid={spec_strat_balan_sVideo}
+              spec_strat_bala_s_txt={spec_strat_balan_sText}
               
               mom_s_im={mom_sImage}
               mom_s_vid={mom_sVideo}
+              mom_s_txt={mom_sText}
               
               specMom_s_im={specMom_sImage}
               specMom_s_vid={specMom_sVideo}
+              specMom_s_txt={specMom_sText}
               
               grav_s_im={gravity_sImage}
               grav_s_vid={gravity_sVideo}
+              grav_s_txt={gravity_sText}
               
               spec_grav_s_im={specGravity_sImage}
               spec_grav_s_vid={specGravity_sVideo}
+              spec_grav_s_txt={specGravity_sText}
             />
         </div>
         <div className="row">
