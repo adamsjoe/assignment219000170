@@ -47,7 +47,7 @@ function HintComponent(props) {
             </div>            
           </div>
 
-          <VideoModal showVModal={showVidModal} onClose={() => setShowVidModal(false)} videoMessage={vidMsg} size={vidSize} txt={vidTxt}/>
+          <VideoModal showVModal={showVidModal} onClose={() => setShowVidModal(false)} videoMessage={vidMsg} size={vidSize} firebaseDocument={vidTxt}/>
           <ImageModal showIModal={showImgModal} onClose={() => setShowImgModal(false)} image={img} size={imageSize}/>
 
           <div className="row p-3">
@@ -70,12 +70,12 @@ function HintComponent(props) {
               <p>Moments</p>
             </div>            
             <div className="col-5 d-grid gap-2 borderGeneral">
-              <button className="buttonGeneral" onClick={() => showVideoModal(props.mom_s_vid, 'med', 'test2')}>VIDEO</button> 
+              <button className="buttonGeneral" onClick={() => showVideoModal(props.mom_s_vid, 'med', props.mom_s_txt)}>VIDEO</button> 
               <button className="buttonGeneral" onClick={() => showImageModal(props.mom_s_im, 'med')}>SUMMARY</button>
             </div>
 
             <div className="col-5 d-grid gap-2 borderProblemSpecific">
-              <button className="buttonProblemSpecific" onClick={() => showVideoModal(props.specMom_s_vid, 'med', 'test3')}>VIDEO</button> 
+              <button className="buttonProblemSpecific" onClick={() => showVideoModal(props.specMom_s_vid, 'med', props.specMom_s_txt)}>VIDEO</button> 
               <button className="buttonProblemSpecific" onClick={() => showImageModal(props.specMom_s_im, 'med')}>SUMMARY</button>                             
             </div>            
           </div>
@@ -85,12 +85,12 @@ function HintComponent(props) {
               <p>Gravity</p>
             </div>            
             <div className="col-5 d-grid gap-2 borderGeneral">
-              <button className="buttonGeneral" onClick={() => showVideoModal(props.grav_s_vid, 'med', 'test4')}>VIDEO</button>
+              <button className="buttonGeneral" onClick={() => showVideoModal(props.grav_s_vid, 'med', props.grav_s_txt)}>VIDEO</button>
               <button className="buttonGeneral" onClick={() => showImageModal(props.grav_s_im, 'med')}>SUMMARY</button>
             </div>
 
             <div className="col-5 d-grid gap-2 borderProblemSpecific">
-              <button className="buttonProblemSpecific" onClick={() => showVideoModal(props.spec_grav_s_vid, 'med', 'test5')}>VIDEO</button>
+              <button className="buttonProblemSpecific" onClick={() => showVideoModal(props.spec_grav_s_vid, 'med', props.spec_grav_s_txt)}>VIDEO</button>
               <button className="buttonProblemSpecific" onClick={() => showImageModal(props.spec_grav_s_im, 'med')}>SUMMARY</button>                               
             </div>            
           </div>
