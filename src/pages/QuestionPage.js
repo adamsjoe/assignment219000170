@@ -135,8 +135,7 @@ function QuestionPage(props) {
   );  
       
   return (    
-    <div className="container">
-      {console.log('\n\n\nQuestion Page: ', problem_SText)}
+    <div className="container">      
         <h1 className="text-center">{questionTitle} problem</h1>
         <div className="row">            
             <QuestionComponent 
