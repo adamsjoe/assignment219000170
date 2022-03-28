@@ -192,6 +192,13 @@ video {
   margin: 4px 2px;
 }
 
+#lockedThread {
+  font-weight: bolder;
+  background-color: red;
+  color:white;
+  text-transform: uppercase;
+}
+
 /* MISC STYLE */
 .tableDebug {
   border: 1px solid black;

@@ -5,7 +5,6 @@ import 'firebase/compat/storage';
 import VideoModal from './VideoModal';
 import ImageModal from './ImageModal';
 
-
 function HintComponent(props) {
 
   const [showVidModal, setShowVidModal] = useState(false)
