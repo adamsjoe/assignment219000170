@@ -13,6 +13,17 @@ import Login from './pages/LoginPage';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 
+const adminList = ['OLtaGG0AspajZBrsASkydh7m7L32'];
+
+function isAdminUser(auth) {
+  const uuid = firebase.auth().currentUser.uid;
+
+  // if (adminList.includes(uuid)) {     
+  //   return " (Admin User)"
+  // } 
+
+}
+
 function googleSignOut() {
   firebase.auth().signOut()
 }
@@ -25,16 +36,25 @@ function getFirstNameFromGoogle() {
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
+  const [isAdmin, setAdmin] = useState(false)
 
   useEffect(() => {
     // console.log('Authenticated', authenticated);
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         setAuthenticated(true);
+        const uuid = firebase.auth().currentUser.uid;
+        console.log("user is " + uuid)
+        if (adminList.includes(uuid)) {     
+          setAdmin(true)
+        } 
       } else {
         setAuthenticated(false);
+        setAdmin(false)
       }
-    });
+      
+    }
+    );
   }, [authenticated]);
 
   return (   
@@ -45,10 +65,10 @@ function App() {
             <div className='navbar-header'>
               <img src={logo} alt='logo' width='50px'/>
             </div>
-            <ul className="nav navbar-nav">
+            <ul className="nav navbar-nav">              
               <li><Link to="/" className="nav-link custom-nav-link">Problem Index</Link></li>
               <li><Link to="/generator" className="disabled-link nav-link custom-nav-link">Problem Generator</Link></li>
-              <li>{(authenticated) ? <Link to="#" className="nav-link custom-nav-link" onClick={googleSignOut}>Sign Out, {getFirstNameFromGoogle()} <span className='noMessages'>0</span></Link> : <Link to="/login" className="nav-link custom-nav-link">Login Or Signup</Link>}</li>
+              <li>{(authenticated) ? <Link to="#" className="nav-link custom-nav-link" onClick={googleSignOut}>Sign Out, {getFirstNameFromGoogle()}{(isAdmin === true) ? ' (Admin User)' : ''} <span className='noMessages'>0</span></Link> : <Link to="/login" className="nav-link custom-nav-link">Login Or Signup</Link>}</li>
             </ul>
           </div>
         </nav>        
@@ -56,7 +76,7 @@ function App() {
       <div className="col-sm">
         {authenticated === true ?                    
           <div>
-            <ProblemIndex />
+            <ProblemIndex admin={isAdmin}/>
           </div>
           :
           <>
