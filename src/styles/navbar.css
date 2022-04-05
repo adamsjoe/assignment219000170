@@ -1,9 +1,9 @@
-.noMessages {
+.chatFeature {
   position: absolute;
   top: -0.0rem;
   right: -0.0rem;
 
-  background: #FF4754;
+  background: #474aff;
 
   width: 1.6rem;
   height: 1.6rem;
@@ -16,6 +16,7 @@
   box-sizing: content-box;
   border-radius: 50%;
   color: #FFF;
+  font-weight: bold;
 }
 
 .unreadMessages {
