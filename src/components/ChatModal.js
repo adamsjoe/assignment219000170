@@ -21,17 +21,16 @@ function ChatModal({showCModal = false, onClose = () =>{}, size}) {
   useEffect(() => {
     setUserId(firebase.auth()?.currentUser?.uid);
     // const query = firestore.collection('chats').orderBy('timestamp', 'asc');
-    const query = firestore.collection('chats').where("video", "==", 'mom_2').orderBy("timestamp", "desc");      
+    const query = firestore.collection('chats').where("video", "==", 'problem_s').orderBy("timestamp", "desc");      
     query.onSnapshot({
       next: (querySnapshot) => {
-        // eslint-disable-next-line prefer-const
-        let messages = [];
+        let messages = []
         querySnapshot.forEach((doc) => {
-          console.log("!! ", doc.id, '=>', doc.data());
-          messages.push({mid: doc.id, ...doc.data()});
+          console.log(doc.id, '=>', doc.data());
+          messages.push(doc.data());
         });
-        setLocalMessages(messages);
-      },
+        setLocalMessages(messages)
+      }
     });
   }, [firestore]);
 
@@ -62,11 +61,13 @@ function ChatModal({showCModal = false, onClose = () =>{}, size}) {
           <div>
             <div className=''>
               <div className='userLayout'>
+                {localMessages.map((localMessage) => (
                 <div className='userCurrentLayout'>
                   <div className='userOther user'>
-                    <p>Message from someone else</p>
+                    <p>{localMessage.content}</p>
                   </div>
-                </div>
+                </div>)
+                )}
                 <div className='userOtherLayout'>
                   <div className='userCurrent user'>
                     <p>Message from me</p>
