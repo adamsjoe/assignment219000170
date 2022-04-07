@@ -1,0 +1,66 @@
+.user {
+    min-height: 52;
+    width: 600px;    
+    margin-top: 24px;
+    padding-left: 24px;
+    padding-right: 24px;
+    border-radius: 12px;
+}
+
+.mainChatLayout {
+    display: flex;
+    flex: 1;
+    height: 100vh;
+    flex-direction: column;
+}
+
+.userLayout {
+    flex: 1;
+    margin-left: 24px;
+    margin-right: 24px;
+    overflow: auto;
+    margin-bottom: 24px;
+}
+
+.userCurrentLayout {
+    display: flex;
+    flex: 1;
+    justify-content: flex-start;
+}
+
+.userCurrent {
+    background-color: lightblue;
+}
+
+.userOtherLayout {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+}
+
+.userOther {
+    background-color: lightcoral;
+}
+
+/* input */
+.inputAreaStyle {
+    display: flex;
+    flex-direction: 'row';
+    margin-top: 24px;
+}
+
+.input {
+    flex: 11px;
+    height: 32px;
+    font-size: 28;
+}
+
+.buttonStyle {
+    flex: 1;
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+    font-size: 18;
+    border-width: 0;
+}
+
