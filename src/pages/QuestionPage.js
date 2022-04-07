@@ -143,6 +143,7 @@ function QuestionPage(props) {
               text={questionText}
             />
             <HintComponent 
+              isAdmin={props.isAdmin}
               titleCol={hintTitle}
               genCol={genColTitle}
               specCol={specColTitle}
