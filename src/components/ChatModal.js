@@ -20,13 +20,14 @@ function ChatModal({showCModal = false, onClose = () =>{}, size}) {
   
   useEffect(() => {
     setUserId(firebase.auth()?.currentUser?.uid);
-    // const query = firestore.collection('chats').orderBy('timestamp', 'asc');
+    // setUserId(firebase.auth().currentUser.uid);
+    // console.log("user id : ", userId)
     const query = firestore.collection('chats').where("video", "==", 'problem_s').orderBy("timestamp", "desc");      
     query.onSnapshot({
       next: (querySnapshot) => {
         let messages = []
         querySnapshot.forEach((doc) => {
-          console.log(doc.id, '=>', doc.data());
+          // console.log(doc.id, '=>', doc.data());
           messages.push(doc.data());
         });
         setLocalMessages(messages)
@@ -62,23 +63,18 @@ function ChatModal({showCModal = false, onClose = () =>{}, size}) {
             <div className=''>
               <div className='userLayout'>
                 {localMessages.map((localMessage) => (
-                <div className='userCurrentLayout'>
-                  <div className='userOther user'>
+                <div className={`${userId}` === `${localMessage.uuid}` ? 'fromUserLayout userCurrentLayout' : 'fromUserLayout userOtherLayout'} >
+                  <div className={`${userId}` === `${localMessage.uuid}` ? 'user userCurrent' : 'user userOther'}>
                     <p>{localMessage.content}</p>
+                    { localMessage?.image && localMessage.image.length > 0 && <img style={{width: '100%', height: 'auth', marginBottom: 24 }} src={localMessage.image} alt='chat' /> } 
                   </div>
                 </div>)
                 )}
-                <div className='userOtherLayout'>
-                  <div className='userCurrent user'>
-                    <p>Message from me</p>
-                  </div>
-                </div>
               </div>
               <div className='inputAreaStyle'>
-                <input className='input' type='text' value={text} onChange={(value) => {
-                  setText(value.target.value)                  
-                }}/>
-                <button className='buttonStyle' onClick={() => {
+
+                <form className='formInput' onSubmit={async (e) => {
+                  e.preventDefault()
                   const timestamp = Date.now()
                   const content = text;
                   const uuid = firebase.auth().currentUser.uid
@@ -86,18 +82,44 @@ function ChatModal({showCModal = false, onClose = () =>{}, size}) {
                   // const repliedTo = false
                   const addedToFAQ = false
                   const video = 'problem_s'
-                  const image = ''                  
-                  const message = {content, timestamp, uuid, type, addedToFAQ, video, image}      
-                  const firestore = firebase.firestore();
-                  firestore.collection('chats').add(message)
-                  .then((docRef) => {
-                    console.log("Document written with id: " + docRef.id);
-                    setText("")
-                  })
-                  .catch((error) => {
-                    console.error("Error writing document: ", error)
-                  });
-                }}>Send</button>
+                  let image = ''      
+                  if (localImage) {
+                    const uniqueLocalImage = `${localImage.name}_${Math.random().toString(36)}`
+                    const uploadTask = storage.ref(`/images/${uniqueLocalImage}`).put(localImage)
+                    uploadTask.on('state_changed',
+                    () => {},
+                    () => {},
+                    async () => {
+                      const firebaseUrl = await storage.ref('images').child(uniqueLocalImage).getDownloadURL()
+                      const message = {content, timestamp, uuid, type, addedToFAQ, video, image: firebaseUrl}   
+                      const docRef = await firestore.collection('chats').add(message)
+                    })
+                  } else {
+                    const message = {content, timestamp, uuid, type, addedToFAQ, video, image}
+                    const docRef = await firestore.collection('chats').add(message)  
+                  }
+
+                  setText('')
+                  setLocalImage(null)
+                }}>
+
+                <input className='input' type='text' value={text} onChange={(value) => {
+                  setText(value.target.value)
+                }}/>
+                
+
+                <input 
+                  key={Date.now()}
+                  style={{flex: 1 }}
+                  type="file" 
+                  onChange={(e) => {
+                    const image = e.target.files[0]
+                    setLocalImage(image)
+                  }}
+                />
+                  
+                <button className='buttonStyle'>Send</button>
+                </form>
               </div>
             </div>
           </div>
