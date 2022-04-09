@@ -6,7 +6,7 @@ function ProblemIndex(props) {
   return (
     <>
     <Route exact path="/balances">
-      <QuestionPage auth={props.auth} />
+      <QuestionPage auth={props.auth} isAdmin={props.admin}/>
     </Route>
     <Route exact path="/">
     <div className="row">

@@ -29,7 +29,7 @@ function HintComponent(props) {
     setImageSize(size)
     setShowImgModal(true)
   }
-  
+  console.log("xx ", props.isAdmin)
   return (
     <div className="col-sm">
       <h3 className="text-center">{props.titleCol}</h3>
@@ -46,7 +46,7 @@ function HintComponent(props) {
             </div>            
           </div>
 
-          <VideoModal showVModal={showVidModal} onClose={() => setShowVidModal(false)} videoMessage={vidMsg} size={vidSize} firebaseDocument={vidTxt}/>
+          <VideoModal showVModal={showVidModal} onClose={() => setShowVidModal(false)} videoMessage={vidMsg} size={vidSize} firebaseDocument={vidTxt} admin={props.isAdmin}/>
           <ImageModal showIModal={showImgModal} onClose={() => setShowImgModal(false)} image={img} size={imageSize}/>
 
           <div className="row p-3">
@@ -54,7 +54,7 @@ function HintComponent(props) {
               <p>Overall solution strategy</p>
             </div>            
             <div className="col-5 d-grid gap-2 borderGeneral">
-              <button className="buttonGeneral" onClick={() => showVideoModal(props.prob_s_vid, 'med', props.prob_s_txt)}>VIDEO</button> 
+              <button className="buttonGeneral" onClick={() => showVideoModal(props.prob_s_vid, 'med', props.prob_s_txt, props.isAdmin)}>VIDEO</button> 
               <button className="buttonGeneral" onClick={() => showImageModal(props.prob_s_im, 'med')}>SUMMARY</button>
             </div>
 

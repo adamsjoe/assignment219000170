@@ -22,9 +22,12 @@
     margin-bottom: 24px;
 }
 
-.userCurrentLayout {
+.fromUserLayout {
     display: flex;
     flex: 1;
+
+}
+.userCurrentLayout {
     justify-content: flex-start;
 }
 
@@ -33,8 +36,6 @@
 }
 
 .userOtherLayout {
-    display: flex;
-    flex: 1;
     justify-content: flex-end;
 }
 
@@ -42,6 +43,15 @@
     background-color: lightcoral;
 }
 
+.chatUser {
+    font-weight: bold;
+}
+
+.chatTimestamp {
+    font-size:small;
+    float: right;
+    font-style: italic;
+}
 /* input */
 .inputAreaStyle {
     display: flex;
@@ -55,6 +65,12 @@
     font-size: 28;
 }
 
+.formInput {
+    display: flex;
+    flex-direction: 'row';
+    flex: 1
+}
+
 .buttonStyle {
     flex: 1;
     background-color: blue;
@@ -64,3 +80,16 @@
     border-width: 0;
 }
 
+.addFAQButton {
+    background-color: white;
+    color: black;
+    font-size: 22;
+    margin-bottom: 24;
+    border-width: 0;
+    font-weight: bold;
+    border-radius: 8;
+    padding-top: 4;
+    padding-bottom: 4;
+    padding-left: 8;
+    padding-right: 8;
+}

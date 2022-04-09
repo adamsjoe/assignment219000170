@@ -9,31 +9,35 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import '../styles/chatroom.css'
 
-function ChatModal({showCModal = false, onClose = () =>{}, size}) {
+function ChatModal({showCModal = false, onClose = () =>{}, size, admin}) {
   const [text, setText] = useState('');
   const [userId, setUserId] = useState('');
   const [localMessages, setLocalMessages] = useState([]);
   const [localImage, setLocalImage] = useState(null);
-  
+
   const firestore = firebase.firestore();
   const storage = firebase.storage();
   
+
   useEffect(() => {
     setUserId(firebase.auth()?.currentUser?.uid);
-    // setUserId(firebase.auth().currentUser.uid);
-    // console.log("user id : ", userId)
     const query = firestore.collection('chats').where("video", "==", 'problem_s').orderBy("timestamp", "desc");      
     query.onSnapshot({
       next: (querySnapshot) => {
         let messages = []
         querySnapshot.forEach((doc) => {
-          // console.log(doc.id, '=>', doc.data());
-          messages.push(doc.data());
+          messages.push({mid: doc.id, ...doc.data()});
         });
         setLocalMessages(messages)
       }
     });
   }, [firestore]);
+
+  function getFirstNameFromGoogle() {
+    var user = firebase.auth().currentUser;
+    var names = user.displayName.split(' ')
+    return names
+  }
 
   return (
     <Modal
@@ -47,7 +51,7 @@ function ChatModal({showCModal = false, onClose = () =>{}, size}) {
     <Modal.Body>
       <Tabs>
         <TabList>
-           <Tab>Gen Problem Solving</Tab> {/* (problem_s) */}
+          <Tab>Gen Problem Solving</Tab> {/* (problem_s) */}
           <Tab>Spec Balances Problem</Tab> {/* (spec_strat_balan_s) */}
           <Tab>Gen Moments</Tab> {/* (mom_s) */}
           <Tab>Spec Moments</Tab> {/* (spec_mom_s) */}
@@ -65,8 +69,15 @@ function ChatModal({showCModal = false, onClose = () =>{}, size}) {
                 {localMessages.map((localMessage) => (
                 <div className={`${userId}` === `${localMessage.uuid}` ? 'fromUserLayout userCurrentLayout' : 'fromUserLayout userOtherLayout'} >
                   <div className={`${userId}` === `${localMessage.uuid}` ? 'user userCurrent' : 'user userOther'}>
-                    <p>{localMessage.content}</p>
-                    { localMessage?.image && localMessage.image.length > 0 && <img style={{width: '100%', height: 'auth', marginBottom: 24 }} src={localMessage.image} alt='chat' /> } 
+                    <p className='chatUser'>{`${userId}` === `${localMessage.uuid}` ? 'You' : localMessage.userName[0] } {localMessage.isAdmin === true ? '- ( Chat Admin )': ''}</p>
+                    <p>{localMessage.content}</p>                                     
+                    { localMessage?.image && localMessage.image.length > 0 && <img style={{width: '100%', height: 'auth', marginBottom: 24 }} src={localMessage.image} alt='chat' />  } 
+                    <p className='chatTimestamp'><b>Sent:</b> {new Date(localMessage.timestamp).toLocaleTimeString()}, {new Date(localMessage.timestamp).toDateString() }</p>     
+                    {admin === true ? <button className='addFAQButton' onClick={async () => {
+                      await firestore.collection('chats').doc(localMessage.mid).update({
+                        addedToFAQ: true
+                      })
+                    }}>Add to FAQ</button> : ''}                              
                   </div>
                 </div>)
                 )}
@@ -80,8 +91,10 @@ function ChatModal({showCModal = false, onClose = () =>{}, size}) {
                   const uuid = firebase.auth().currentUser.uid
                   const type = 'StudentQuery' 
                   // const repliedTo = false
+                  const isAdmin = admin
                   const addedToFAQ = false
                   const video = 'problem_s'
+                  const userName = getFirstNameFromGoogle();
                   let image = ''      
                   if (localImage) {
                     const uniqueLocalImage = `${localImage.name}_${Math.random().toString(36)}`
@@ -91,11 +104,11 @@ function ChatModal({showCModal = false, onClose = () =>{}, size}) {
                     () => {},
                     async () => {
                       const firebaseUrl = await storage.ref('images').child(uniqueLocalImage).getDownloadURL()
-                      const message = {content, timestamp, uuid, type, addedToFAQ, video, image: firebaseUrl}   
+                      const message = {content, timestamp, uuid, type, addedToFAQ, video, userName, isAdmin, image: firebaseUrl}   
                       const docRef = await firestore.collection('chats').add(message)
                     })
                   } else {
-                    const message = {content, timestamp, uuid, type, addedToFAQ, video, image}
+                    const message = {content, timestamp, uuid, type, addedToFAQ, video, userName, isAdmin, image}
                     const docRef = await firestore.collection('chats').add(message)  
                   }
 

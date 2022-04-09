@@ -7,17 +7,21 @@ import 'firebase/compat/firestore';
 import 'firebase/compat/storage';
 import { getFirstNameFromGoogle } from '../helper/utils'
 
-function VideoModal({showVModal = false, onClose = () =>{}, videoMessage, size, firebaseDocument}) {
-  
+
+// if this user is a student, then show the confused.  If not a student, then don't - should admins be able to send admins messages?
+
+function VideoModal({showVModal = false, onClose = () =>{}, videoMessage, size, firebaseDocument, admin}) {
+  // let fb2 = 'chats.'+firebaseDocument
+  // firebaseDocument = fb2
   const firestore = firebase.firestore();
 
   const [confused, setConfused] = useState(false)
   const [text, setText] = useState("");
   
   const [localMessages, setLocalMessages] = useState([]);
-  const [userId, setUserId] = useState('');
+  // const [userId, setUserId] = useState('');
   
-  const [sendMessageLocked, setSendMessageLocked] = useState(false)
+  // const [sendMessageLocked, setSendMessageLocked] = useState(false)
  
   function showLockedThread() {
     let usersName = getFirstNameFromGoogle();
@@ -29,18 +33,35 @@ function VideoModal({showVModal = false, onClose = () =>{}, videoMessage, size, 
       </div>
     )
   }
+  function getFirstNameFromGoogle() {
+    var user = firebase.auth().currentUser;
+    var names = user.displayName.split(' ')
+    return names
+  }
+
   function showConfusedForm() {
 
     return (      
       <form onSubmit={async (e) => {
         e.preventDefault();
-        console.log("submit clicked")        
+        console.log("submit clicked")     
+        const chatsDoc = 'chats' 
+        // these are the fields we need (or will need) for the message  
         const timestamp = Date.now()
         const content = text;
         const uuid = firebase.auth().currentUser.uid
+        const userName = getFirstNameFromGoogle();
+        const type = 'StudentQuery' // identifes this as a query from a student
+        // const repliedTo = false
+        const addedToFAQ = false
+        const video = firebaseDocument
+        const image = ''
+        const isAdmin = admin
 
-        const message = {content, timestamp, uuid}              
-        const docRef = await firestore.collection(firebaseDocument).add(message);
+        // const message = {content, timestamp, uuid, type, repliedTo, addedToFAQ, video, image}              
+        const message = {content, timestamp, uuid, type, addedToFAQ, video, userName, isAdmin, image}              
+        // const docRef = await firestore.collection(firebaseDocument).add(message);
+        const docRef = await firestore.collection(chatsDoc).add(message);
         setText('')     
         
       }}>
@@ -137,7 +158,7 @@ function VideoModal({showVModal = false, onClose = () =>{}, videoMessage, size, 
       <video src={videoMessage} controls autoPlay></video> 
       <div>     
         {confused ? (
-        checkIfChatShouldBeLocked() ? showLockedThread() : showConfusedForm()
+        showConfusedForm() 
         ) : (
         <div>
           <Button className="confusedBtn" onClick={()=>setConfused(true)}>
@@ -146,6 +167,18 @@ function VideoModal({showVModal = false, onClose = () =>{}, videoMessage, size, 
         </div>
       )}
       </div>
+      {/* // this the old structure would need to check the new structure */}
+      {/* <div>     
+        {confused ? (
+        checkIfChatShouldBeLocked() ? showLockedThread() : showConfusedForm()
+        ) : (
+        <div>
+          <Button className="confusedBtn" onClick={()=>setConfused(true)}>
+            Confused?
+          </Button>
+        </div>
+      )}
+      </div> */}
       
     </Modal.Body>
     <Modal.Footer>
