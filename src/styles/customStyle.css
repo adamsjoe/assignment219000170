@@ -199,6 +199,27 @@ video {
   text-transform: uppercase;
 }
 
+.FAQVideoModal {
+  display: flex;
+  flex-direction: 'row';
+  margin-top: 24px;
+}
+
+.FAQ {
+  width: 800px;
+}
+
+.FAQUserLayout {
+  display: flex;
+  flex: 1;
+  width: 90%;
+}
+
+
+.videoSection {
+  width: 500px;
+}
+
 /* MISC STYLE */
 .tableDebug {
   border: 1px solid black;
