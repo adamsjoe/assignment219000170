@@ -73,7 +73,7 @@ function ChatModal({showCModal = false, onClose = () =>{}, size, admin}) {
                     <p>{localMessage.content}</p>                                     
                     { localMessage?.image && localMessage.image.length > 0 && <img style={{width: '100%', height: 'auth', marginBottom: 24 }} src={localMessage.image} alt='chat' />  } 
                     <p className='chatTimestamp'><b>Sent:</b> {new Date(localMessage.timestamp).toLocaleTimeString()}, {new Date(localMessage.timestamp).toDateString() }</p>     
-                    {admin === true ? <button className='addFAQButton' onClick={async () => {
+                    {(admin === true && localMessage.addedToFAQ === false) ? <button className='addFAQButton' onClick={async () => {
                       await firestore.collection('chats').doc(localMessage.mid).update({
                         addedToFAQ: true
                       })
