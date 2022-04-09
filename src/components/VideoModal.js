@@ -11,18 +11,13 @@ import { getFirstNameFromGoogle } from '../helper/utils'
 // if this user is a student, then show the confused.  If not a student, then don't - should admins be able to send admins messages?
 
 function VideoModal({showVModal = false, onClose = () =>{}, videoMessage, size, firebaseDocument, admin}) {
-  // let fb2 = 'chats.'+firebaseDocument
-  // firebaseDocument = fb2
   const firestore = firebase.firestore();
 
   const [confused, setConfused] = useState(false)
   const [text, setText] = useState("");
   
   const [localMessages, setLocalMessages] = useState([]);
-  // const [userId, setUserId] = useState('');
-  
-  // const [sendMessageLocked, setSendMessageLocked] = useState(false)
- 
+   
   function showLockedThread() {
     let usersName = getFirstNameFromGoogle();
 
@@ -46,12 +41,13 @@ function VideoModal({showVModal = false, onClose = () =>{}, videoMessage, size, 
         e.preventDefault();
         console.log("submit clicked")     
         const chatsDoc = 'chats' 
+  
         // these are the fields we need (or will need) for the message  
         const timestamp = Date.now()
         const content = text;
         const uuid = firebase.auth().currentUser.uid
         const userName = getFirstNameFromGoogle();
-        const type = 'StudentQuery' // identifes this as a query from a student
+        const type = 'StudentQuery' // identifies this as a query from a student
         // const repliedTo = false
         const addedToFAQ = false
         const video = firebaseDocument
@@ -85,26 +81,19 @@ function VideoModal({showVModal = false, onClose = () =>{}, videoMessage, size, 
     )
   }
 
-  useEffect(() => {    
-    if (showVModal) {
-      const query = firestore.collection(firebaseDocument).orderBy('timestamp', 'desc'); 
-      
-      query.onSnapshot({
-        next: (querySnapshot) => {
-      
-          let messages = [];
-          querySnapshot.forEach((doc) => {
-            console.log(doc.id, '=>', doc.data());
-            messages.push({mid: doc.id, ...doc.data()});
-          });
-          setLocalMessages(messages);
-        },
-      });  
-    } else {
+  useEffect(() => {
 
-    }
-    }, [firebaseDocument, firestore, showVModal]
-  );  
+    const query = firestore.collection('chats').where("video", "==", firebaseDocument).where('addedToFAQ', '==', true).orderBy("timestamp", "desc");      
+    query.onSnapshot({
+      next: (querySnapshot) => {
+        let messages = []
+        querySnapshot.forEach((doc) => {
+          messages.push({mid: doc.id, ...doc.data()});
+        });
+        setLocalMessages(messages)
+      }
+    });
+  }, [firebaseDocument, firestore]);
 
 
   function checkIfChatShouldBeLocked() {
@@ -154,31 +143,49 @@ function VideoModal({showVModal = false, onClose = () =>{}, videoMessage, size, 
       onSubmit={onClose}
     >
 
-    <Modal.Body>          
-      <video src={videoMessage} controls autoPlay></video> 
-      <div>     
-        {confused ? (
-        showConfusedForm() 
-        ) : (
-        <div>
-          <Button className="confusedBtn" onClick={()=>setConfused(true)}>
-            Confused?
-          </Button>
+    <Modal.Body>    
+      <div className='FAQVideoModal'>
+        <div className='FAQ'>
+          <h4 className='text-center'>FAQ section</h4>
+          {localMessages.map((localMessage) => (
+            <div className='FAQUserLayout userOtherLayout'>
+              <div className='user userOther'>
+                <p className='chatUser'>{localMessage.userName[0]} {localMessage.userName[1]}</p>
+                <p>{localMessage.content}</p>
+                { localMessage?.image && localMessage.image.length > 0 && <img style={{width: '100%', height: 'auth', marginBottom: 24 }} src={localMessage.image} alt='chat' />  }
+                <p className='chatTimestamp'><b>Sent:</b> {new Date(localMessage.timestamp).toLocaleTimeString()}, {new Date(localMessage.timestamp).toDateString() }</p>  
+              </div>
+            </div>
+          ))}
+                   
+        </div> 
+        <div className='videoSection'>
+          <video src={videoMessage} controls autoPlay></video> 
+          <div className='vid'>     
+            {confused ? (
+            showConfusedForm() 
+            ) : (
+            <div>
+              <Button className="confusedBtn" onClick={()=>setConfused(true)}>
+                Confused?
+              </Button>
+            </div>
+          )}
+          </div>
+          {/* // this the old structure would need to check the new structure */}
+          {/* <div>     
+            {confused ? (
+            checkIfChatShouldBeLocked() ? showLockedThread() : showConfusedForm()
+            ) : (
+            <div>
+              <Button className="confusedBtn" onClick={()=>setConfused(true)}>
+                Confused?
+              </Button>
+            </div>
+          )}
+          </div> */}
         </div>
-      )}
       </div>
-      {/* // this the old structure would need to check the new structure */}
-      {/* <div>     
-        {confused ? (
-        checkIfChatShouldBeLocked() ? showLockedThread() : showConfusedForm()
-        ) : (
-        <div>
-          <Button className="confusedBtn" onClick={()=>setConfused(true)}>
-            Confused?
-          </Button>
-        </div>
-      )}
-      </div> */}
       
     </Modal.Body>
     <Modal.Footer>
