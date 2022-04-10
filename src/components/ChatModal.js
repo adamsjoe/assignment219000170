@@ -71,7 +71,7 @@ function ChatModal({showCModal = false, onClose = () =>{}, size, admin}) {
                   <div className={`${userId}` === `${localMessage.uuid}` ? 'user userCurrent' : 'user userOther'}>
                     <p className='chatUser'>{`${userId}` === `${localMessage.uuid}` ? 'You' : localMessage.userName[0] } {localMessage.isAdmin === true ? '- ( Chat Admin )': ''}</p>
                     <p>{localMessage.content}</p>                                     
-                    { localMessage?.image && localMessage.image.length > 0 && <img style={{width: '100%', height: 'auth', marginBottom: 24 }} src={localMessage.image} alt='chat' />  } 
+                    { localMessage?.image && localMessage.image.length > 0 && <img style={{width: '100%', height: 'auto', marginBottom: 24 }} src={localMessage.image} alt='chat' />  } 
                     <p className='chatTimestamp'><b>Sent:</b> {new Date(localMessage.timestamp).toLocaleTimeString()}, {new Date(localMessage.timestamp).toDateString() }</p>     
                     {(admin === true && localMessage.addedToFAQ === false) ? <button className='addFAQButton' onClick={async () => {
                       await firestore.collection('chats').doc(localMessage.mid).update({

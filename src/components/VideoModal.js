@@ -152,7 +152,7 @@ function VideoModal({showVModal = false, onClose = () =>{}, videoMessage, size, 
               <div className='user userOther'>
                 <p className='chatUser'>{localMessage.userName[0]} {localMessage.userName[1]}</p>
                 <p>{localMessage.content}</p>
-                { localMessage?.image && localMessage.image.length > 0 && <img style={{width: '100%', height: 'auth', marginBottom: 24 }} src={localMessage.image} alt='chat' />  }
+                { localMessage?.image && localMessage.image.length > 0 && <img style={{width: '100%', height: 'auto', marginBottom: 24 }} src={localMessage.image} alt='chat' />  }
                 <p className='chatTimestamp'><b>Sent:</b> {new Date(localMessage.timestamp).toLocaleTimeString()}, {new Date(localMessage.timestamp).toDateString() }</p>  
               </div>
             </div>
