@@ -120,8 +120,11 @@ function ChatModal({showCModal = false, onClose = () =>{}, size, admin}) {
                   setText(value.target.value)
                 }}/>
                 
-
+                <label htmlFor='file-upload' className='custom-file-upload'>
+                  <i class="fa fa-cloud-upload"></i>Upload File
+                </label>
                 <input 
+                  id='file-upload'
                   key={Date.now()}
                   style={{flex: 1 }}
                   type="file" 
