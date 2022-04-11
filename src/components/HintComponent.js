@@ -29,7 +29,7 @@ function HintComponent(props) {
     setImageSize(size)
     setShowImgModal(true)
   }
-  console.log("xx ", props.isAdmin)
+  
   return (
     <div className="col-sm">
       <h3 className="text-center">{props.titleCol}</h3>
