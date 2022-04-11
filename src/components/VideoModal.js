@@ -17,17 +17,19 @@ function VideoModal({showVModal = false, onClose = () =>{}, videoMessage, size, 
   const [text, setText] = useState("");
   
   const [localMessages, setLocalMessages] = useState([]);
+
+  const [FAQMessages, setFAQMessages] = useState([])
    
   function showLockedThread() {
     let usersName = getFirstNameFromGoogle();
 
     return (
       <div id='lockedThread'>
-        {usersName}, please wait <b>3</b> days before asking more questions. <br/>
-        The feature is locked!
+        {usersName[0]}, please wait <b>3</b> days before asking more questions. <br/>
       </div>
     )
   }
+
   function getFirstNameFromGoogle() {
     var user = firebase.auth().currentUser;
     var names = user.displayName.split(' ')
@@ -35,7 +37,6 @@ function VideoModal({showVModal = false, onClose = () =>{}, videoMessage, size, 
   }
 
   function showConfusedForm() {
-
     return (      
       <form onSubmit={async (e) => {
         e.preventDefault();
@@ -58,9 +59,9 @@ function VideoModal({showVModal = false, onClose = () =>{}, videoMessage, size, 
         const message = {content, timestamp, uuid, type, addedToFAQ, video, userName, isAdmin, image}              
         // const docRef = await firestore.collection(firebaseDocument).add(message);
         const docRef = await firestore.collection(chatsDoc).add(message);
-        setText('')     
-        
+        setText('')             
       }}>
+
         <div>
           What have you found confusing about this video?
           <textarea className='confusedText' 
@@ -81,22 +82,47 @@ function VideoModal({showVModal = false, onClose = () =>{}, videoMessage, size, 
     )
   }
 
+  /* this seems crappy */
+  useEffect(() => {    
+    if (showVModal) {
+      const query = firestore.collection('chats').where("video", "==", firebaseDocument).orderBy('timestamp', 'desc'); 
+      
+      query.onSnapshot({
+        next: (querySnapshot) => {
+      
+          let messages = [];
+          querySnapshot.forEach((doc) => {
+            console.log(doc.id, '=>', doc.data());
+            messages.push({mid: doc.id, ...doc.data()});
+          });
+          setLocalMessages(messages);
+        },
+      });  
+    } else {
+
+    }
+    }, [firebaseDocument, firestore, showVModal]
+  );  
+
   useEffect(() => {
 
-    const query = firestore.collection('chats').where("video", "==", firebaseDocument).where('addedToFAQ', '==', true).orderBy("timestamp", "desc");      
+    const query = firestore.collection('chats').where("video", "==", firebaseDocument).where('addedToFAQ', '==', true).orderBy("timestamp", "desc");     
+    console.log(query) 
     query.onSnapshot({
       next: (querySnapshot) => {
         let messages = []
         querySnapshot.forEach((doc) => {
           messages.push({mid: doc.id, ...doc.data()});
-        });
-        setLocalMessages(messages)
-      }
+        });        
+        setFAQMessages(messages)
+      }      
     });
   }, [firebaseDocument, firestore]);
 
 
   function checkIfChatShouldBeLocked() {
+
+    console.log("In checkIfChatShouldBeLocked")
     
     if (showVModal) {      
       // this returns the milliseconds since jan 1 1970
@@ -107,9 +133,11 @@ function VideoModal({showVModal = false, onClose = () =>{}, videoMessage, size, 
 
       // we also need to get who the current user is and who the last message user was
       if (localMessages.length === 0) {
+
         // there is no last message, so return a false
         return false
-      }
+      } 
+
       const lastMessageUser = localMessages[0].uuid
       const currentUser = firebase.auth().currentUser.uid
  
@@ -147,7 +175,7 @@ function VideoModal({showVModal = false, onClose = () =>{}, videoMessage, size, 
       <div className='FAQVideoModal'>
         <div className='FAQ'>
           <h4 className='text-center'>FAQ section</h4>
-          {localMessages.map((localMessage) => (
+          {FAQMessages.map((localMessage) => (
             <div className='FAQUserLayout userOtherLayout'>
               <div className='user userOther'>
                 <p className='chatUser'>{localMessage.userName[0]} {localMessage.userName[1]}</p>
@@ -161,19 +189,7 @@ function VideoModal({showVModal = false, onClose = () =>{}, videoMessage, size, 
         </div> 
         <div className='videoSection'>
           <video src={videoMessage} controls autoPlay></video> 
-          <div className='vid'>     
-            {confused ? (
-            showConfusedForm() 
-            ) : (
-            <div>
-              <Button className="confusedBtn" onClick={()=>setConfused(true)}>
-                Confused?
-              </Button>
-            </div>
-          )}
-          </div>
-          {/* // this the old structure would need to check the new structure */}
-          {/* <div>     
+          <div className='vid'>
             {confused ? (
             checkIfChatShouldBeLocked() ? showLockedThread() : showConfusedForm()
             ) : (
@@ -183,7 +199,7 @@ function VideoModal({showVModal = false, onClose = () =>{}, videoMessage, size, 
               </Button>
             </div>
           )}
-          </div> */}
+          </div>
         </div>
       </div>
       
