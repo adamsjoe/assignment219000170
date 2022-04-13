@@ -1,29 +1,29 @@
+import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 function ImageModal({showIModal = false, onClose = () =>{}, image, size}) {
-
   if (showIModal) {
-    console.log("image: ", image)
+    console.log('image: ', image);
   }
-  
+
   return (
     <Modal
       size={size}
-      show={showIModal} 
+      show={showIModal}
       onHide={onClose}
       backdrop="static"
-      keyboard={false}    
+      keyboard={false}
     >
 
-    <Modal.Body><img className='modalImg' src={image} alt="lala"></img></Modal.Body>
-    <Modal.Footer>
-      <Button variant="secondary" onClick={onClose}>
+      <Modal.Body><img className='modalImg' src={image} alt="lala"></img></Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={onClose}>
         Close
-      </Button>
-    </Modal.Footer>
-  </Modal>
-  )
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
 }
 
-export default ImageModal
+export default ImageModal;
