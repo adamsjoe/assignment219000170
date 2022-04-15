@@ -117,12 +117,28 @@ It should be noted that the images and videos all work.  This was not a requirem
 
 #### Additional Technology
 
+##### Firebase
 In order to make this application work, Google's Firebase was used as a backend data source.  The data needed was originally supplied in JSON format (and this can be found in the "data" folder within the repo.  This data is as was given, with one minor exception of removing a split line to aid readability.)  This data was transferred to a firestore document (in this case called "balances")
 
 A snapshot of this can be seen below: 
 ![Images](readmeImages/firestore.png)
 
 Note: this is a snapshot - it does not show **all** the data.
+
+##### run-script
+
+Looking at the package.json file, a new entry can be seen in the "scripts" section.  This entry is ```"fullDeploy": "react-scripts build && ./node_modules/.bin/firebase deploy"``` - this was added to aid in deployment, running this command with ```npm run-script fullDeploy``` will automatically build the application and deploy this to the firebase servers.  As part of this deployment, 2 additional files exist in the repo.  These are "firestore.rules" and "storage.rules" - these files are what the developer would setup on the firebase console.  With these kept in source control we have better control over any changes to our infrastructure.
+
+##### VS Code addins
+
+A number of addins have been configured in VSCode.  
+
+First among these was installing the fira code font.  This does nothing to the code on the server, it merely aids readability for the developer locally.  Firacode is a monospaced font with ligatures.  It can be found: https://github.com/tonsky/FiraCode
+![Image](readmeImages/firacode.png)
+The main benefit of fira code is the use of ligatures.  The image above shows the equals with a strike through which is used in place if ```!=```
+
+Also installed was CSpell - which is a spell checker for VS Code.  Any unknown words will be flagged up in the problems tab of VS Code.  Words can be added to the dictionary by adding them to the cspell.json file in the project root.
+
 
 ## Task Breakdown
 
@@ -132,7 +148,7 @@ Live chat support was challenging as it was felt this feature was not well speci
 In the end, some liberty has been taken with this feature.  Specifically:
 * Each video can have a chat.
 * Each of those chats can be locked (the specification calls for a thread to be locked for a period of 3 days, or until an admin has answered.)
-* 
+
 
 ### Task 2: FAQ
 
