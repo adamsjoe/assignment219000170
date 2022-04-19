@@ -4,6 +4,28 @@
 
 ## Contents
 
+  - [Contents](#contents)
+  - [Introduction](#introduction)
+    - [Repository](#repository)
+    - [Deployed Application](#deployed-application)
+    - [Methodology](#methodology)
+  - [Structure](#structure)
+      - [Non "src" changes](#non-src-changes)
+      - ["src" changes](#src-changes)
+        - [Pages](#pages)
+          - [Login Page](#login-page)
+        - [Problem Index](#problem-index)
+        - [Question Page](#question-page)
+      - [Additional Technology](#additional-technology)
+        - [Firebase](#firebase)
+        - [Bootstrap](#bootstrap)
+        - [run-script](#run-script)
+        - [VS Code addins](#vs-code-addins)
+  - [Task Breakdown](#task-breakdown)
+    - [Task 1: Live Chat Support](#task-1-live-chat-support)
+    - [Task 2: FAQ](#task-2-faq)
+    - [Task 3: Percentage for Responses.](#task-3-percentage-for-responses)
+  - [Evaluation and final thoughts](#evaluation-and-final-thoughts)
 
 
 ***
@@ -194,7 +216,7 @@ The chats document was constructed with the following fields:
 ```
 
 When a chat is initiated (via the video) then a new document is created which will populate the fields in the document.  When the user moves to the chat portion, depending on which tab is clicked, a query will run to pull back, in descending time order, the chats for that specific video.  This is done using the following query:
-```javascript
+```javascriptf
 const query = firestore.collection('chats').where('video', '==', activeTab).orderBy('timestamp', 'desc');
 ```
 The "activeTab" variable comes from the user clicking on the tab.  The react-tab package will return an index of the tab which has been clicked:
@@ -239,18 +261,222 @@ In terms of the chat, this is all dealt with with the following code:
 
 This code will take the output of the query run when a tab is clicked, and then will determine if the message belongs to the user, or if if it belongs to another user.  This will determine which CSS class is used.  This same mechanism will also be used to show the name of the user who sent the message.  If it was the logged in user, the name is replaced with "You" - otherwise their first name is shown.  And if the user is admin then "(admin)" is appended.
 
-Admittedly, these tickets could have been broken down to a much lower level.  Indeed, if this was a multiple person project it would have been essential to break these down to lower level tasks.  However, as this was a single person project - these 3 tickets were enough to track the progress.
+Admittedly, these tickets could have been broken down to a much lower level.  Indeed, if this was a multiple person project it would have been essential to break these down to lower level tasks.  However, as this was a single person project - these 6 tickets were enough to track the progress.
 
 ### Task 2: FAQ
 
-Following on from the Live Chat feature, is the Add to FAQ section. This was actually a fairly easy to implement.  When a chat messsage has been created, it has a field for "addedToFAQ" and this is set to false.  
+Following on from the Live Chat feature, is the Add to FAQ section. This is made up of 2 parts.  The first part is a mechanism to add entries to the FAQ and the second part is to view these message.  The adding part was actually a fairly easy to implement.  When a chat message has been created, it has a field for "addedToFAQ" and this is set to false.  
 
 The tickets for this feature are:
 
 ![Image](readmeImages/addToFAQTickets.png)
 
-The code for this was already shown in the
+The code for this was already shown above in Live Chat feature.  Specifically, the code for adding to the FAQ is the following:
+```javascript
+{(admin === true && localMessage.addedToFAQ === false) ? <button className='addFAQButton' onClick={async () => {
+  await firestore.collection('chats').doc(localMessage.mid).update({
+    addedToFAQ: true,
+  });
+```
+
+Here, two things are happening.  Firstly, if the user is admin, and the message hasn't been added to the FAQ already, then an "Add to FAQ" button is added to the post, otherwise no button is added.  The button has an onClick handler, which will update the addedToFAQ field in the current message.
+
+For a user to view the FAQs, they need to go to the video and open one of the videos:
+
+![Image](readmeImages/FAQ.png)
+
+Here, the FAQ entry can be seen.  Note that each video has its' own unique FAQ section - from this example, clicking on a different video shows an empty FAQ (below)
+
+![Image](readmeImages/FAQ_2.png)
+
+This completes the work for the FAQ feature.
 
 ### Task 3: Percentage for Responses.
 
-## Evaluation
+The final feature was to present a percentage of how many times an input had been clicked.  Again there was some confusion on if this would be shown at all times, or should the user need to ask for a hint (this was a personal opinion) - however taking the screenshots as the requirements, this was interpreted to mean that the percentages would appear at all times.
+
+The tickets for this feature are displayed below:
+
+![Image](readmeImages/PercentageTickets.png)
+
+This was also a very simple feature to to implement.  To accomplish this, the document which held the question, the question image, the answers, the videos url and the images had an extra field added (specifically to the answers section).  So each "answer" had the following:
+
+```
+{
+  chosen: (number)
+  correct: (false)
+  text: (string)
+}
+```
+
+Now - this structure is used to populate the answer buttons at the bottom of the page.  If the user selects and answer, and then clicks "check my answer" the the ```correct``` field is used to determine if the "correct answer" video should be shown, or if "wrong answer" modal is shown.
+
+Back to the percentages.  The way this is coded, when the AnswerComponent is loading, the following will run
+```javascript
+
+  const collectionId = 'Questions';
+  const documentId = 'balances';
+  const [answers, setAnswers] = useState([]);
+
+  useEffect(() => {
+    const getFirebase = async () => {
+      const snapshot = await firestore.collection(collectionId).doc(documentId).get();
+      const questionData = snapshot.data();
+
+      // now we add the answers and correct flag to our answers
+      const answerArr = [];
+
+      let selectedAnswers = 0;
+
+      Object.keys(questionData.balances.balances.answers).forEach((key) => {
+        const obj = questionData.balances.balances.answers[key];
+
+        // will need to know which document the database holds the chosen info, so let's add it to the array
+        obj['key'] = key;
+        answerArr.push(obj);
+
+        // count the number of times answers were "picked", (i.e. chosen)
+        selectedAnswers += questionData.balances.balances.answers[key].chosen;
+      });
+
+      setAnswers(answerArr);
+      setTotalAnswerCount(selectedAnswers);
+    };
+    getFirebase();
+  }, [firestore]);
+```
+
+This code will read the "balances" document and create an array (like the following) of information which we will use.  The array looks like this (this was taken from a console.log - it's not present in the code, but it is useful to visualise what the array)
+```javascript
+Array(5) [ {…}, {…}, {…}, {…}, {…} ]
+  ​0: Object { correct: false, text: "10 \\mbox{ kg.}", chosen: 3, … }
+  1: Object { text: "1260 \\mbox{ kg.}", chosen: 2, correct: false, … }
+​  2: Object { text: "1\\frac{17}{28} \\mbox{ kg.}", correct: false, chosen: 2, … }
+  3: Object { text: "62 \\frac{2}{9} \\mbox{ kg.}", chosen: 13, correct: true, … }
+​  4: Object { chosen: 1, correct: false, text: "None of the above", … }
+```
+
+This array (which is stored in the state variable "answers" is used to create the buttons.)  Note this line in the code above:
+```javascript
+selectedAnswers += questionData.balances.balances.answers[key].chosen;
+```
+
+which is then followed by :
+```javascript
+setTotalAnswerCount(selectedAnswers);
+```
+This will keep a running total of the total number of times **all** the buttons have been clicked.
+
+Later in the AnswerComponent, we create the buttons:
+
+```javascript
+<div className="answerGroup">
+            <fieldset>
+              {
+
+                answers.map((answer, id) => {
+                  let formulaButton;
+                  const label = answer.text;
+                  const timesPicked = answer.chosen;
+                  let percentPicked = Math.round((timesPicked / getTotalAnswerCount) * 100); // round this to a whole number - looks better than 1.22%
+                  // let percentPicked = 0
+
+                  // otherwise 0% will show as NaN!
+                  percentPicked = parseInt(percentPicked) || 0;
+
+              // will need to work out if the label text will use the mathjax library - otherwise the "normal" text will look weird
+              label.includes('kg') ? formulaButton = true : formulaButton = false;
+
+              // console.log("> " + answer.text + " has been clicked " + answer.chosen + " times. And is it correct? " + answer.correct + " and this is " + percentPicked)
+
+              return (
+                <>
+                  <input type='radio'
+                    name='answer'
+                    id={id}
+                    onChange={() => {
+                      setCorrectAnswer(answer.correct); setSelectedAnswerGroup(answer.key); setChosenCount(answer.chosen);
+                    }}
+                    value={answer.correct}
+                  />
+                  <label htmlFor={id}>{formulaButton === true ? <MathComponent tex={answer.text} /> : <div className='mathjaxFakery'>{answer.text}</div>}<span className='percentage'>{percentPicked}%</span></label>
+                </>
+              );
+                })
+              }
+            </fieldset>
+
+          </div>
+```
+
+Here we can see that the answers array is used and the answer buttons are created.  Looking at the code, it can be seen that the variable ```percentagePicked``` uses the total count from above to work out how many times this answer has been selected.  An additional check is done to ensure that the value is real number, this is done using 
+```javascript 
+percentPicked = parseInt(percentPicked) || 0;
+```
+Which is a little hacky, but it will check if the number is an Int, if it fails, it will set the value to 0%.
+
+Each of the answer buttons is a radio button which has been styled to look like a button.  This was chosen as an approach as by using radio buttons, we get only one value being selected for free (in the same data, only 1 answer is true, but potentially in a real system multiple answers could be correct.)  We then use a ```<label>``` element to put text "in" the button.  This is complicated by some of the answers being formulae.  For these we use a specific ```<MathComponent>``` and those which aren't formulae, just normal text (with a CSS fix to make it look the same as the MathComponent.)  Finally, the percentage is shown.
+
+The final part of this piece of work is that when a user clicks an answer, the value of the timesChosen is updated.
+
+This operation is performed over a number of lines.  Firstly, when an answer is selected we set the state variable ```setCorrectAnswer``` with the boolean of correct for that answer.
+
+Then when a user clicks check my answer, 
+```javascript
+<button className='buttonCheck' onClick={checkAnswer}>CHECK MY ANSWER</button>
+```
+runs a function called 'checkAnswer'
+
+```javascript
+  function checkAnswer() {
+    // we will need to show the modal, so set that true
+    setShowCongratsModal(true);
+
+    // now to check if we had selected the correct answer (or not)
+    if (correctAnswer === true) {
+      setShowCongratsURL('https://firebasestorage.googleapis.com/v0/b/assignment219000170.appspot.com/o/videos%2Fcongrat_w3_s.mp4?alt=media&token=034ea1bc-b3e0-4b51-957f-854dae963896');
+    } else if (correctAnswer === false) {
+      setShowWindowContent('Incorrect answer - please try again.');
+    } else {
+      setShowWindowContent('Please choose an answer before proceeding.');
+    }
+
+    // now we update the count only we have picked an answer.
+    if ((correctAnswer === true) || (correctAnswer === false)) {
+      updateFirestore()
+          .then((snapshot) => {
+            console.log('updateFirestore() successfully called!');
+            console.log('>', snapshot);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      console.log('After update ');
+      console.log(answers);
+    }
+  }
+```
+Within this function, we check if the answer is correct, if so set the url for the congrats video, if incorrect we set the text for the modal, and if the user has not selected anything we put text for this.
+
+After the modal is displayed showing the video or any of the incorrect messages, we update firebase and then, back at the button we do a 
+```javascript 
+history.push('/');
+```
+which will redirect the user back to the problem index page.  This was done for speed, in a full application this update shoudl be done without the user being navigated away.
+
+## Evaluation and final thoughts
+
+_What could have been done to improve this?_
+
+I could have refined the tickets down and actually linked specific commits to specific tickets.  There are tools to make this process automatic.  If I had been doing this project as a collaboration with others I would have probably went down this route.
+
+I also used a linter after I had completed the code, again to get real value from the linter, this should have been set up to run on save.
+
+I am also unhappy with the positioning of the percentages on the button.  I would have liked to get them exactly in the middle (vertically) of the buttons - it would have looked so much better.
+
+There is a small bug I have found on the chat feature.  If the user opens the chat feature and does not click to a different tab, then all messages show up using the 'otherUser' class.  (**Note** this may be fixed prior to submission.)
+
+I also may have done a little over the top in making the whole navbar like the original site, and making videos work and making the answer mechanism work.  It could be argued that for a spike this was not required.
+
+I could also have taken a bit more time and clarified some of the requirements before diving straight into the learning / coding aspect.
+f
