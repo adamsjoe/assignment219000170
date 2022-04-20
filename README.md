@@ -32,7 +32,7 @@
 
 ## Introduction
 
-This assignment was to take a pre existing web page (which was part of a larger whole) and recreate using React.  In addition to creating the page, three new features had to be added.  In completing this work, React had to be learned (to at least a moderate level) as well as a number of features of the Google Firestore suite (specifically Firebase.)
+This assignment was to take a pre-existing web page (which was part of a larger whole) and recreate using React.  In addition to creating the page, three new features had to be added.  In completing this work, React had to be learned (to at least a moderate level) as well as several features of the Google Firestore suite (specifically Firebase.)
 
 ### Repository
 
@@ -44,23 +44,23 @@ The application has been deployed at https://assignment219000170.web.app
 
 ### Methodology
 
-To track work on this board, a Kanban board was created.  Initially this was created with Github but moved to use the Miro platform.  The miro platform allowed for slightly better organisation (for me) as I could tag tickets and implement a basic priority system.
+To track work on this board, a Kanban board was created.  Initially, this was created with Github but moved to use the Miro platform.  The miro platform allowed for slightly better organisation (for me) as I could tag tickets and implement a basic priority system.
 
-The read only Miro board can be found at: https://miro.com/app/board/uXjVODxHWbc=/?share_link_id=950433864690
+The read-only Miro board can be found at: https://miro.com/app/board/uXjVODxHWbc=/?share_link_id=950433864690
 
 A simple tagging system was also implemented.  The tags, and their meanings, are in the table below:
 
 | Tag                  | Description |
 | -------------------- | ----------- |
 | **New Feature**          | These tickets relate to the new features requested on the assignment. |
-| **Helper**               | These tickets relate to any task which will aid progress of the work. |
-| **Support Task**         | These tickets relate to any task which is needed to complete main work. |
+| **Helper**               | These tickets relate to any task which will aid the progress of the work. |
+| **Support Task**         | These tickets relate to any task which is needed to complete the main work. |
 | **Bug Bash**             | These tickets relate to fixing any minor issues which could be classed as bugs.|
 | **Stretch Goal**         | These tickets are "nice to haves" and not required to complete the assignment. |
-| **Investigation Needed** | These tickets require some form of reading up, studying, or off project proof of concept work. |
+| **Investigation Needed** | These tickets require some form of reading up, studying, or off-project proof of concept work. |
 | **Bug**                  | These tickets are bugs within the application. |
-| **Refactor**             | These tickets relate to features which are complete, but could be tidied up. |
-| **Unplanned Work**       | During the assignment, a hardware failure prompted setting up a new computer.  This meant redoing some tasks from before.  Recorded with this tag. |
+| **Refactor**             | These tickets relate to features that are complete but could be tidied up. |
+| **Unplanned Work**       | During the assignment, a hardware failure prompted the setting up of a new computer.  This meant redoing some tasks from before.  Recorded with this tag. |
 
 ## Structure
 
@@ -68,38 +68,38 @@ The starting point for this assignment was the 'create-react-app' package.  This
 
 #### Non "src" changes
 
-* Added a 404.html file.  It was discovered that firebase will automatically serve the file called 404.html if the user attempts to navigate to a page which does not exist.  This file must be present in the "public" directory.  This was, essentially, "free" functionality requiring nothing more than creating a file.  No routes had to be added and the 404 was added.  It was not asked for in the assignment, but it was felt that as this was a spike, the chances of users thinking the application was ready was high, so the 404 was a "safety net" to avoid any embarassing blank screens.  An image of the 404 page is shown below (however the 404 is animated.)
+* Added a 404.html file.  It was discovered that firebase will automatically serve the file called 404.html if the user attempts to navigate to a page that does not exist.  This file must be present in the "public" directory.  This was, essentially, "free" functionality requiring nothing more than creating a file.  No routes had to be added and the 404 was added.  It was not asked for in the assignment, but it was felt that as this was a spike, the chances of users thinking the application was ready was high, so the 404 was a "safety net" to avoid any embarrassing blank screens.  An image of the 404 page is shown below (however the 404 is animated.)
   ![Image](readmeImages/404.png)
-* The favicon was changed from the default react image to the university logo.  This was again not requested, but it was felt that making this small change made this look a little more polished - and less like a hacked together spike.
-* The index.html had the title changed as well as including the font awesome library - the font awesome library was used for the chat icon as well as the file upload button (more on that later.)
+* The favicon was changed from the default react image to the university logo.  This was again not requested, but it was felt that making this small change made this look a little more polished - and less like a hacked-together spike.
+* The index.html had the title changed as well as included the font-awesome library - the font-awesome library was used for the chat icon as well as the file upload button (more on that later.)
 
 #### "src" changes
 
 There were many changes from the create-react-app within the "src" directory. 
 
-A number of new directories were created.  These are outlined below:
+Several new directories were created.  These are outlined below:
 
 | Directory Name | Function |
 | -------------- | -------- |
 | components     | To aid project organisation, certain features were split off to be used as components.  |
-| icons          | This is only used to store the svg for the site logo. |
+| icons          | This is only used to store the SVG for the site logo. |
 | pages          | Three main pages were identified for this project.  These are outlined later, but the files are here. |
 | services       | Firebase config is located here |
-| styles         | All css files for the application are kept here. |
+| styles         | All CSS files for the application are kept here. |
 
 ##### Pages
 
-As indicated above, 3 pages were identified.  These are the main touch points which the user will navigate when using the site.  The three pages are:
+As indicated above, 3 pages were identified.  These are the main touchpoints that the user will navigate when using the site.  The three pages are:
 * LoginPage
 * ProblemIndex
 * QuestionPage
 
 When the application first loads, assuming that no user has previously been left "logged in" then the user will see the following:
 ![Image](readmeImages/firstPage.png)
-This image shows the NavBar, which in breaking with the "component" methodology, has been been created as part of the App.js file.  This means the NavBar (and all associated functions) will be available throughout the application.  On the NavBar there are 3 links
+This image shows the NavBar, which is breaking with the "component" methodology, has been created as part of the App.js file.  This means the NavBar (and all associated functions) will be available throughout the application.  On the NavBar there are 3 links
 * Problem Index - this link redirects the user back to the root of the project.  The root of the project will vary depending on whether the user has logged in or not.  By default, it shows the same "please login to view content" page.
 * Problem Generator - this was on the i-want-to-study-engineering site.  The assignment had no information for this, so this link is disabled.
-* Login or Signup - will navigate to the login page.  The sign up function was not part of the assignment and has been left out.  If the user has logged in, then this link will allow them to logout.
+* Login or Signup - will navigate to the login page.  The sign-up function was not part of the assignment and has been left out.  If the user has logged in, then this link will allow them to log out.
 
 ###### Login Page
 ![Image](readmeImages/loginPage.png)
@@ -117,7 +117,7 @@ Note: for this assignment, data was available for the "Balances" problem only.  
 Clicking on the "balances" link (or if this was a fully developed site, any link) will load the Problem Page with the appropriate questions:
 ![Image](readmeImages/QuestionPage.png)
 
-This page has been made up of a number of components:
+This page has been made up of several components:
 ![Image](readmeImages/questionPageComponents.png)
 
 * The orange box shows the "QuestionComponent"
@@ -133,14 +133,14 @@ Each of these components is stored in the ```src/components``` directory - other
 | HintComponent | As above - this shows the videos and images to help the user answer the question. |
 | ImageModal | When the user clicks on an image, this is displayed in a modal |
 | QuestionComponent | As above - this shows the image and question text the user needs to answer. |
-| VideoModal | When the user clicks on a Video link, this is shown in a specific modal. |
+| VideoModal | When the user clicks on a video link, this is shown in a specific modal. |
 
-It should be noted that the images and videos all work.  This was not a requirement for the assignment, however images are easy to display with HTML and with HTML 5 and the ```<video>``` tag, not adding these did not make any sense.  Adding them adds to the overall presentation of the spike.
+It should be noted that the images and videos all work.  This was not a requirement for the assignment, however, images are easy to display with HTML, and with HTML 5 and the ```<video>``` tag, not adding these did not make any sense.  Adding them adds to the overall presentation of the spike.
 
 #### Additional Technology
 
 ##### Firebase
-In order to make this application work, Google's Firebase was used as a backend data source.  The data needed was originally supplied in JSON format (and this can be found in the "data" folder within the repo.  This data is as was given, with one minor exception of removing a split line to aid readability.)  This data was transferred to a firestore document (in this case called "balances")
+To make this application work, Google's Firebase was used as a backend data source.  The data needed was originally supplied in JSON format (and this can be found in the "data" folder within the repo.  This data is as was given, with one minor exception of removing a split line to aid readability.)  This data was transferred to a firestore document (in this case called "balances")
 
 A snapshot of this can be seen below: 
 
@@ -154,17 +154,17 @@ To make the layout of the page, bootstrap was used.  However, rather than load b
 
 ##### run-script
 
-Looking at the package.json file, a new entry can be seen in the "scripts" section.  This entry is ```"fullDeploy": "react-scripts build && ./node_modules/.bin/firebase deploy"``` - this was added to aid in deployment, running this command with ```npm run-script fullDeploy``` will automatically build the application and deploy this to the firebase servers.  As part of this deployment, 2 additional files exist in the repo.  These are "firestore.rules" and "storage.rules" - these files are what the developer would setup on the firebase console.  With these kept in source control we have better control over any changes to our infrastructure.
+Looking at the package.json file, a new entry can be seen in the "scripts" section.  This entry is ```"fullDeploy": "react-scripts build && ./node_modules/.bin/firebase deploy"``` - this was added to aid in deployment, running this command with ```npm run-script fullDeploy``` will automatically build the application and deploy this to the firebase servers.  As part of this deployment, 2 additional files exist in the repo.  These are "firestore.rules" and "storage.rules" - these files are what the developer would set up on the firebase console.  With these kept in source control, we have better control over any changes to our infrastructure.
 
 ##### VS Code addins
 
-A number of addins have been configured in VSCode.  
+Several addins have been configured in VSCode.  
 
 First among these was installing the fira code font.  This does nothing to the code on the server, it merely aids readability for the developer locally.  Firacode is a monospaced font with ligatures.  It can be found: https://github.com/tonsky/FiraCode
 
 ![Image](readmeImages/firacode.png)
 
-The main benefit of fira code is the use of ligatures.  The image above shows the equals with a strike through which is used in place if ```!=```
+The main benefit of fira code is the use of ligatures.  The image above shows the equals with a strike-through which is used in place if ```!=```
 
 Also installed was CSpell - which is a spell checker for VS Code.  Any unknown words will be flagged up in the problems tab of VS Code.  Words can be added to the dictionary by adding them to the cspell.json file in the project root.
 
@@ -175,28 +175,28 @@ Also installed was CSpell - which is a spell checker for VS Code.  Any unknown w
 Live chat support was challenging as it was felt this feature was not well specified.  There were some questions which needed to be asked and a "best approach' was taken.  
 In the end, some liberty has been taken with this feature.  Specifically:
 * Each video can have a chat.
-* Each of those chats can be locked (the specification calls for a thread to be locked for a period of 3 days, or until an admin has answered.)
-* Only videos can have start a chat - images do not start any chat functionality.  This was decided based on the screenshot in the assignment documentation
+* Each of those chats can be locked (the specification calls for a thread to be locked for 3 days, or until an admin has answered.)
+* Only videos can start a chat - images do not start any chat functionality.  This was decided based on the screenshot in the assignment documentation
 ![Image](readmeImages/assignmentScreenshot.png)
-* Only videos can show the FAQs - this was decided as a follow on to the point above.  It also made sense that the FAQs would be specific to the video.
-* It made sense to have a separate chat component - and once it was decided that each video could have its' own chat, it made sense to tab this window.
+* Only videos can show the FAQs - this was decided as a follow-on to the point above.  It also made sense that the FAQs would be specific to the video.
+* It made sense to have a separate chat component - and once it was decided that each video could have its' chat, it made sense to tab this window.
 
-To accomplish this task, firstly, the videos were uploaded to firestore. The UI was then constructed, firstly with a video to merely displaying the video.  As the i-want-to-study-engineering site had both videos and images shown in modals, fortunately react-bootstrap (like it's CDN counterpart) has a modal component, so this is what would be used.   Next was to determine how this modal would be used.  It was considered having a single modal component and then having this displayed different depending on if an image or a vide was selected.  However, this was rejected.  Splitting into a modal for images and a modal for videos allowed a better seperation of concerns as images wouldn't have the chat (or the FAQ.)  Then the logic for the confused button was added.  Finally the thread "locking" mechanism was added.  This took care of how a user would initiate a chat, but it not the chat feature.
+To accomplish this task, firstly, the videos were uploaded to firestore. The UI was then constructed, firstly with a video to merely display the video.  As the i-want-to-study-engineering site had both videos and images shown in modals, fortunately, react-bootstrap (like its CDN counterpart) has a modal component, so this is what would be used.   Next was to determine how this modal would be used.  It was considered having a single modal component and then having this displayed differently depending on if an image or a video was selected.  However, this was rejected.  Splitting into a modal for images and a modal for videos allowed a better separation of concerns as images wouldn't have the chat (or the FAQ.)  Then the logic for the confused button was added.  Finally, the thread "locking" mechanism was added.  This took care of how a user would initiate a chat, but it was not the chat feature.
 
-To add the final chat feature, a method was needed to call the chat.  It was decided to have an option on the NavBar.  This would allow the chat to be called from anywhere in the application.  Initially, it was envisioned to have a "count" of unread messages, but it was then determined that this would be horribly complex and needless over complicate the assignment.  In keeping with the "spike" methodology the count was removed and a much simpler action would be added.  A simple button which would call a chat modal. 
+To add the final chat feature, a method was needed to call the chat.  It was decided to have an option on the NavBar.  This would allow the chat to be called from anywhere in the application.  Initially, it was envisioned to have a "count" of unread messages, but it was then determined that this would be complex and needless over-complicate the assignment.  In keeping with the "spike" methodology, the count was removed and a much simpler action would be added.  A simple button that would call a chat modal. 
 
-The button was styled with a font awesome icon. <img src='https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/regular/comment-dots.svg' width='50' height='50'>  In keeping with the requirement that nothing is accessable unless logged in, the chat icon will only appear if a user has logged in.
+The button was styled with a font awesome icon. <img src='https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/regular/comment-dots.svg' width='50' height='50'>  In keeping with the requirement that nothing is accessible unless logged in, the chat icon will only appear if a user has logged in.
 
 Clicking on the button will open the chat feature.
 ![Image](readmeImages/chatFeature.png)
 
-As noted at the beginning of this section, the requirements were unclear about the chat feature, so some liberty was taken with the UI.  As can be seen, there are 6 tabs (one for each video - the name has been derived from the JSON for the video) and each of these tabs is separate, what is entered into one tab is not shown on the others.  As can also be seen from the screenshot, the Admin user (on the left) has an "Add to FAQ" button, while the non-admin has none (but this is the second feature and will be spoken about there.)
+As noted at the beginning of this section, the requirements were unclear about the chat feature, so some liberty was taken with the UI.  As can be seen, there are 6 tabs (one for each video - the name has been derived from the JSON for the video) and each of these tabs is separate, what is entered into one tab is not shown in the others.  As can also be seen from the screenshot, the Admin user (on the left) has an "Add to FAQ" button, while the non-admin has none (but this is the second feature and will be spoken about there.)
 
 The work for the live chat feature was contained within tickets:
 
 ![Image](readmeImages/liveChatTickets.png)
 
-In order to support the chat feature, a new firebase collection was created.  This collection was named "chats."
+To support the chat feature, a new firebase collection was created.  This collection was named "chats."
 
 The chats document was constructed with the following fields:
 ```
@@ -216,7 +216,7 @@ The chats document was constructed with the following fields:
 ```
 
 When a chat is initiated (via the video) then a new document is created which will populate the fields in the document.  When the user moves to the chat portion, depending on which tab is clicked, a query will run to pull back, in descending time order, the chats for that specific video.  This is done using the following query:
-```javascriptf
+```javascript
 const query = firestore.collection('chats').where('video', '==', activeTab).orderBy('timestamp', 'desc');
 ```
 The "activeTab" variable comes from the user clicking on the tab.  The react-tab package will return an index of the tab which has been clicked:
@@ -259,13 +259,13 @@ In terms of the chat, this is all dealt with with the following code:
           </div>
 ```
 
-This code will take the output of the query run when a tab is clicked, and then will determine if the message belongs to the user, or if if it belongs to another user.  This will determine which CSS class is used.  This same mechanism will also be used to show the name of the user who sent the message.  If it was the logged in user, the name is replaced with "You" - otherwise their first name is shown.  And if the user is admin then "(admin)" is appended.
+This code will take the output of the query run when a tab is clicked, and then will determine if the message belongs to the user, or if it belongs to another user.  This will determine which CSS class is used.  This same mechanism will also be used to show the name of the user who sent the message.  If it was the logged-in user, the name is replaced with "You" - otherwise their first name is shown.  And if the user is admin then "(admin)" is appended.
 
-Admittedly, these tickets could have been broken down to a much lower level.  Indeed, if this was a multiple person project it would have been essential to break these down to lower level tasks.  However, as this was a single person project - these 6 tickets were enough to track the progress.
+Admittedly, these tickets could have been broken down to a much lower level.  Indeed, if this was a multiple-person project it would have been essential to break these down into lower-level tasks.  However, as this was a single-person project - these 6 tickets were enough to track the progress.
 
 ### Task 2: FAQ
 
-Following on from the Live Chat feature, is the Add to FAQ section. This is made up of 2 parts.  The first part is a mechanism to add entries to the FAQ and the second part is to view these message.  The adding part was actually a fairly easy to implement.  When a chat message has been created, it has a field for "addedToFAQ" and this is set to false.  
+Following on from the Live Chat feature is the Add to FAQ section. This is made up of 2 parts.  The first part is a mechanism to add entries to the FAQ and the second part is to view these messages.  The adding part was fairly easy to implement.  When a chat message has been created, it has a field for "addedToFAQ" and this is set to false.  
 
 The tickets for this feature are:
 
@@ -279,7 +279,7 @@ The code for this was already shown above in Live Chat feature.  Specifically, t
   });
 ```
 
-Here, two things are happening.  Firstly, if the user is admin, and the message hasn't been added to the FAQ already, then an "Add to FAQ" button is added to the post, otherwise no button is added.  The button has an onClick handler, which will update the addedToFAQ field in the current message.
+Here, two things are happening.  Firstly, if the user is an admin, and the message hasn't been added to the FAQ already, then an "Add to FAQ" button is added to the post, otherwise, no button is added.  The button has an onClick handler, which will update the addedToFAQ field in the current message.
 
 For a user to view the FAQs, they need to go to the video and open one of the videos:
 
@@ -299,7 +299,7 @@ The tickets for this feature are displayed below:
 
 ![Image](readmeImages/PercentageTickets.png)
 
-This was also a very simple feature to to implement.  To accomplish this, the document which held the question, the question image, the answers, the videos url and the images had an extra field added (specifically to the answers section).  So each "answer" had the following:
+This was also a very simple feature to implement.  To accomplish this, the document which held the question, the question image, the answers, the video URL, and the images had an extra field added (specifically to the answers section).  So each "answer" had the following:
 
 ```
 {
@@ -309,7 +309,7 @@ This was also a very simple feature to to implement.  To accomplish this, the do
 }
 ```
 
-Now - this structure is used to populate the answer buttons at the bottom of the page.  If the user selects and answer, and then clicks "check my answer" the the ```correct``` field is used to determine if the "correct answer" video should be shown, or if "wrong answer" modal is shown.
+Now - this structure is used to populate the answer buttons at the bottom of the page.  If the user selects an answer and then clicks "check my answer" the ```correct``` field is used to determine if the "correct answer" video should be shown, or if the "wrong answer" modal is shown.
 
 Back to the percentages.  The way this is coded, when the AnswerComponent is loading, the following will run
 ```javascript
@@ -409,17 +409,17 @@ Later in the AnswerComponent, we create the buttons:
           </div>
 ```
 
-Here we can see that the answers array is used and the answer buttons are created.  Looking at the code, it can be seen that the variable ```percentagePicked``` uses the total count from above to work out how many times this answer has been selected.  An additional check is done to ensure that the value is real number, this is done using 
+Here we can see that the answers array is used and the answer buttons are created.  Looking at the code, it can be seen that the variable ```percentagePicked``` uses the total count from above to work out how many times this answer has been selected.  An additional check is done to ensure that the value is a real number, this is done using 
 ```javascript 
 percentPicked = parseInt(percentPicked) || 0;
 ```
-Which is a little hacky, but it will check if the number is an Int, if it fails, it will set the value to 0%.
+This is a little hacky, but it will check if the number is an Int, if it fails, it will set the value to 0%.
 
-Each of the answer buttons is a radio button which has been styled to look like a button.  This was chosen as an approach as by using radio buttons, we get only one value being selected for free (in the same data, only 1 answer is true, but potentially in a real system multiple answers could be correct.)  We then use a ```<label>``` element to put text "in" the button.  This is complicated by some of the answers being formulae.  For these we use a specific ```<MathComponent>``` and those which aren't formulae, just normal text (with a CSS fix to make it look the same as the MathComponent.)  Finally, the percentage is shown.
+Each of the answer buttons is a radio button that has been styled to look like a button.  This was chosen as an approach as by using radio buttons, we get only one value being selected for free (in the same data, only 1 answer is true, but potentially in a real system multiple answers could be correct.)  We then use a ```<label>``` element to put the text "in" the button.  This is complicated by some of the answers being formulae.  For these we use a specific ```<MathComponent>``` and those which aren't formulae, just normal text (with a CSS fix to make it look the same as the MathComponent.)  Finally, the percentage is shown.
 
 The final part of this piece of work is that when a user clicks an answer, the value of the timesChosen is updated.
 
-This operation is performed over a number of lines.  Firstly, when an answer is selected we set the state variable ```setCorrectAnswer``` with the boolean of correct for that answer.
+This operation is performed over several lines.  Firstly, when an answer is selected we set the state variable ```setCorrectAnswer``` with the boolean of correct for that answer.
 
 Then when a user clicks check my answer, 
 ```javascript
@@ -456,26 +456,26 @@ runs a function called 'checkAnswer'
     }
   }
 ```
-Within this function, we check if the answer is correct, if so set the url for the congrats video, if incorrect we set the text for the modal, and if the user has not selected anything we put text for this.
+Within this function, we check if the answer is correct, if so set the URL for the congrats video, if incorrect we set the text for the modal, and if the user has not selected anything we put the text for this.
 
-After the modal is displayed showing the video or any of the incorrect messages, we update firebase and then, back at the button we do a 
+After the modal is displayed showing the video or any of the incorrect messages, we update firebase, and then, back at the button we do a 
 ```javascript 
 history.push('/');
 ```
-which will redirect the user back to the problem index page.  This was done for speed, in a full application this update shoudl be done without the user being navigated away.
+which will redirect the user back to the problem index page.  This was done for speed, in a full application, this update should be done without the user being navigated away.
 
 ## Evaluation and final thoughts
 
 _What could have been done to improve this?_
 
-I could have refined the tickets down and actually linked specific commits to specific tickets.  There are tools to make this process automatic.  If I had been doing this project as a collaboration with others I would have probably went down this route.
+I could have refined the tickets down and linked specific commits to specific tickets.  There are tools to make this process automatic.  If I had been doing this project in a collaboration with others I would have probably gone down this route.
 
 I also used a linter after I had completed the code, again to get real value from the linter, this should have been set up to run on save.
 
 I am also unhappy with the positioning of the percentages on the button.  I would have liked to get them exactly in the middle (vertically) of the buttons - it would have looked so much better.
 
-There is a small bug I have found on the chat feature.  If the user opens the chat feature and does not click to a different tab, then all messages show up using the 'otherUser' class.  (**Note** this may be fixed prior to submission.)
+There is a small bug I have found in the chat feature.  If the user opens the chat feature and does not click on a different tab, then all messages show up using the 'otherUser' class.  (**Note** this may be fixed before submission.)
 
-I also may have done a little over the top in making the whole navbar like the original site, and making videos work and making the answer mechanism work.  It could be argued that for a spike this was not required.
+I also may have done a little over the top in making the whole navbar like the original site and making videos work and making the answer mechanism work.  It could be argued that for a spike this was not required.
 
 I could also have taken a bit more time and clarified some of the requirements before diving straight into the learning / coding aspect.
