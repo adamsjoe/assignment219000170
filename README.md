@@ -476,6 +476,6 @@ I am also unhappy with the positioning of the percentages on the button.  I woul
 
 There is a small bug I have found in the chat feature.  If the user opens the chat feature and does not click on a different tab, then all messages show up using the 'otherUser' class.  (**Note** this may be fixed before submission.)
 
-I also may have done a little over the top in making the whole navbar like the original site and making videos work and making the answer mechanism work.  It could be argued that for a spike this was not required.
+I also may have gone a little over the top in making the whole navbar like the original site and making videos work and making the answer mechanism work.  It could be argued that for a spike this was not required.
 
 I could also have taken a bit more time and clarified some of the requirements before diving straight into the learning / coding aspect.
