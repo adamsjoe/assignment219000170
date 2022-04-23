@@ -32,26 +32,28 @@
 
 ## Introduction
 
-This assignment was to take a pre-existing web page (which was part of a larger whole) and recreate using React.  In addition to creating the page, three new features had to be added.  In completing this work, React had to be learned (to at least a moderate level) as well as several features of the Google Firestore suite (specifically Firebase.)
+This assignment was to take a pre-existing web page (which was part of a larger whole) and recreate using React.  Data for the page was provided in JSON format.  In addition to creating the page, three new features had to be added.  In completing this work, React had to be learned (to at least a moderate level) as well as several features of the Google Firestore suite (specifically Firebase.)
+
+The assignment was liked to a "Spike" in Agile.  A spike can be defined as _"A task aimed at answering a question or gathering information, rather than at producing shippable product."_  So, the idea is not to produce "production-ready" code.  For this assignment, only a single page has been created, however, to add to the visual experience, some extra elements have been added.
 
 ### Repository
 
-All code (including this README file) can be found at https://github.com/adamsjoe/assignment219000170 which is a public GitHub repository.
+All code (including this README file) can be found at [https://github.com/adamsjoe/assignment219000170](https://github.com/adamsjoe/assignment219000170) which is a public GitHub repository.
 
 ### Deployed Application
 
-The application has been deployed at https://assignment219000170.web.app
+The application has been deployed at [https://assignment219000170.web.app](https://assignment219000170.web.app)
 
 ### Methodology
 
-To track work on this board, a Kanban board was created.  Initially, this was created with Github but moved to use the Miro platform.  The miro platform allowed for slightly better organisation (for me) as I could tag tickets and implement a basic priority system.
+To track work on this assignment, a Kanban board was created.  Initially, this was created with Github but later moved to use the Miro platform.  The miro platform allowed for slightly better organisation (for me) as I could tag tickets and implement a basic priority system.
 
-The read-only Miro board can be found at: https://miro.com/app/board/uXjVODxHWbc=/?share_link_id=950433864690
+The read-only Miro board can be found at: [https://miro.com/app/board/uXjVODxHWbc=/?share_link_id=950433864690](https://miro.com/app/board/uXjVODxHWbc=/?share_link_id=950433864690)
 
 A simple tagging system was also implemented.  The tags, and their meanings, are in the table below:
 
-| Tag                  | Description |
-| -------------------- | ----------- |
+| Tag                      | Description |
+| ------------------------ | ----------- |
 | **New Feature**          | These tickets relate to the new features requested on the assignment. |
 | **Helper**               | These tickets relate to any task which will aid the progress of the work. |
 | **Support Task**         | These tickets relate to any task which is needed to complete the main work. |
@@ -64,13 +66,13 @@ A simple tagging system was also implemented.  The tags, and their meanings, are
 
 ## Structure
 
-The starting point for this assignment was the 'create-react-app' package.  This created a basic project which was then customised.  Many of these changes were created within the "src" folder, but a few were outwith this folder.
+The starting point for this assignment was the 'create-react-app' package.  This script created a basic project which was then customised.  Many of these changes were created within the "src" folder, but a few were outwith this folder.
 
 #### Non "src" changes
 
-* Added a 404.html file.  It was discovered that firebase will automatically serve the file called 404.html if the user attempts to navigate to a page that does not exist.  This file must be present in the "public" directory.  This was, essentially, "free" functionality requiring nothing more than creating a file.  No routes had to be added and the 404 was added.  It was not asked for in the assignment, but it was felt that as this was a spike, the chances of users thinking the application was ready was high, so the 404 was a "safety net" to avoid any embarrassing blank screens.  An image of the 404 page is shown below (however the 404 is animated.)
+* Added a 404.html file.  It was discovered that firebase will automatically serve any file called 404.html if the user attempts to navigate to a page that does not exist.  This file must be present in the "public" directory.  This was, essentially, "free" functionality requiring nothing more than creating a file.  No routes had to be added, just the 404.html file.  It was not asked for in the assignment, but it was felt that as this was a spike, the chances of users thinking the application was ready was high, so the 404 was a "safety net" to avoid any embarrassing blank screens.  An image of the 404 page is shown below (however the 404 is animated.)
   ![Image](readmeImages/404.png)
-* The favicon was changed from the default react image to the university logo.  This was again not requested, but it was felt that making this small change made this look a little more polished - and less like a hacked-together spike.
+* The favicon was changed from the default react image to the university logo.  This was again not requested, but it was felt that making this small change made the application look a little more polished and less like a hacked-together spike.
 * The index.html had the title changed as well as included the font-awesome library - the font-awesome library was used for the chat icon as well as the file upload button (more on that later.)
 
 #### "src" changes
@@ -84,7 +86,6 @@ Several new directories were created.  These are outlined below:
 | components     | To aid project organisation, certain features were split off to be used as components.  |
 | icons          | This is only used to store the SVG for the site logo. |
 | pages          | Three main pages were identified for this project.  These are outlined later, but the files are here. |
-| services       | Firebase config is located here |
 | styles         | All CSS files for the application are kept here. |
 
 ##### Pages
@@ -96,9 +97,9 @@ As indicated above, 3 pages were identified.  These are the main touchpoints tha
 
 When the application first loads, assuming that no user has previously been left "logged in" then the user will see the following:
 ![Image](readmeImages/firstPage.png)
-This image shows the NavBar, which is breaking with the "component" methodology, has been created as part of the App.js file.  This means the NavBar (and all associated functions) will be available throughout the application.  On the NavBar there are 3 links
+This image shows the NavBar, which in breaking with the "component" methodology, has been created as part of the App.js file.  This means the NavBar (and all associated functions) will be available throughout the application.  On the NavBar there are 3 links
 * Problem Index - this link redirects the user back to the root of the project.  The root of the project will vary depending on whether the user has logged in or not.  By default, it shows the same "please login to view content" page.
-* Problem Generator - this was on the i-want-to-study-engineering site.  The assignment had no information for this, so this link is disabled.
+* Problem Generator - this was on the i-want-to-study-engineering site.  The assignment had no information for this, so this link is disabled.  This was added purely as a visual element.
 * Login or Signup - will navigate to the login page.  The sign-up function was not part of the assignment and has been left out.  If the user has logged in, then this link will allow them to log out.
 
 ###### Login Page
@@ -110,12 +111,12 @@ The loginPage contains a single button.  This button will launch a Google popup.
 
 If the user __has not__ logged in, then the ProblemIndex will show the "Please login to view content."  The assignment asked that a user needed to login before they could view anything.  Once the user has logged in, the ProblemIndex page shows the following:
 ![Image](readmeImages/problemIndexLoggedIn.png)
-Note: for this assignment, data was available for the "Balances" problem only.  So all links _except_ balances have been disabled.
+Note: for this assignment, data was available for the "Balances" problem only.  So all links _except_ balances have been disabled.  The CSS for the active link (only "balanaces" has been created to look the same as the i-want-to-study-engineering site.
 
 ##### Question Page
 
 Clicking on the "balances" link (or if this was a fully developed site, any link) will load the Problem Page with the appropriate questions:
-![Image](readmeImages/QuestionPage.png)
+![Image](readmeImages/QuestionPage.png)  In the full site, the URL would be used to load the appropriate question and answer data.  For this spike, this has been hard-coded (as only the balanaces data was avaiable.)
 
 This page has been made up of several components:
 ![Image](readmeImages/questionPageComponents.png)
@@ -126,16 +127,17 @@ This page has been made up of several components:
 
 Each of these components is stored in the ```src/components``` directory - other components are also present here.
 
-| Component Name | Function |
-| AnswerComponent | As above - this shows the answers to the question which has been asked. |
-| ChatModal       | Used in the chat feature.  Will be covered in that section. |
-| CheckAnswerModal | When the user clicks on an answer and then "check my answer" this modal appears to inform them of either a correct or incorrect answer. |
-| HintComponent | As above - this shows the videos and images to help the user answer the question. |
-| ImageModal | When the user clicks on an image, this is displayed in a modal |
-| QuestionComponent | As above - this shows the image and question text the user needs to answer. |
-| VideoModal | When the user clicks on a video link, this is shown in a specific modal. |
+| Component Name     | Function |
+| ------------------ |
+| AnswerComponent    | As above - this shows the answers to the question which has been asked. |
+| ChatModal          | Used in the chat feature.  Will be covered in that section. |
+| CheckAnswerModal   | When the user clicks on an answer and then "check my answer" this modal appears to inform them of either a correct or incorrect answer. |
+| HintComponent      | As above - this shows the videos and images to help the user answer the question. |
+| ImageModal         | When the user clicks on an image, this is displayed in a modal |
+| QuestionComponent  | As above - this shows the image and question text the user needs to answer. |
+| VideoModal         | When the user clicks on a video link, this is shown in a specific modal. |
 
-It should be noted that the images and videos all work.  This was not a requirement for the assignment, however, images are easy to display with HTML, and with HTML 5 and the ```<video>``` tag, not adding these did not make any sense.  Adding them adds to the overall presentation of the spike.
+It should be noted that the images and videos all work.  This was not a requirement for the assignment, however, images are easy to display with HTML, and with HTML 5 has the ```<video>``` tag, not adding these did not make any sense.  Adding them adds to the overall presentation of the spike.
 
 #### Additional Technology
 
@@ -154,7 +156,7 @@ To make the layout of the page, bootstrap was used.  However, rather than load b
 
 ##### run-script
 
-Looking at the package.json file, a new entry can be seen in the "scripts" section.  This entry is ```"fullDeploy": "react-scripts build && ./node_modules/.bin/firebase deploy"``` - this was added to aid in deployment, running this command with ```npm run-script fullDeploy``` will automatically build the application and deploy this to the firebase servers.  As part of this deployment, 2 additional files exist in the repo.  These are "firestore.rules" and "storage.rules" - these files are what the developer would set up on the firebase console.  With these kept in source control, we have better control over any changes to our infrastructure.
+Looking at the package.json file, a new entry can be seen in the "scripts" section.  This entry is ```"fullDeploy": "react-scripts build && ./node_modules/.bin/firebase deploy"``` - this was added to aid in deployment, running this command with ```npm run-script fullDeploy``` will automatically build the application and deploy this to the firebase servers.  As part of this deployment, 2 additional files exist in the repo.  These are "firestore.rules" and "storage.rules" - these files are what the developer would set up on the firebase console.  With these kept in source control, we have better control over any changes to our infrastructure, while Google does provide a history for changes to firestore rules, with these files in source control, we have much better control over the changes and, more importantly, the ability to revert anything which is found to be wrong.
 
 ##### VS Code addins
 
@@ -172,7 +174,7 @@ Also installed was CSpell - which is a spell checker for VS Code.  Any unknown w
 
 ### Task 1: Live Chat Support
 
-Live chat support was challenging as it was felt this feature was not well specified.  There were some questions which needed to be asked and a "best approach' was taken.  
+Live chat support was challenging as it was felt this feature was not well specified.  There were some questions which needed to be asked and a "best approach" was taken.  
 In the end, some liberty has been taken with this feature.  Specifically:
 * Each video can have a chat.
 * Each of those chats can be locked (the specification calls for a thread to be locked for 3 days, or until an admin has answered.)
@@ -181,9 +183,9 @@ In the end, some liberty has been taken with this feature.  Specifically:
 * Only videos can show the FAQs - this was decided as a follow-on to the point above.  It also made sense that the FAQs would be specific to the video.
 * It made sense to have a separate chat component - and once it was decided that each video could have its' chat, it made sense to tab this window.
 
-To accomplish this task, firstly, the videos were uploaded to firestore. The UI was then constructed, firstly with a video to merely display the video.  As the i-want-to-study-engineering site had both videos and images shown in modals, fortunately, react-bootstrap (like its CDN counterpart) has a modal component, so this is what would be used.   Next was to determine how this modal would be used.  It was considered having a single modal component and then having this displayed differently depending on if an image or a video was selected.  However, this was rejected.  Splitting into a modal for images and a modal for videos allowed a better separation of concerns as images wouldn't have the chat (or the FAQ.)  Then the logic for the confused button was added.  Finally, the thread "locking" mechanism was added.  This took care of how a user would initiate a chat, but it was not the chat feature.
+To accomplish this task, firstly, the videos were uploaded to firestore.  The URLs were then added to the document The UI was then constructed, firstly with a video to merely display the video.  As the i-want-to-study-engineering site had both videos and images shown in modals.  Initially, a pure CSS approach was looked at, but some research found that bootstrap had a modal componenFortunately, react-bootstrap (like its CDN counterpart) has a modal component, so this is what would be used.   Next was to determine how this modal would be used.  It was considered having a single modal component and then having this displayed differently depending on if an image or a video was selected.  However, this was rejected.  Splitting into a modal for images and a modal for videos allowed a better separation of concerns as images wouldn't have the chat (or the FAQ.)  Then the logic for the confused button was added.  Finally, the thread "locking" mechanism was added.  This took care of how a user would initiate a chat, but it was not the chat feature.
 
-To add the final chat feature, a method was needed to call the chat.  It was decided to have an option on the NavBar.  This would allow the chat to be called from anywhere in the application.  Initially, it was envisioned to have a "count" of unread messages, but it was then determined that this would be complex and needless over-complicate the assignment.  In keeping with the "spike" methodology, the count was removed and a much simpler action would be added.  A simple button that would call a chat modal. 
+To add the final chat feature, a method was needed to call the chat.  It was decided to have an option on the NavBar.  This would allow the chat to be called from anywhere in the application.  Initially, it was envisioned to have a "count" of unread messages, but it was then determined that this would be complex and needless over-complicate the assignment.  In keeping with the "spike" methodology, the count was removed and a much simpler action would be added.  A simple button that would call a chat modal. This did go against the specification (which called for an element with the user's initial) but it was felt that this approach was cleaner, gave purpose to the navbar and was much simpler for a user to understand.
 
 The button was styled with a font awesome icon. <img src='https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/regular/comment-dots.svg' width='50' height='50'>  In keeping with the requirement that nothing is accessible unless logged in, the chat icon will only appear if a user has logged in.
 
@@ -198,7 +200,7 @@ The work for the live chat feature was contained within tickets:
 
 To support the chat feature, a new firebase collection was created.  This collection was named "chats."
 
-The chats document was constructed with the following fields:
+The **chats** document was constructed with the following fields:
 ```
 {
   addedToFAQ: (boolean)
@@ -479,3 +481,5 @@ There is a small bug I have found in the chat feature.  If the user opens the ch
 I also may have gone a little over the top in making the whole navbar like the original site and making videos work and making the answer mechanism work.  It could be argued that for a spike this was not required.
 
 I could also have taken a bit more time and clarified some of the requirements before diving straight into the learning / coding aspect.
+
+The liberties which have been taken in the UI and the chat component should have been run past the "Product Owner" (if this was being done in a professional environment) and should have been run past the course leader.  Due to various factors, this wasn't always possible and, rather than delaying, it was felt that forward progress was better than delaying waiting to arrange a meeting.
