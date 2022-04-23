@@ -234,8 +234,55 @@ To match this up, a simple array was declared:
     'spec_mom_s',
     'gravity_s',
     'spec_gravity_s',
+    'info',
   ];
 ```
+
+The Tabs are created in by use of the react-tabs package and are defined with the following code:
+
+```jsx
+ <Tabs defaultIndex={6} onSelect={(index) => setActiveTab(chatNames[index])}>
+  <TabList>
+    <Tab>Gen Problem Solving</Tab> {/* (problem_s) */}
+    <Tab>Spec Balances Problem</Tab> {/* (spec_strat_balan_s) */}
+    <Tab>Gen Moments</Tab> {/* (mom_s) */}
+    <Tab>Spec Moments</Tab> {/* (spec_mom_s) */}
+    <Tab>Gen Gravity</Tab> {/* (gravity_s) */}
+    <Tab>Spec Gravity</Tab> {/* (spec_gravity_s) */}
+    <Tab>Info</Tab>
+  </TabList>
+
+  <TabPanel>
+    {showChat()}
+  </TabPanel>
+
+  <TabPanel>
+    {showChat()}
+  </TabPanel>
+
+  <TabPanel>
+    {showChat()}
+  </TabPanel>
+
+  <TabPanel>
+    {showChat()}
+  </TabPanel>
+
+  <TabPanel>
+    {showChat()}
+  </TabPanel>
+
+  <TabPanel>
+    {showChat()}
+  </TabPanel>
+
+  <TabPanel>
+    Please select the tab of the video you are interested in.
+  </TabPanel>
+</Tabs>
+```
+
+First the ```<TabList>``` defines all the tabs in the system - and thir names.  In the opening tab, it can be seen the default tab is set to 6 - which is "Info" here.  There is also an onSelect handler which will set a state variable, explained above.  It should be noted there is an extra element with helper text.  It was found during testing that the chat messages were not displaying with the correct classes until a tab had been picked.  The info tab was a late minute change to force the user to click on the tab and is a workaround to stop the user seeing the bug.
 This results in the query being updated with the appropriate video when the user clicks on a tab.
 
 In terms of the chat, this is all dealt with with the following code:

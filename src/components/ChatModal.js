@@ -13,7 +13,7 @@ function ChatModal({showCModal = false, onClose = () =>{}, size, admin}) {
   const [text, setText] = useState('');
   const [userId, setUserId] = useState('');
 
-  const [activeTab, setActiveTab] = useState('problem_s');
+  const [activeTab, setActiveTab] = useState('');
 
   const [localMessages, setLocalMessages] = useState([]);
   const [localImage, setLocalImage] = useState(null);
@@ -28,9 +28,13 @@ function ChatModal({showCModal = false, onClose = () =>{}, size, admin}) {
     'spec_mom_s',
     'gravity_s',
     'spec_gravity_s',
+    'info',
   ];
 
-  useEffect(() => {
+  
+
+  useEffect(() => {        
+    console.log('active tab is ' + activeTab)    
     setUserId(firebase.auth()?.currentUser?.uid);
     const query = firestore.collection('chats').where('video', '==', activeTab).orderBy('timestamp', 'desc');
     query.onSnapshot({
@@ -56,8 +60,7 @@ function ChatModal({showCModal = false, onClose = () =>{}, size, admin}) {
         <div className=''>
           <div className='userLayout'>
             {localMessages.map((localMessage) => (              
-              <div className={`${userId}` === `${localMessage.uuid}` ? 'fromUserLayout userCurrentLayout' : 'fromUserLayout userOtherLayout'} >
-                {console.log("")}
+              <div className={`${userId}` === `${localMessage.uuid}` ? 'fromUserLayout userCurrentLayout' : 'fromUserLayout userOtherLayout'} >                
                 <div className={`${userId}` === `${localMessage.uuid}` ? 'user userCurrent' : 'user userOther'}>
                   <p className='chatUser'>{`${userId}` === `${localMessage.uuid}` ? 'You' : localMessage.userName[0] } {localMessage.isAdmin === true ? '- ( Chat Admin )': ''}</p>
                   <p>{localMessage.content}</p>
@@ -142,7 +145,7 @@ function ChatModal({showCModal = false, onClose = () =>{}, size, admin}) {
     >
 
       <Modal.Body>
-        <Tabs defaultIndex={0} onSelect={(index) => setActiveTab(chatNames[index])}>
+        <Tabs defaultIndex={6} onSelect={(index) => setActiveTab(chatNames[index])}>
           <TabList>
             <Tab>Gen Problem Solving</Tab> {/* (problem_s) */}
             <Tab>Spec Balances Problem</Tab> {/* (spec_strat_balan_s) */}
@@ -150,6 +153,7 @@ function ChatModal({showCModal = false, onClose = () =>{}, size, admin}) {
             <Tab>Spec Moments</Tab> {/* (spec_mom_s) */}
             <Tab>Gen Gravity</Tab> {/* (gravity_s) */}
             <Tab>Spec Gravity</Tab> {/* (spec_gravity_s) */}
+            <Tab>Info</Tab>
           </TabList>
 
           <TabPanel>
@@ -174,6 +178,10 @@ function ChatModal({showCModal = false, onClose = () =>{}, size, admin}) {
 
           <TabPanel>
             {showChat()}
+          </TabPanel>
+
+          <TabPanel>
+            Please select the tab of the video you are interested in.
           </TabPanel>
         </Tabs>
 
