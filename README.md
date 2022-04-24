@@ -527,4 +527,6 @@ I also may have gone a little over the top in making the whole navbar like the o
 
 I could also have taken a bit more time and clarified some of the requirements before diving straight into the learning / coding aspect.
 
+I could also have made the answer question only redirect on incorrect or correct answers.  Redirecting after selecting no answer is a bit off.  Or I could have fixed the logic to now redirect and update all the percentage values in real time.
+
 The liberties which have been taken in the UI and the chat component should have been run past the "Product Owner" (if this was being done in a professional environment) and should have been run past the course leader.  Due to various factors, this wasn't always possible and, rather than delaying, it was felt that forward progress was better than delaying waiting to arrange a meeting.
