@@ -4,27 +4,6 @@ service cloud.firestore {
     match /chats/{question} {
     	allow read, write: if true;
     }
-  	match /problem_s/{question} {
-      allow read, write: if true; 
-    }
-    match /spec_strat_balan_s/{question} {
-      allow read, write: if true; 
-    }
-		match /mom_s/{question} {
-      allow read, write: if true; 
-    }
-    match /spec_mom_s/{question} {
-      allow read, write: if true; 
-    }
-    match /gravity_s/{question} {
-      allow read, write: if true; 
-    }
-    match /spec_gravity_s/{question} {
-      allow read, write: if true; 
-    }        
-    match /Questions/{questionId} {
-      allow read, write: if true;
-    }
     match /Balances/{balancesId} {
     	allow read, write: if true;
     }
