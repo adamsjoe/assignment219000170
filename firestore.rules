@@ -4,6 +4,9 @@ service cloud.firestore {
     match /chats/{question} {
     	allow read, write: if true;
     }
+    match /Questions/{questionId} {
+      allow read, write: if true;
+    }    
     match /Balances/{balancesId} {
     	allow read, write: if true;
     }
